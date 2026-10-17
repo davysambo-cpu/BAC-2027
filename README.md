@@ -12,8 +12,9 @@ BAC-2027 doit permettre aux élèves de rassembler progressivement leurs cours, 
 | 2 — Expérience utilisateur et design | ✅ Terminée |
 | 3 — Architecture et fondations techniques | ✅ Terminée |
 | 4 — Comptes utilisateurs et profils | ✅ Terminée |
-| 5 — Matières et contenus pédagogiques | 🟨 Programme transformé en carnet personnel durable ; écriture hors ligne idempotente opérationnelle, recettes responsive et de reconnexion à finaliser |
-| 6 à 8 | ⬜ À faire |
+| 5 — Matières et contenus pédagogiques | ✅ Terminée — catalogue, bilans privés, cours personnels et carnet durable validés |
+| 6 — Tableau de bord et planning | 🟨 En cours |
+| 7 à 8 | ⬜ À faire |
 
 Le statut détaillé et les prochaines actions se trouvent dans [`PLAN_PROJET.md`](./PLAN_PROJET.md).
 

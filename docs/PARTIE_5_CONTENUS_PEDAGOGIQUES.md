@@ -1,6 +1,6 @@
 # Partie 5 — Contenus pédagogiques et bilans quotidiens
 
-**Statut :** implémentation en cours
+**Statut :** terminée et validée
 **Date :** 17 octobre 2026
 
 ## Vision confirmée
@@ -269,6 +269,10 @@ La plateforme fournit désormais une valeur utile même lorsque le corpus commun
 - un appareil déclaré partagé ne conserve ni cet aperçu privé ni une file locale.
 
 La migration `0004_rainy_thing.sql` ajoute uniquement le journal des révisions. Aucune connaissance factuelle et aucune date précise d'examen ne sont inventées : juillet 2027 est un horizon de préparation configurable via `REVISION_TARGET_MONTH`.
+
+## Validation finale
+
+Le 17 octobre 2026, le porteur du projet a approuvé la recette responsive du carnet et le parcours de révision. Les contrôles automatisés couvrent en complément la confidentialité entre élèves, les thèmes masqués, la conservation de l'original, l'idempotence des passages, la saisie hors ligne et leur rejeu à la reconnexion. La Partie 5 est donc terminée ; l'ajout ultérieur de fiches communes vérifiées reste une amélioration continue non bloquante.
 
 ## Décisions restant à valider pendant les incréments suivants
 

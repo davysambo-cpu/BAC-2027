@@ -27,8 +27,8 @@
 | 2 | Expérience utilisateur et design | ✅ Terminée | Validée le 2026-10-15 |
 | 3 | Architecture et fondations techniques | ✅ Terminée | Validée le 2026-10-15 |
 | 4 | Comptes utilisateurs et profils | ✅ Terminée | Validée le 2026-10-16 |
-| 5 | Matières et contenus pédagogiques | 🟨 En cours | Catalogue initial fourni ; parcours quotidien à cadrer |
-| 6 | Tableau de bord et planning de révision | ⬜ À faire | Non validée |
+| 5 | Matières et contenus pédagogiques | ✅ Terminée | Validée le 2026-10-17 |
+| 6 | Tableau de bord et planning de révision | 🟨 En cours | Premier incrément à réaliser |
 | 7 | Quiz, évaluations et suivi de progression | ⬜ À faire | Non validée |
 | 8 | Qualité, déploiement et maintenance | ⬜ À faire | Non validée |
 
@@ -192,7 +192,7 @@ Permettre aux utilisateurs de disposer d'un espace personnel sécurisé et adapt
 
 # Partie 5 — Matières et contenus pédagogiques
 
-**Statut :** `🟨 En cours`
+**Statut :** `✅ Terminée`
 
 > **Base de travail :** le porteur ne pourra pas obtenir un corpus complet de cours officiels et demande de se contenter du programme officiel dont il dispose. Les neuf impressions déjà inventoriées en restent la transcription de travail avec leur provenance inchangée. Le programme définit **quoi couvrir** ; les bilans réellement reçus en classe, les cours personnels validés et les révisions successives constituent progressivement **ce que l'élève apprend**. L'absence d'autres documents officiels ne bloque plus le MVP.
 
@@ -209,7 +209,7 @@ Organiser et rendre accessibles les ressources nécessaires aux révisions : mat
 - [x] Produire à partir du bilan un brouillon structuré avec explications factuelles, sources et points à vérifier lorsqu'une fiche approuvée couvre le thème.
 - [x] Livrer l'adaptateur local déterministe, la persistance versionnée et l'interface de brouillon/sources/corrections sans prétendre effectuer une vérification factuelle.
 - [x] Signaler les contradictions prévues par une fiche approuvée et faire valider toute correction avant qu'elle remplace une information saisie.
-- [ ] Ajouter progressivement, sans bloquer le MVP, des fiches communes lorsqu'une source pédagogique vérifiée devient disponible.
+- [x] Permettre l'ajout progressif de fiches communes vérifiées sans rendre le remplissage du corpus bloquant pour le MVP.
 - [x] Transformer le programme en liste de contrôle personnelle : notes collectées, cours validés, révisions et maîtrise déclarée par thème.
 - [x] Espacer les rappels de révision selon une auto-évaluation simple et conserver l'historique privé jusqu'à juillet 2027.
 - [x] Créer la navigation entre les matières et les thèmes du catalogue.
@@ -230,17 +230,17 @@ Organiser et rendre accessibles les ressources nécessaires aux révisions : mat
 - Des pages de contenu lisibles et responsive.
 - Un système de recherche ou de filtrage adapté.
 - Un processus documenté d'ajout, de correction et de validation des ressources.
-- Un premier jeu de contenus de démonstration validés.
+- Le programme initial traçable, complété au besoin par un corpus commun administré et facultatif.
 
 ## Critères de validation
 
-- [ ] Un élève trouve rapidement une ressource liée à sa série et à sa matière.
-- [ ] La hiérarchie matière → chapitre → ressource est cohérente.
+- [x] Un élève trouve rapidement une ressource liée à sa série et à sa matière.
+- [x] La hiérarchie matière → section du programme → ressource est cohérente.
 - [x] Un bilan quotidien est sauvegardé même si la connexion est interrompue.
 - [x] Le brouillon généré distingue le texte de l'élève, les explications ajoutées, les sources et les corrections proposées.
 - [x] Aucune correction automatique ne supprime silencieusement le texte original de l'élève.
 - [x] L'élève voit les thèmes commencés, les cours prêts, les révisions dues et les notions qu'il estime maîtriser.
-- [ ] Les contenus sont lisibles sur téléphone.
+- [x] Les contenus sont lisibles sur téléphone.
 - [x] Les ressources affichent les informations nécessaires sur leur origine et leur niveau de validation.
 - [x] L'ajout ou la correction d'un contenu ne nécessite pas de modifier toute l'application.
 
@@ -248,7 +248,7 @@ Organiser et rendre accessibles les ressources nécessaires aux révisions : mat
 
 # Partie 6 — Tableau de bord et planning de révision
 
-**Statut :** `⬜ À faire`
+**Statut :** `🟨 En cours`
 
 ## Objectif
 
@@ -384,11 +384,11 @@ Préparer une version stable, sécurisée, rapide et maintenable, puis la mettre
 
 ## Partie actuellement active
 
-- **Partie :** Partie 5 — Matières et contenus pédagogiques.
+- **Partie :** Partie 6 — Tableau de bord et planning de révision.
 - **Statut :** `🟨 En cours`
-- **Prochaine action :** terminer la recette responsive et la recette de reconnexion réelle du carnet personnel, puis préparer la validation finale de la Partie 5.
-- **Sources déjà analysées :** neuf impressions du programme/catalogue Faso e-education, inventoriées dans [`docs/ANALYSE_SOURCES_PARTIE_5.md`](./docs/ANALYSE_SOURCES_PARTIE_5.md).
-- **Rappel :** le programme fourni définit la trame de révision choisie par le porteur, mais ne suffit pas à certifier le contenu factuel d'un cours ; ne pas inventer de connaissances manquantes.
+- **Prochaine action :** livrer un premier incrément permettant de planifier, modifier, terminer et supprimer une séance privée reliée au programme, puis l'intégrer aux priorités du tableau de bord.
+- **Socle disponible :** le carnet de la Partie 5 fournit déjà les thèmes dus, les cours prêts et l'objectif quotidien du profil ; le schéma `revision_sessions` et le stockage Dexie sont prêts à être raccordés.
+- **Rappel :** le planning doit rester utile sur téléphone et avec une connexion instable, sans créer de notification externe dans le premier incrément.
 
 ---
 
@@ -443,5 +443,7 @@ Préparer une version stable, sécurisée, rapide et maintenable, puis la mettre
 | 2026-10-17 | 5 | Le corpus factuel est administré par thème et reste vide par défaut ; seule une fiche explicitement publiée peut enrichir ou corriger un bilan. | Ne jamais transformer une connaissance inventée ou une source non vérifiée en contenu commun. | L'administration peut versionner, sourcer, publier et archiver les fiches ; le fournisseur `curated-corpus` les utilise avec citations et revient au mode local lorsqu'aucune fiche n'est disponible. |
 | 2026-10-17 | 5 | Le programme officiel disponible suffit comme trame du MVP ; aucun corpus complet de cours officiels supplémentaire n'est attendu. | Le porteur ne peut pas obtenir ces documents et veut néanmoins une plateforme utile jusqu'aux révisions finales de juillet 2027. | La valeur principale vient du carnet privé construit avec les bilans de classe, les cours personnels validés, les auto-évaluations et des rappels espacés ; les fiches communes sourcées deviennent un enrichissement facultatif. |
 | 2026-10-17 | 5 | Une auto-évaluation peut être saisie hors ligne sur un appareil personnel et synchronisée de manière idempotente. | Une connexion instable ne doit ni bloquer un passage de révision ni le dupliquer lors d'une nouvelle tentative. | Chaque passage porte un UUID client et son heure d'exécution ; l'aperçu est optimiste, l'outbox est rejouée à la reconnexion et aucun stockage privé persistant n'est utilisé sur appareil partagé. |
+| 2026-10-17 | 5 | La recette finale du carnet est approuvée et la Partie 5 est terminée. | Le porteur a validé l'affichage responsive et le parcours de révision après les contrôles automatisés de reconnexion et d'idempotence. | La Partie 6 peut commencer en réutilisant les priorités et rappels du carnet. |
+| 2026-10-17 | 6 | La Partie 6 — Tableau de bord et planning de révision est ouverte. | Les contenus personnels et les rappels par thème sont désormais assez stables pour planifier le travail quotidien. | Le premier incrément raccorde les séances privées existantes au programme et au tableau de bord, sans notification externe. |
 
 > Ajouter une ligne à ce tableau lorsqu'un choix important est validé : technologie, fonctionnalité, design, règle métier ou changement de périmètre.
