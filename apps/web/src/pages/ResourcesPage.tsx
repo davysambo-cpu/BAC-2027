@@ -5,6 +5,9 @@ import type {
   CourseDraft,
   CreateDailyReportRequest,
   DailyReport,
+  RevisionAssessment,
+  RevisionOverview,
+  RevisionTopic,
   ReviewDraftCorrectionRequest,
   StudentCatalogueResponse,
 } from "@bac-2027/contracts";
@@ -15,8 +18,10 @@ import {
   createDailyReport,
   generateCourseDraft,
   getCourseDraft,
+  getRevisionOverview,
   getStudentCatalogue,
   listDailyReports,
+  recordTopicRevision,
   reviewDraftCorrection,
   uploadDailyReportAttachment,
 } from "../auth/api";
@@ -25,8 +30,10 @@ import { AppShell } from "../components/AppShell";
 import {
   cacheCatalogue,
   cacheCourseDraft,
+  cacheRevisionOverview,
   readCachedCatalogue,
   readCachedCourseDraft,
+  readCachedRevisionOverview,
   type LocalDailyReport,
 } from "../offline/database";
 import {
@@ -41,6 +48,15 @@ import {
   storeServerDailyReports,
   type LocalAttachmentInput,
 } from "../offline/daily-reports";
+import {
+  applyLocalReviewToOverview,
+  localTopicRevisionReview,
+  markTopicRevisionReviewSynced,
+  markTopicRevisionReviewSyncFailed,
+  newTopicRevisionReview,
+  stageTopicRevisionReview,
+  syncPendingTopicRevisionReviews,
+} from "../offline/revision-reviews";
 
 const maxPhotoBytes = 5 * 1024 * 1024;
 const maxAudioBytes = 10 * 1024 * 1024;
@@ -57,6 +73,42 @@ interface FormState {
 }
 
 type ReportView = DailyReport | LocalDailyReport;
+type RevisionFilter = "all" | "not_started" | "collecting" | "due" | "mastered";
+
+const revisionAssessmentOptions: Array<{
+  value: RevisionAssessment;
+  label: string;
+  detail: string;
+}> = [
+  { value: "difficult", label: "Difficile", detail: "À revoir demain" },
+  { value: "fragile", label: "Fragile", detail: "À revoir dans 3 jours" },
+  { value: "comfortable", label: "Assez bien", detail: "À revoir dans 7 jours" },
+  { value: "mastered", label: "Maîtrisé", detail: "Rappel dans 21 jours" },
+];
+
+function revisionStageLabel(topic: RevisionTopic): string {
+  if (topic.isDue && topic.latestReview) return "À revoir maintenant";
+  return {
+    not_started: "À commencer",
+    collecting: "Notes à structurer",
+    ready: "Cours prêt à réviser",
+    reviewing: "Révision en cours",
+    mastered: "Bien maîtrisé",
+  }[topic.stage];
+}
+
+function formatRevisionDate(value: string): string {
+  return new Intl.DateTimeFormat("fr-BF", { day: "numeric", month: "short" }).format(
+    new Date(value),
+  );
+}
+
+function targetMonthLabel(value: string): string {
+  const [year, month] = value.split("-").map(Number);
+  return new Intl.DateTimeFormat("fr-BF", { month: "long", year: "numeric" }).format(
+    new Date(Date.UTC(year!, month! - 1, 1)),
+  );
+}
 
 function today(): string {
   const now = new Date();
@@ -147,6 +199,14 @@ export default function ResourcesPage() {
   const [courseDraft, setCourseDraft] = useState<CourseDraft | null>(null);
   const [draftLoading, setDraftLoading] = useState(false);
   const [draftError, setDraftError] = useState<string | null>(null);
+  const [revisionOverview, setRevisionOverview] = useState<RevisionOverview | null>(null);
+  const [revisionLoading, setRevisionLoading] = useState(false);
+  const [revisionError, setRevisionError] = useState<string | null>(null);
+  const [revisionFilter, setRevisionFilter] = useState<RevisionFilter>("all");
+  const [reviewingItemId, setReviewingItemId] = useState<string | null>(null);
+  const [reviewAssessment, setReviewAssessment] = useState<RevisionAssessment | "">("");
+  const [reviewNote, setReviewNote] = useState("");
+  const [reviewSaving, setReviewSaving] = useState(false);
 
   const personalDevice = auth.session?.deviceType === "personal";
 
@@ -159,9 +219,14 @@ export default function ResourcesPage() {
       setLoadError(null);
 
       if (personalDevice) {
-        const localReports = await listLocalDailyReports(auth.user.id);
-        if (!cancelled)
+        const [localReports, cachedOverview] = await Promise.all([
+          listLocalDailyReports(auth.user.id),
+          readCachedRevisionOverview(auth.user.id),
+        ]);
+        if (!cancelled) {
           setReports(localReports.sort((a, b) => reportTimestamp(b) - reportTimestamp(a)));
+          if (cachedOverview) setRevisionOverview(cachedOverview);
+        }
       }
 
       let nextCatalogue: StudentCatalogueResponse | null = null;
@@ -185,6 +250,10 @@ export default function ResourcesPage() {
       }));
 
       if (auth.user.role !== "student") {
+        setLoading(false);
+        return;
+      }
+      if (auth.offline) {
         setLoading(false);
         return;
       }
@@ -220,6 +289,7 @@ export default function ResourcesPage() {
               true,
             );
           }
+          await syncPendingTopicRevisionReviews(auth.user.id, recordTopicRevision);
         }
         const serverReports = (await listDailyReports()).reports;
         if (personalDevice) {
@@ -238,8 +308,29 @@ export default function ResourcesPage() {
               : "Les bilans ne sont pas accessibles sans connexion sur un appareil partagé.",
           );
         }
+      }
+
+      if (!cancelled) setRevisionLoading(true);
+      try {
+        const overview = await getRevisionOverview();
+        if (personalDevice) await cacheRevisionOverview(auth.user.id, overview);
+        if (!cancelled) {
+          setRevisionOverview(overview);
+          setRevisionError(null);
+        }
+      } catch (error) {
+        if (!cancelled && !personalDevice) {
+          setRevisionError(
+            error instanceof ApiClientError
+              ? error.message
+              : "Le suivi des révisions est temporairement indisponible.",
+          );
+        }
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setRevisionLoading(false);
+          setLoading(false);
+        }
       }
     }
 
@@ -247,17 +338,45 @@ export default function ResourcesPage() {
     return () => {
       cancelled = true;
     };
-  }, [auth.user, personalDevice]);
+  }, [auth.offline, auth.user, personalDevice]);
 
   const selectedSubject = catalogue?.subjects.find((subject) => subject.id === selectedSubjectId);
   const formSubject = catalogue?.subjects.find((subject) => subject.id === form.subjectId);
   const formItems = formSubject?.items ?? [];
+  const reviewingItem = catalogue?.subjects
+    .flatMap((subject) => subject.items)
+    .find((item) => item.id === reviewingItemId);
+  const revisionByItem = useMemo(
+    () =>
+      new Map(
+        (revisionOverview?.topics ?? []).map((topic) => [topic.catalogueItemId, topic] as const),
+      ),
+    [revisionOverview],
+  );
+  const revisionFilterCounts = useMemo(() => {
+    const items = selectedSubject?.items ?? [];
+    const topics = items.map((item) => revisionByItem.get(item.id));
+    return {
+      all: items.length,
+      not_started: topics.filter((topic) => !topic || topic.stage === "not_started").length,
+      collecting: topics.filter((topic) => topic?.stage === "collecting").length,
+      due: topics.filter((topic) => topic?.isDue).length,
+      mastered: topics.filter((topic) => topic?.stage === "mastered").length,
+    };
+  }, [revisionByItem, selectedSubject]);
   const filteredItems = useMemo(() => {
     const items = selectedSubject?.items ?? [];
     const query = normalizeSearch(search.trim());
-    if (!query) return items;
-    return items.filter((item) => normalizeSearch(`${item.title} ${item.section}`).includes(query));
-  }, [search, selectedSubject]);
+    return items.filter((item) => {
+      if (query && !normalizeSearch(`${item.title} ${item.section}`).includes(query)) return false;
+      const progress = revisionByItem.get(item.id);
+      if (revisionFilter === "not_started") return !progress || progress.stage === "not_started";
+      if (revisionFilter === "collecting") return progress?.stage === "collecting";
+      if (revisionFilter === "due") return progress?.isDue === true;
+      if (revisionFilter === "mastered") return progress?.stage === "mastered";
+      return true;
+    });
+  }, [revisionByItem, revisionFilter, search, selectedSubject]);
 
   const groupedItems = useMemo(() => {
     const groups = new Map<string, CatalogueItem[]>();
@@ -268,6 +387,113 @@ export default function ResourcesPage() {
     }
     return [...groups.entries()];
   }, [filteredItems]);
+
+  async function refreshRevisionOverview() {
+    if (!auth.user || auth.user.role !== "student" || auth.offline) return;
+    setRevisionLoading(true);
+    try {
+      const overview = await getRevisionOverview();
+      setRevisionOverview(overview);
+      setRevisionError(null);
+      if (personalDevice) await cacheRevisionOverview(auth.user.id, overview);
+    } catch (error) {
+      setRevisionError(
+        error instanceof ApiClientError
+          ? error.message
+          : "Le suivi des révisions n'a pas pu être actualisé.",
+      );
+    } finally {
+      setRevisionLoading(false);
+    }
+  }
+
+  function openRevisionCheck(item: CatalogueItem) {
+    const progress = revisionByItem.get(item.id);
+    setReviewingItemId(item.id);
+    setReviewAssessment(progress?.latestReview?.assessment ?? "");
+    setReviewNote("");
+    setRevisionError(null);
+  }
+
+  async function submitRevisionCheck(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!reviewingItemId || !reviewAssessment) {
+      setRevisionError("Choisissez d'abord votre niveau de maîtrise.");
+      return;
+    }
+    const input = newTopicRevisionReview(reviewAssessment, reviewNote.trim() || null);
+    setReviewSaving(true);
+    setRevisionError(null);
+    setMessage(null);
+    try {
+      if (personalDevice) {
+        if (!auth.user || !revisionOverview) {
+          setRevisionError(
+            "Chargez une première fois le carnet avant d'enregistrer une révision sur cet appareil.",
+          );
+          return;
+        }
+        const previousOverview = revisionOverview;
+        const operationId = await stageTopicRevisionReview(auth.user.id, reviewingItemId, input);
+        const localReview = localTopicRevisionReview(reviewingItemId, input);
+        const nextOverview = applyLocalReviewToOverview(previousOverview, localReview);
+        setRevisionOverview(nextOverview);
+        await cacheRevisionOverview(auth.user.id, nextOverview);
+
+        if (auth.offline || !navigator.onLine) {
+          setMessage(
+            `Révision sauvegardée sur cet appareil. Elle sera synchronisée à la reconnexion ; prochain rappel conseillé le ${formatRevisionDate(localReview.nextReviewAt)}`,
+          );
+        } else {
+          try {
+            const serverReview = await recordTopicRevision(reviewingItemId, input);
+            await markTopicRevisionReviewSynced(operationId);
+            await refreshRevisionOverview();
+            setMessage(
+              `Révision enregistrée. Prochain rappel conseillé le ${formatRevisionDate(serverReview.nextReviewAt)}`,
+            );
+          } catch (error) {
+            if (error instanceof ApiClientError && error.status === 400) {
+              await markTopicRevisionReviewSynced(operationId);
+              setRevisionOverview(previousOverview);
+              await cacheRevisionOverview(auth.user.id, previousOverview);
+              throw error;
+            }
+            await markTopicRevisionReviewSyncFailed(
+              operationId,
+              error instanceof Error ? error.message : "Synchronisation impossible.",
+            );
+            setMessage(
+              `Révision sauvegardée sur cet appareil. Elle sera resynchronisée dès que le service répondra ; prochain rappel conseillé le ${formatRevisionDate(localReview.nextReviewAt)}`,
+            );
+          }
+        }
+      } else {
+        if (auth.offline || !navigator.onLine) {
+          setRevisionError(
+            "Reconnectez cet appareil partagé pour enregistrer la révision sans y laisser de copie privée.",
+          );
+          return;
+        }
+        const serverReview = await recordTopicRevision(reviewingItemId, input);
+        await refreshRevisionOverview();
+        setMessage(
+          `Révision enregistrée. Prochain rappel conseillé le ${formatRevisionDate(serverReview.nextReviewAt)}`,
+        );
+      }
+      setReviewingItemId(null);
+      setReviewAssessment("");
+      setReviewNote("");
+    } catch (error) {
+      setRevisionError(
+        error instanceof ApiClientError
+          ? error.message
+          : "La révision n'a pas pu être enregistrée.",
+      );
+    } finally {
+      setReviewSaving(false);
+    }
+  }
 
   function openForm(item?: CatalogueItem) {
     const subjectId = item
@@ -400,7 +626,7 @@ export default function ResourcesPage() {
             mediaFailures > 0
               ? "Bilan synchronisé. Certains médias restent sur cet appareil et seront renvoyés à la reconnexion."
               : attachments.length > 0
-                ? "Bilan, photos et audio enregistrés et synchronisés."
+                ? "Bilan et médias enregistrés et synchronisés."
                 : "Bilan enregistré et synchronisé.",
           );
         } catch (error) {
@@ -425,6 +651,7 @@ export default function ResourcesPage() {
               : "Bilan enregistré.",
         );
       }
+      if (!auth.offline) void refreshRevisionOverview();
       setForm(emptyForm(form.subjectId));
       setAttachments([]);
       setFormOpen(false);
@@ -557,8 +784,9 @@ export default function ResourcesPage() {
       const draft = await acceptCourseDraft(activeReport.id);
       applyDraft(draft);
       if (personalDevice && auth.user) void cacheCourseDraft(auth.user.id, draft);
+      await refreshRevisionOverview();
       setMessage(
-        "Le brouillon a été validé comme cours personnel. Le bilan original reste conservé.",
+        "Le brouillon a été validé comme cours personnel et ajouté au suivi de révision. Le bilan original reste conservé.",
       );
     } catch (error) {
       setDraftError(
@@ -573,11 +801,11 @@ export default function ResourcesPage() {
     <AppShell>
       <div className="page-heading resources-heading">
         <div>
-          <p className="ui-eyebrow">Votre classeur progressif</p>
-          <h1>Ressources</h1>
+          <p className="ui-eyebrow">Programme officiel + cours personnels</p>
+          <h1>Mon carnet de révision</h1>
           <p>
-            Retrouvez la trame du programme et ajoutez chaque jour ce qui a réellement été étudié en
-            classe.
+            Suivez chaque thème du programme et rassemblez progressivement ce qui a réellement été
+            étudié en classe jusqu'aux révisions finales de juillet 2027.
           </p>
         </div>
         {auth.user?.role === "student" && (
@@ -597,8 +825,44 @@ export default function ResourcesPage() {
           {loadError}
         </div>
       )}
+      {revisionError && (
+        <div className="form-alert page-alert" role="alert">
+          {revisionError}
+        </div>
+      )}
 
-      {catalogue && (
+      {catalogue && revisionOverview && auth.user?.role === "student" ? (
+        <div className="catalogue-overview revision-overview" aria-label="Avancement des révisions">
+          <article>
+            <strong>
+              {revisionOverview.summary.startedTopics}/{revisionOverview.summary.totalTopics}
+            </strong>
+            <span>Thèmes commencés</span>
+          </article>
+          <article>
+            <strong>{revisionOverview.summary.coursesReady}</strong>
+            <span>Cours personnels prêts</span>
+          </article>
+          <article>
+            <strong>{revisionOverview.summary.reviewedTopics}</strong>
+            <span>Thèmes déjà révisés</span>
+          </article>
+          <article className={revisionOverview.summary.dueTopics > 0 ? "attention" : ""}>
+            <strong>{revisionOverview.summary.dueTopics}</strong>
+            <span>À revoir maintenant</span>
+          </article>
+          <article>
+            <strong>{revisionOverview.summary.masteredTopics}</strong>
+            <span>Bien maîtrisés</span>
+          </article>
+          <article>
+            <strong className="target-month">
+              {targetMonthLabel(revisionOverview.targetMonth)}
+            </strong>
+            <span>Horizon de préparation</span>
+          </article>
+        </div>
+      ) : catalogue ? (
         <div className="catalogue-overview">
           <article>
             <strong>{catalogue.subjects.length}</strong>
@@ -612,19 +876,95 @@ export default function ResourcesPage() {
           </article>
           <article>
             <strong>Série {catalogue.series.code}</strong>
-            <span>Catalogue de travail</span>
+            <span>{revisionLoading ? "Chargement du suivi…" : "Programme de travail"}</span>
           </article>
         </div>
-      )}
+      ) : null}
 
       {catalogue && (
         <div className="catalogue-notice" role="note">
           <span aria-hidden="true">i</span>
           <div>
-            <strong>Référentiel progressif</strong>
+            <strong>Le programme donne la direction</strong>
             <p>{catalogue.notice}</p>
+            <p>
+              Il indique les thèmes à couvrir, mais ne remplace pas le cours. Vos bilans, cours
+              validés et auto-évaluations forment votre mémoire personnelle de révision.
+            </p>
           </div>
         </div>
+      )}
+
+      {reviewingItem && auth.user?.role === "student" && (
+        <section className="panel-card revision-check-panel" aria-labelledby="revision-check-title">
+          <div className="panel-heading">
+            <div>
+              <p className="ui-eyebrow">Mémoire de révision personnelle</p>
+              <h2 id="revision-check-title">Faire le point : {reviewingItem.title}</h2>
+              <p>
+                Évaluez-vous honnêtement. Cette indication organise les prochains rappels ; elle ne
+                modifie ni votre cours ni le programme.
+              </p>
+            </div>
+            <button
+              className="text-action"
+              type="button"
+              onClick={() => {
+                setReviewingItemId(null);
+                setReviewAssessment("");
+                setReviewNote("");
+              }}
+            >
+              Fermer
+            </button>
+          </div>
+          <form onSubmit={(event) => void submitRevisionCheck(event)}>
+            <fieldset className="revision-assessment-fieldset">
+              <legend>Après cette révision, où en êtes-vous ?</legend>
+              <div className="revision-assessment-options">
+                {revisionAssessmentOptions.map((option) => (
+                  <label
+                    key={option.value}
+                    className={reviewAssessment === option.value ? "selected" : ""}
+                  >
+                    <input
+                      type="radio"
+                      name="revision-assessment"
+                      value={option.value}
+                      checked={reviewAssessment === option.value}
+                      onChange={() => setReviewAssessment(option.value)}
+                    />
+                    <strong>{option.label}</strong>
+                    <small>{option.detail}</small>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <label className="revision-note-field">
+              Point à reprendre lors de la prochaine séance <small>(facultatif)</small>
+              <textarea
+                value={reviewNote}
+                maxLength={1_000}
+                rows={3}
+                placeholder="Ex. refaire l'exercice 4, revoir la définition, demander au professeur…"
+                onChange={(event) => setReviewNote(event.target.value)}
+              />
+            </label>
+            <div className="revision-check-footer">
+              <p>
+                Rythme conseillé : 1, 3, 7 ou 21 jours selon votre auto-évaluation. Vous pourrez
+                refaire le point autant de fois que nécessaire.
+              </p>
+              <button
+                className="primary-action fit"
+                type="submit"
+                disabled={reviewSaving || !reviewAssessment}
+              >
+                {reviewSaving ? "Enregistrement…" : "Enregistrer cette révision"}
+              </button>
+            </div>
+          </form>
+        </section>
       )}
 
       {formOpen && catalogue && (
@@ -1128,7 +1468,31 @@ export default function ResourcesPage() {
             </label>
           </div>
 
-          {loading && <div className="panel-card empty-state">Chargement du catalogue…</div>}
+          {revisionOverview && auth.user?.role === "student" && (
+            <div className="revision-filters" role="group" aria-label="Filtrer le programme">
+              {(
+                [
+                  ["all", "Tout le programme"],
+                  ["not_started", "À commencer"],
+                  ["collecting", "Notes à structurer"],
+                  ["due", "À revoir"],
+                  ["mastered", "Bien maîtrisés"],
+                ] as const
+              ).map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  className={revisionFilter === value ? "active" : ""}
+                  aria-pressed={revisionFilter === value}
+                  onClick={() => setRevisionFilter(value)}
+                >
+                  {label} <span>{revisionFilterCounts[value]}</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {loading && <div className="panel-card empty-state">Chargement du programme…</div>}
           {!loading && groupedItems.length === 0 && (
             <div className="panel-card empty-state">
               Aucun thème ne correspond à cette recherche.
@@ -1142,32 +1506,95 @@ export default function ResourcesPage() {
                   <span>{items.length}</span>
                 </div>
                 <ol>
-                  {items.map((item) => (
-                    <li key={item.id}>
-                      <div>
-                        <strong>{item.title}</strong>
-                        <span
-                          className={`catalogue-status ${
-                            item.seriesDScope === "explicitly_includes" ? "included" : "pending"
-                          }`}
-                        >
-                          {item.seriesDScope === "explicitly_includes"
-                            ? "Série D indiquée"
-                            : "Compatibilité à confirmer"}
-                        </span>
-                      </div>
-                      <div className="catalogue-item-actions">
-                        <a href={item.sourceUrl ?? "#"} target="_blank" rel="noreferrer">
-                          Source
-                        </a>
-                        {auth.user?.role === "student" && (
-                          <button type="button" onClick={() => openForm(item)}>
-                            Ajouter mon bilan
-                          </button>
-                        )}
-                      </div>
-                    </li>
-                  ))}
+                  {items.map((item) => {
+                    const progress = revisionByItem.get(item.id);
+                    const itemReports = reports.filter(
+                      (report) => report.catalogueItemId === item.id,
+                    );
+                    const revisionReport =
+                      itemReports.find((report) => report.enrichmentStatus === "accepted") ??
+                      itemReports[0];
+                    return (
+                      <li key={item.id}>
+                        <div className="catalogue-item-main">
+                          <div className="catalogue-item-title-row">
+                            <strong>{item.title}</strong>
+                            {progress ? (
+                              <span
+                                className={`revision-stage ${progress.stage} ${progress.isDue ? "due" : ""}`}
+                              >
+                                {revisionStageLabel(progress)}
+                              </span>
+                            ) : (
+                              <span
+                                className={`catalogue-status ${
+                                  item.seriesDScope === "explicitly_includes"
+                                    ? "included"
+                                    : "pending"
+                                }`}
+                              >
+                                {item.seriesDScope === "explicitly_includes"
+                                  ? "Série D indiquée"
+                                  : "Compatibilité à confirmer"}
+                              </span>
+                            )}
+                          </div>
+                          {progress && (
+                            <div className="revision-topic-meta">
+                              <span>
+                                {progress.reportCount} bilan{progress.reportCount > 1 ? "s" : ""}
+                              </span>
+                              <span>
+                                {progress.reviewCount} révision
+                                {progress.reviewCount > 1 ? "s" : ""}
+                              </span>
+                              {progress.latestReview && (
+                                <span>
+                                  Prochain rappel :{" "}
+                                  {formatRevisionDate(progress.latestReview.nextReviewAt)}
+                                </span>
+                              )}
+                              {progress.latestReview?.note && (
+                                <small>À reprendre : {progress.latestReview.note}</small>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        <div className="catalogue-item-actions">
+                          {item.sourceUrl && (
+                            <a href={item.sourceUrl} target="_blank" rel="noreferrer">
+                              Référence
+                            </a>
+                          )}
+                          {auth.user?.role === "student" && revisionReport && (
+                            <button
+                              className="topic-course-action"
+                              type="button"
+                              onClick={() => void openCourseDraft(revisionReport)}
+                            >
+                              {revisionReport.enrichmentStatus === "accepted"
+                                ? "Réviser mon cours"
+                                : "Voir mes notes"}
+                            </button>
+                          )}
+                          {auth.user?.role === "student" && (
+                            <>
+                              <button
+                                className="revision-check-action"
+                                type="button"
+                                onClick={() => openRevisionCheck(item)}
+                              >
+                                Faire le point
+                              </button>
+                              <button type="button" onClick={() => openForm(item)}>
+                                + Bilan
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ol>
               </section>
             ))}

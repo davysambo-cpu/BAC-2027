@@ -70,6 +70,12 @@ export const revisionSessionStatusEnum = pgEnum("revision_session_status", [
   "completed",
   "cancelled",
 ]);
+export const revisionAssessmentEnum = pgEnum("revision_assessment", [
+  "difficult",
+  "fragile",
+  "comfortable",
+  "mastered",
+]);
 
 export const quizStatusEnum = pgEnum("quiz_status", ["draft", "published", "archived"]);
 export const questionTypeEnum = pgEnum("question_type", ["single_choice", "multiple_choice"]);

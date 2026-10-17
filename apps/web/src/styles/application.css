@@ -328,6 +328,57 @@
   color: #bad0c7;
 }
 
+.dashboard-revision-progress {
+  max-width: 520px;
+  padding: 13px 15px;
+  margin: -8px 0 20px;
+  background: rgb(255 255 255 / 8%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 9px;
+}
+
+.dashboard-revision-progress > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 7px;
+  color: #d9eee5;
+  font-size: 0.66rem;
+  font-weight: 750;
+}
+
+.dashboard-revision-progress progress {
+  width: 100%;
+  height: 7px;
+  overflow: hidden;
+  appearance: none;
+  background: rgb(255 255 255 / 15%);
+  border: 0;
+  border-radius: 999px;
+}
+
+.dashboard-revision-progress progress::-webkit-progress-bar {
+  background: rgb(255 255 255 / 15%);
+  border-radius: 999px;
+}
+
+.dashboard-revision-progress progress::-webkit-progress-value {
+  background: #8edabe;
+  border-radius: 999px;
+}
+
+.dashboard-revision-progress progress::-moz-progress-bar {
+  background: #8edabe;
+  border-radius: 999px;
+}
+
+.dashboard-revision-progress small {
+  display: block;
+  margin-top: 7px;
+  color: #a9c9bc;
+  font-size: 0.59rem;
+}
+
 .primary-link,
 .secondary-link {
   display: inline-flex;
@@ -952,7 +1003,7 @@
 
 .catalogue-overview {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   margin-bottom: 14px;
   gap: 11px;
 }
@@ -982,6 +1033,20 @@
   margin-top: 3px;
   color: var(--muted);
   font-size: 0.67rem;
+}
+
+.revision-overview article.attention {
+  background: #fff8e9;
+  border-color: #e9c978;
+}
+
+.revision-overview article.attention strong {
+  color: #8b5a08;
+}
+
+.revision-overview .target-month {
+  text-transform: capitalize;
+  font-size: 0.96rem;
 }
 
 .catalogue-notice {
@@ -1021,6 +1086,129 @@
   color: #567068;
   font-size: 0.72rem;
   line-height: 1.5;
+}
+
+.revision-check-panel {
+  padding: clamp(20px, 3vw, 31px);
+  margin-bottom: 22px;
+  background: linear-gradient(135deg, #fff 0%, #f4faf7 100%);
+  border-color: #a9cdbd;
+  box-shadow: 0 16px 42px rgb(17 75 55 / 8%);
+}
+
+.revision-check-panel .panel-heading {
+  align-items: flex-start;
+  margin-bottom: 19px;
+}
+
+.revision-check-panel .panel-heading p:not(.ui-eyebrow) {
+  max-width: 720px;
+  margin: 7px 0 0;
+}
+
+.revision-assessment-fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.revision-assessment-fieldset legend,
+.revision-note-field {
+  color: #2c3934;
+  font-size: 0.76rem;
+  font-weight: 780;
+}
+
+.revision-assessment-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.revision-assessment-options label {
+  display: grid;
+  min-height: 88px;
+  align-content: center;
+  padding: 12px 13px;
+  background: #fff;
+  border: 1px solid #cfdbd6;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.revision-assessment-options label:hover,
+.revision-assessment-options label.selected {
+  background: #eaf6f0;
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px rgb(23 121 90 / 8%);
+}
+
+.revision-assessment-options input {
+  width: 15px;
+  height: 15px;
+  margin: 0 0 7px;
+  accent-color: var(--green);
+}
+
+.revision-assessment-options strong,
+.revision-assessment-options small {
+  display: block;
+}
+
+.revision-assessment-options strong {
+  color: #294039;
+  font-size: 0.74rem;
+}
+
+.revision-assessment-options small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.61rem;
+  font-weight: 500;
+}
+
+.revision-note-field {
+  display: grid;
+  margin-top: 16px;
+  gap: 7px;
+}
+
+.revision-note-field small {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.revision-note-field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #cbd8d2;
+  border-radius: 8px;
+  font: inherit;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.revision-note-field textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgb(23 121 90 / 10%);
+  outline: none;
+}
+
+.revision-check-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  gap: 18px;
+}
+
+.revision-check-footer p {
+  max-width: 650px;
+  margin: 0;
+  font-size: 0.69rem;
 }
 
 .daily-report-form-panel {
@@ -1727,6 +1915,52 @@
   font-size: 0.72rem;
 }
 
+.revision-filters {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -2px 0 14px;
+  gap: 7px;
+}
+
+.revision-filters button {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  padding: 6px 10px;
+  gap: 6px;
+  color: #53645d;
+  background: #fff;
+  border: 1px solid #d2ddd8;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 760;
+  cursor: pointer;
+}
+
+.revision-filters button:hover,
+.revision-filters button.active {
+  color: #fff;
+  background: var(--forest);
+  border-color: var(--forest);
+}
+
+.revision-filters button span {
+  display: grid;
+  min-width: 19px;
+  height: 19px;
+  place-items: center;
+  padding: 0 4px;
+  color: var(--forest);
+  background: #edf5f1;
+  border-radius: 999px;
+  font-size: 0.55rem;
+}
+
+.revision-filters button.active span {
+  color: var(--forest);
+  background: #d9eee5;
+}
+
 .catalogue-groups {
   display: grid;
   gap: 12px;
@@ -1796,6 +2030,74 @@
   line-height: 1.4;
 }
 
+.catalogue-group li .catalogue-item-main {
+  display: grid;
+  align-items: initial;
+  gap: 6px;
+}
+
+.catalogue-item-title-row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 9px;
+}
+
+.revision-stage {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  color: #53645d;
+  background: #edf2f0;
+  border-radius: 999px;
+  font-size: 0.55rem;
+  font-weight: 820;
+  white-space: nowrap;
+}
+
+.revision-stage.collecting {
+  color: #76500f;
+  background: #fff4dc;
+}
+
+.revision-stage.ready,
+.revision-stage.reviewing {
+  color: #175b77;
+  background: #e7f4f9;
+}
+
+.revision-stage.mastered {
+  color: #176344;
+  background: #e3f4eb;
+}
+
+.revision-stage.due {
+  color: #8b4b07;
+  background: #fff0d7;
+  box-shadow: inset 0 0 0 1px #edcf96;
+}
+
+.revision-topic-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  color: #78857f;
+  font-size: 0.58rem;
+}
+
+.revision-topic-meta span:not(:last-child)::after {
+  margin-left: 10px;
+  color: #c2ccc7;
+  content: "·";
+}
+
+.revision-topic-meta small {
+  width: 100%;
+  color: #6f5a2f;
+  font-size: 0.58rem;
+  line-height: 1.35;
+}
+
 .catalogue-status {
   flex: 0 0 auto;
   padding: 4px 7px;
@@ -1817,7 +2119,10 @@
 
 .catalogue-item-actions {
   display: flex;
+  max-width: 330px;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: 7px;
 }
 
@@ -1838,6 +2143,23 @@
   color: #fff;
   background: var(--green);
   border-color: var(--green);
+}
+
+.catalogue-item-actions button.topic-course-action {
+  color: #fff;
+  background: var(--forest);
+  border-color: var(--forest);
+}
+
+.catalogue-item-actions button.revision-check-action {
+  color: var(--green);
+  background: #fff;
+  border-color: #9bbdaf;
+}
+
+.catalogue-item-actions a:hover,
+.catalogue-item-actions button:hover {
+  filter: brightness(0.96);
 }
 
 .recent-reports {
@@ -2031,7 +2353,11 @@
   }
 
   .catalogue-overview article:last-child {
-    grid-column: 1 / -1;
+    grid-column: auto;
+  }
+
+  .revision-assessment-options {
+    grid-template-columns: 1fr 1fr;
   }
 
   .daily-report-form {
@@ -2046,7 +2372,8 @@
   .form-submit-row,
   .catalogue-toolbar,
   .draft-validation-bar,
-  .knowledge-form-footer {
+  .knowledge-form-footer,
+  .revision-check-footer {
     align-items: stretch;
     flex-direction: column;
   }
@@ -2081,12 +2408,19 @@
     gap: 6px;
   }
 
+  .catalogue-item-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .catalogue-item-actions {
     width: 100%;
+    max-width: none;
+    justify-content: flex-start;
   }
 
   .catalogue-item-actions button {
-    margin-left: auto;
+    margin-left: 0;
   }
 
   .dashboard-columns {
@@ -2171,6 +2505,20 @@
 
   .catalogue-overview article:last-child {
     grid-column: auto;
+  }
+
+  .revision-assessment-options {
+    grid-template-columns: 1fr;
+  }
+
+  .revision-assessment-options label {
+    min-height: 74px;
+  }
+
+  .catalogue-item-actions a,
+  .catalogue-item-actions button {
+    flex: 1 1 auto;
+    text-align: center;
   }
 
   .media-actions {

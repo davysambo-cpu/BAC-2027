@@ -34,6 +34,10 @@ const environmentSchema = z
     RESET_CODE_TTL_MINUTES: z.coerce.number().int().positive().default(30),
     PERSONAL_SESSION_TTL_DAYS: z.coerce.number().int().positive().default(30),
     SHARED_SESSION_TTL_HOURS: z.coerce.number().int().positive().default(8),
+    REVISION_TARGET_MONTH: z
+      .string()
+      .regex(/^\d{4}-(0[1-9]|1[0-2])$/)
+      .default("2027-07"),
     MEDIA_STORAGE_DRIVER: z.enum(["filesystem", "s3"]).default("filesystem"),
     MEDIA_STORAGE_DIR: z.string().min(1).default("../../.data/uploads"),
     OBJECT_STORAGE_ENDPOINT: z.string().url().default("http://localhost:9000"),

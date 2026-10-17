@@ -194,7 +194,7 @@ Permettre aux utilisateurs de disposer d'un espace personnel sécurisé et adapt
 
 **Statut :** `🟨 En cours`
 
-> **Base de travail :** les neuf impressions du catalogue Faso e-education ont été vérifiées. Le porteur du projet autorise leur utilisation comme catalogue pédagogique initial afin de construire progressivement les cours à partir des bilans quotidiens des élèves. Elles restent étiquetées « validation institutionnelle en attente » et ne sont pas présentées comme un référentiel administratif exhaustif.
+> **Base de travail :** le porteur ne pourra pas obtenir un corpus complet de cours officiels et demande de se contenter du programme officiel dont il dispose. Les neuf impressions déjà inventoriées en restent la transcription de travail avec leur provenance inchangée. Le programme définit **quoi couvrir** ; les bilans réellement reçus en classe, les cours personnels validés et les révisions successives constituent progressivement **ce que l'élève apprend**. L'absence d'autres documents officiels ne bloque plus le MVP.
 
 ## Objectif
 
@@ -209,7 +209,9 @@ Organiser et rendre accessibles les ressources nécessaires aux révisions : mat
 - [x] Produire à partir du bilan un brouillon structuré avec explications factuelles, sources et points à vérifier lorsqu'une fiche approuvée couvre le thème.
 - [x] Livrer l'adaptateur local déterministe, la persistance versionnée et l'interface de brouillon/sources/corrections sans prétendre effectuer une vérification factuelle.
 - [x] Signaler les contradictions prévues par une fiche approuvée et faire valider toute correction avant qu'elle remplace une information saisie.
-- [ ] Constituer progressivement les premières fiches réelles à partir de documents pédagogiques vérifiés.
+- [ ] Ajouter progressivement, sans bloquer le MVP, des fiches communes lorsqu'une source pédagogique vérifiée devient disponible.
+- [x] Transformer le programme en liste de contrôle personnelle : notes collectées, cours validés, révisions et maîtrise déclarée par thème.
+- [x] Espacer les rappels de révision selon une auto-évaluation simple et conserver l'historique privé jusqu'à juillet 2027.
 - [x] Créer la navigation entre les matières et les thèmes du catalogue.
 - [x] Afficher le bilan original et son brouillon de cours de manière distincte, lisible et responsive.
 - [x] Ajouter la recherche et le filtre par matière nécessaires au premier catalogue.
@@ -218,12 +220,13 @@ Organiser et rendre accessibles les ressources nécessaires aux révisions : mat
 - [x] Définir une méthode de vérification pédagogique des contenus et une politique de sources fiables.
 - [x] Garder les contenus personnels privés ; seule l'administration peut publier une fiche dans le corpus commun.
 - [x] Afficher clairement la source et le niveau de validation d'une entrée du catalogue.
-- [ ] Finaliser et tester la consultation et la saisie hors ligne pour les connexions lentes.
+- [x] Finaliser et tester la consultation et la saisie hors ligne des bilans, cours mis en cache et auto-évaluations pour les connexions lentes.
 
 ## Livrables
 
 - Un catalogue de matières et chapitres fonctionnel, avec provenance et statut de validation.
 - Un parcours « bilan du jour → brouillon de cours → vérification par l'élève ».
+- Un carnet privé par thème avec progression, auto-évaluations et prochains rappels.
 - Des pages de contenu lisibles et responsive.
 - Un système de recherche ou de filtrage adapté.
 - Un processus documenté d'ajout, de correction et de validation des ressources.
@@ -236,6 +239,7 @@ Organiser et rendre accessibles les ressources nécessaires aux révisions : mat
 - [x] Un bilan quotidien est sauvegardé même si la connexion est interrompue.
 - [x] Le brouillon généré distingue le texte de l'élève, les explications ajoutées, les sources et les corrections proposées.
 - [x] Aucune correction automatique ne supprime silencieusement le texte original de l'élève.
+- [x] L'élève voit les thèmes commencés, les cours prêts, les révisions dues et les notions qu'il estime maîtriser.
 - [ ] Les contenus sont lisibles sur téléphone.
 - [x] Les ressources affichent les informations nécessaires sur leur origine et leur niveau de validation.
 - [x] L'ajout ou la correction d'un contenu ne nécessite pas de modifier toute l'application.
@@ -382,9 +386,9 @@ Préparer une version stable, sécurisée, rapide et maintenable, puis la mettre
 
 - **Partie :** Partie 5 — Matières et contenus pédagogiques.
 - **Statut :** `🟨 En cours`
-- **Prochaine action :** réaliser la recette responsive du nouveau corpus administré, puis saisir et faire approuver les premières fiches réelles à partir de documents pédagogiques vérifiés ; raccorder ensuite un fournisseur plafonné pour assister leur préparation sans publication automatique.
-- **Sources déjà analysées :** neuf impressions du catalogue Faso e-education, inventoriées dans [`docs/ANALYSE_SOURCES_PARTIE_5.md`](./docs/ANALYSE_SOURCES_PARTIE_5.md).
-- **Rappel :** le catalogue est la base de travail choisie par le porteur, avec validation institutionnelle en attente ; ne pas le présenter comme un référentiel administratif exhaustif.
+- **Prochaine action :** terminer la recette responsive et la recette de reconnexion réelle du carnet personnel, puis préparer la validation finale de la Partie 5.
+- **Sources déjà analysées :** neuf impressions du programme/catalogue Faso e-education, inventoriées dans [`docs/ANALYSE_SOURCES_PARTIE_5.md`](./docs/ANALYSE_SOURCES_PARTIE_5.md).
+- **Rappel :** le programme fourni définit la trame de révision choisie par le porteur, mais ne suffit pas à certifier le contenu factuel d'un cours ; ne pas inventer de connaissances manquantes.
 
 ---
 
@@ -437,5 +441,7 @@ Préparer une version stable, sécurisée, rapide et maintenable, puis la mettre
 | 2026-10-17 | 5 | Les médias de bilan passent par l'API avec contrôle de signature, limites de 2 photos de 5 Mo et 1 audio de 10 Mo, quota global et stockage S3 privé obligatoire en production. | Protéger les contenus personnels tout en gardant un parcours économique et reprenable sur connexion instable. | Le bilan est synchronisé avant ses médias ; l'appareil personnel conserve une outbox, l'appareil partagé envoie sans persistance locale et le stockage fichier reste réservé au développement. |
 | 2026-10-17 | 5 | Un fournisseur local déterministe structure le bilan sans inventer d'information et sert de repli gratuit au futur enrichissement factuel. | Livrer dès maintenant le parcours original → brouillon → sources → décisions, sans présenter une génération non configurée comme fiable. | Le contrat fournisseur, la persistance versionnée, les citations, les corrections confirmées et la validation du cours sont opérationnels ; la recherche, l'OCR, la transcription et les explications factuelles externes restent à raccorder. |
 | 2026-10-17 | 5 | Le corpus factuel est administré par thème et reste vide par défaut ; seule une fiche explicitement publiée peut enrichir ou corriger un bilan. | Ne jamais transformer une connaissance inventée ou une source non vérifiée en contenu commun. | L'administration peut versionner, sourcer, publier et archiver les fiches ; le fournisseur `curated-corpus` les utilise avec citations et revient au mode local lorsqu'aucune fiche n'est disponible. |
+| 2026-10-17 | 5 | Le programme officiel disponible suffit comme trame du MVP ; aucun corpus complet de cours officiels supplémentaire n'est attendu. | Le porteur ne peut pas obtenir ces documents et veut néanmoins une plateforme utile jusqu'aux révisions finales de juillet 2027. | La valeur principale vient du carnet privé construit avec les bilans de classe, les cours personnels validés, les auto-évaluations et des rappels espacés ; les fiches communes sourcées deviennent un enrichissement facultatif. |
+| 2026-10-17 | 5 | Une auto-évaluation peut être saisie hors ligne sur un appareil personnel et synchronisée de manière idempotente. | Une connexion instable ne doit ni bloquer un passage de révision ni le dupliquer lors d'une nouvelle tentative. | Chaque passage porte un UUID client et son heure d'exécution ; l'aperçu est optimiste, l'outbox est rejouée à la reconnexion et aucun stockage privé persistant n'est utilisé sur appareil partagé. |
 
 > Ajouter une ligne à ce tableau lorsqu'un choix important est validé : technologie, fonctionnalité, design, règle métier ou changement de périmètre.

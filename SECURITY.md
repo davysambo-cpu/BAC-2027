@@ -23,6 +23,9 @@ Le canal privé de signalement sera défini avant l'ouverture du MVP à des util
 - médias de bilan limités en taille et en nombre, vérifiés par signature binaire et accessibles uniquement à leur propriétaire ;
 - clés de stockage générées par le serveur, réponses privées `no-store` et blocage de l'interprétation de type avec `nosniff` ;
 - brouillons pédagogiques privés, réponses des fournisseurs strictement validées et corrections impossibles sans extrait original et citation ;
+- historique d'auto-évaluation privé, toujours filtré par l'identifiant de l'élève et limité aux thèmes visibles de sa série ;
+- écriture d'une révision protégée par un en-tête d'intention, une limite de débit, un UUID unique par élève et le rejet d'une heure d'exécution trop future ;
+- auto-évaluations hors ligne conservées uniquement sur un appareil personnel et retirées de la file des opérations en attente après acquittement idempotent du serveur ;
 - publication du corpus réservée à l'administration, protégée par un en-tête d'intention, un contrôle de version et un journal d'audit ;
 - liens de citation limités à HTTP(S) et règles de contradiction limitées à des chaînes littérales non exécutables ;
 - aucun envoi à un fournisseur externe tant qu'il n'est pas explicitement configuré ; le mode local déterministe reste le repli sans coût ;

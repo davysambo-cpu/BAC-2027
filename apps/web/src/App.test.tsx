@@ -1,7 +1,8 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { App } from "./App";
+import { clearPrivateOfflineData } from "./offline/database";
 
 function unauthenticatedResponse() {
   return new Response(
@@ -16,9 +17,10 @@ function unauthenticatedResponse() {
   );
 }
 
-afterEach(() => {
+afterEach(async () => {
   vi.restoreAllMocks();
   window.history.replaceState({}, "", "/");
+  await clearPrivateOfflineData();
 });
 
 describe("account application", () => {
@@ -56,7 +58,7 @@ describe("account application", () => {
       status: "active" as const,
       seriesCode: "D",
     };
-    const session = { deviceType: "shared" as const, expiresAt: "2026-10-17T07:00:00.000Z" };
+    const session = { deviceType: "personal" as const, expiresAt: "2026-10-17T07:00:00.000Z" };
     const subjectId = "e3ea63b6-0c90-47dc-8bb2-dd7060d74d8e";
     const itemId = "fedc451a-b68c-4dc7-9f7f-990cd0f9bc49";
     const reportId = "48b3dad3-640c-4a91-98c8-ef133de62f38";
@@ -64,6 +66,8 @@ describe("account application", () => {
     const citationId = "a4d0d4c9-ee2b-486a-b639-1772a5bc52c1";
     let mediaUploadHeader: string | null = null;
     let enrichmentHeader: string | null = null;
+    let revisionHeader: string | null = null;
+    let revisionAssessment: string | null = null;
     let draftStatus: "needs_review" | "accepted" = "needs_review";
     const draftPayload = () => ({
       id: draftId,
@@ -156,6 +160,56 @@ describe("account application", () => {
           }),
         );
       }
+      if (url.endsWith(`/api/v1/revision/topics/${itemId}/reviews`) && init?.method === "POST") {
+        revisionHeader = new Headers(init.headers).get("X-BAC-Revision");
+        const body = JSON.parse(String(init.body)) as { assessment: string; note: string | null };
+        revisionAssessment = body.assessment;
+        return Promise.resolve(
+          Response.json(
+            {
+              id: "df5461bf-3c87-4a8b-8f05-3e42f4162e31",
+              catalogueItemId: itemId,
+              assessment: body.assessment,
+              note: body.note,
+              reviewedAt: "2026-10-17T12:00:00.000Z",
+              nextReviewAt: "2026-10-20T12:00:00.000Z",
+            },
+            { status: 201 },
+          ),
+        );
+      }
+      if (url.endsWith("/api/v1/revision/topics")) {
+        return Promise.resolve(
+          Response.json({
+            generatedAt: "2026-10-17T12:00:00.000Z",
+            targetMonth: "2027-07",
+            summary: {
+              totalTopics: 1,
+              startedTopics: 0,
+              coursesReady: 0,
+              reviewedTopics: 0,
+              masteredTopics: 0,
+              dueTopics: 0,
+            },
+            topics: [
+              {
+                catalogueItemId: itemId,
+                subjectId,
+                subjectName: "Mathématiques",
+                title: "Fonction logarithme népérien",
+                section: "Mathématiques",
+                reportCount: 0,
+                acceptedCourseCount: 0,
+                latestLessonDate: null,
+                reviewCount: 0,
+                latestReview: null,
+                stage: "not_started",
+                isDue: false,
+              },
+            ],
+          }),
+        );
+      }
       if (url.endsWith(`/api/v1/daily-reports/${reportId}/attachments`)) {
         mediaUploadHeader = new Headers(init?.headers).get("X-BAC-Media-Upload");
         const form = init?.body as FormData;
@@ -212,12 +266,36 @@ describe("account application", () => {
 
     render(<App />);
 
-    expect(await screen.findByRole("heading", { name: "Ressources" })).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { name: "Mon carnet de révision" }),
+    ).toBeInTheDocument();
     expect(await screen.findByRole("tab", { name: /Mathématiques/ })).toHaveAttribute(
       "aria-selected",
       "true",
     );
     expect(await screen.findByText("Fonction logarithme népérien")).toBeInTheDocument();
+
+    window.dispatchEvent(new Event("offline"));
+    expect(await screen.findByText("Hors ligne")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Faire le point" }));
+    expect(
+      screen.getByRole("heading", { name: "Faire le point : Fonction logarithme népérien" }),
+    ).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText(/Fragile/));
+    fireEvent.change(screen.getByLabelText(/Point à reprendre/), {
+      target: { value: "Refaire l'exercice 4." },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Enregistrer cette révision" }));
+    expect(
+      await screen.findByText(/Révision sauvegardée sur cet appareil.*20 oct\./),
+    ).toBeInTheDocument();
+    expect(revisionHeader).toBeNull();
+
+    window.dispatchEvent(new Event("online"));
+    await waitFor(() => expect(revisionHeader).toBe("1"));
+    expect(revisionAssessment).toBe("fragile");
+    expect(await screen.findByText("Synchronisé")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "+ Nouveau bilan" }));
     fireEvent.change(screen.getByLabelText("Titre"), {
@@ -237,9 +315,7 @@ describe("account application", () => {
     fireEvent.click(screen.getByRole("button", { name: "Enregistrer mon bilan" }));
 
     expect(
-      await screen.findByText(
-        "Bilan et médias enregistrés. Aucune copie privée ne reste sur cet appareil partagé.",
-      ),
+      await screen.findByText("Bilan et médias enregistrés et synchronisés."),
     ).toBeInTheDocument();
     expect(mediaUploadHeader).toBe("1");
     expect(screen.getByText("Le logarithme")).toBeInTheDocument();
@@ -253,7 +329,7 @@ describe("account application", () => {
     fireEvent.click(screen.getByRole("button", { name: "Valider comme cours personnel" }));
     expect(
       await screen.findByText(
-        "Le brouillon a été validé comme cours personnel. Le bilan original reste conservé.",
+        "Le brouillon a été validé comme cours personnel et ajouté au suivi de révision. Le bilan original reste conservé.",
       ),
     ).toBeInTheDocument();
     expect(screen.getByText("Cours validé")).toBeInTheDocument();

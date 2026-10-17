@@ -7,6 +7,7 @@ export const syncEntityTypeSchema = z.enum([
   "revisionSession",
   "quizAttempt",
   "dailyReport",
+  "topicRevisionReview",
   "studentProfile",
 ]);
 

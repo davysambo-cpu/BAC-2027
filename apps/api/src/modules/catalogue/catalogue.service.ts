@@ -4,9 +4,9 @@ import { ApplicationError } from "../../lib/errors";
 import type { CatalogueRepository } from "./catalogue.repository";
 
 const catalogueNotice =
-  "Catalogue pédagogique initial fourni par le porteur du projet. Les entrées sans indication de série restent à confirmer pour la Série D ; les entrées explicitement destinées à une autre série sont masquées.";
+  "Programme officiel communiqué par le porteur du projet et utilisé comme trame de révision. Les entrées sans indication de série restent à confirmer pour la Série D ; celles explicitement destinées à une autre série sont masquées.";
 const adminCatalogueNotice =
-  "Vue administrative du catalogue initial : les entrées explicitement destinées à une autre série restent visibles pour conservation, mais ne sont jamais proposées aux élèves de Série D.";
+  "Vue administrative du programme fourni : les entrées explicitement destinées à une autre série restent visibles pour conservation, mais ne sont jamais proposées aux élèves de Série D.";
 
 export class CatalogueService {
   constructor(private readonly repository: CatalogueRepository) {}

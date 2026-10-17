@@ -108,6 +108,44 @@ export function AuthProvider({ children }: PropsWithChildren) {
     };
   }, [storeAuthentication]);
 
+  useEffect(() => {
+    if (state.status !== "authenticated" || state.session?.deviceType !== "personal") return;
+
+    function handleOffline() {
+      setState((current) =>
+        current.status === "authenticated" && current.session?.deviceType === "personal"
+          ? { ...current, offline: true }
+          : current,
+      );
+    }
+
+    async function handleOnline() {
+      if (!state.offline) return;
+      try {
+        const [session, profile] = await Promise.all([getCurrentSession(), getProfile()]);
+        await storeAuthentication(session, profile.preferences);
+      } catch (error) {
+        if (error instanceof ApiClientError && error.status === 401) {
+          await clearAuthenticationCache();
+          setState({
+            status: "guest",
+            user: null,
+            preferences: defaultPreferences,
+            session: null,
+            offline: false,
+          });
+        }
+      }
+    }
+
+    window.addEventListener("offline", handleOffline);
+    window.addEventListener("online", handleOnline);
+    return () => {
+      window.removeEventListener("offline", handleOffline);
+      window.removeEventListener("online", handleOnline);
+    };
+  }, [state.offline, state.session?.deviceType, state.status, storeAuthentication]);
+
   const completeAuthentication = useCallback(
     async (authentication: AuthResponse) => {
       const profile = await getProfile();

@@ -251,6 +251,14 @@ Une actualisation forcée compare le fournisseur et la version de la fiche : ell
 - nouvelle génération dédupliquée pour une même version du bilan ;
 - validation finale impossible tant qu'une correction reste sans décision.
 
+### Carnet de révision fondé sur le programme
+
+Le programme est une trame de couverture, pas un corpus factuel. L'API agrège pour chaque thème visible : bilans privés, cours personnels actuellement validés et auto-évaluations. Chaque révision est un événement append-only lié à l'élève et au thème ; elle conserve un UUID client idempotent, le niveau déclaré, une note facultative, l'heure réelle d'exécution, l'heure serveur et le prochain rappel proposé.
+
+Les intervalles initiaux sont déterministes : 1 jour (`difficult`), 3 jours (`fragile`), 7 jours (`comfortable`) et 21 jours (`mastered`). Ils servent à organiser le retour sur les notions, sans produire une note scolaire ni affirmer une maîtrise objective. La route d'écriture contrôle la Série D, la propriété de la session et un en-tête d'intention.
+
+Sur un appareil personnel, la dernière vue agrégée est cachée et une auto-évaluation peut être créée hors ligne : l'interface applique immédiatement le passage à l'aperçu local puis conserve l'opération `topicRevisionReview` dans l'outbox Dexie. À la reconnexion, le même UUID est envoyé jusqu'à acquittement ; l'unicité serveur évite toute duplication après une réponse perdue. Un appareil partagé n'utilise pas ce stockage privé persistant.
+
 ### Format d'erreur cible
 
 ```json
@@ -275,6 +283,7 @@ PostgreSQL conserve :
 - comptes, invitations et profils ;
 - matières, chapitres et catalogue ;
 - fiches de savoir approuvées, versions, règles littérales et provenance ;
+- journal privé des auto-évaluations et rappels par thème ;
 - métadonnées des ressources ;
 - planning ;
 - quiz, questions, tentatives et résultats ;
@@ -353,6 +362,7 @@ IndexedDB contient notamment :
 
 - métadonnées des ressources ;
 - notes personnelles ;
+- dernière vue agrégée du carnet de révision ;
 - séances de révision ;
 - quiz explicitement téléchargés ;
 - tentatives non synchronisées ;

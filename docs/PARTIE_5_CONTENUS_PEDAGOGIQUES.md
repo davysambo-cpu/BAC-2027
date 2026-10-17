@@ -1,6 +1,6 @@
 # Partie 5 — Contenus pédagogiques et bilans quotidiens
 
-**Statut :** cadrage en cours  
+**Statut :** implémentation en cours
 **Date :** 17 octobre 2026
 
 ## Vision confirmée
@@ -12,9 +12,10 @@ BAC-2027 ne doit pas seulement afficher une bibliothèque de cours préchargés.
 3. BAC-2027 sauvegarde immédiatement cette saisie ;
 4. lorsqu'une connexion est disponible, un service pédagogique structure le bilan, complète les explications et recherche des sources ;
 5. les contradictions possibles sont signalées avec une proposition argumentée ;
-6. l'élève vérifie les propositions avant de constituer son cours personnel.
+6. l'élève vérifie les propositions avant de constituer son cours personnel ;
+7. il revient régulièrement sur chaque thème, s'auto-évalue et suit ce qu'il doit encore travailler avant juillet 2027.
 
-Les neuf PDF Faso e-education constituent le **catalogue pédagogique initial choisi par le porteur du projet**. Leur validation institutionnelle reste en attente et ce statut doit être visible dans les données.
+Le porteur confirme que le **programme officiel dont il dispose sera la seule trame documentaire obligatoire**. Les neuf PDF Faso e-education déjà inventoriés en constituent la transcription de travail choisie pour le MVP, avec leur provenance et leur réserve de validation inchangées. Aucun corpus complet de cours officiels supplémentaire n'est attendu : le programme dit quoi couvrir, tandis que les bilans de classe et les cours personnels validés construisent la matière de révision.
 
 ## Principes non négociables
 
@@ -162,6 +163,7 @@ Les entrées explicitement étiquetées Terminale A, C ou C-E ne sont pas consid
 
 ## Décisions validées le 17 octobre 2026
 
+- le programme officiel disponible suffit comme trame ; l'absence d'un corpus officiel complet de cours ne bloque plus le MVP ;
 - une correction est **proposée puis confirmée par l'élève** ; elle n'est jamais appliquée silencieusement ;
 - les entrées explicitement destinées à une autre série sont conservées pour l'administration et masquées côté élève ;
 - la recherche donne la priorité aux sources fiables approuvées, puis peut utiliser le web plus large avec citations et avertissements ;
@@ -245,7 +247,28 @@ BAC-2027 peut désormais recevoir des contenus factuels sans dépendre d'un mod�
 - un élève peut rechercher une fiche récemment publiée ou actualisée sans modifier son bilan original ; une nouvelle génération versionnée n'est créée que si le corpus a réellement changé ;
 - les conflits d'édition administratifs sont bloqués par contrôle de version optimiste.
 
-Le corpus est volontairement **vide par défaut** : le logiciel ne publie aucune connaissance inventée ou non approuvée. Les premières fiches réelles devront être saisies à partir de documents pédagogiques vérifiés par le porteur ou son équipe. Un fournisseur externe pourra ensuite proposer des brouillons, mais leur publication dans le corpus restera une action administrative explicite.
+Le corpus est volontairement **vide par défaut** : le logiciel ne publie aucune connaissance inventée ou non approuvée. Son remplissage n'est plus un prérequis du MVP. Une fiche réelle pourra être ajoutée lorsqu'un professeur ou une source pédagogique vérifiable devient disponible. Un fournisseur externe pourra ensuite proposer des brouillons, mais leur publication dans le corpus restera une action administrative explicite.
+
+## Cinquième incrément réalisé — carnet de révision durable
+
+La plateforme fournit désormais une valeur utile même lorsque le corpus commun est vide :
+
+- les 191 thèmes visibles deviennent une liste de contrôle privée pour chaque élève ;
+- le suivi distingue un thème non commencé, des notes à structurer, un cours personnel prêt, une révision en cours et une notion déclarée maîtrisée ;
+- les compteurs agrègent les bilans réellement enregistrés et les cours effectivement validés, sans déduire une connaissance que l'élève n'a pas déclarée ;
+- après une révision, l'élève s'auto-évalue sur quatre niveaux : `difficult`, `fragile`, `comfortable` ou `mastered` ;
+- le serveur propose un prochain rappel après 1, 3, 7 ou 21 jours. Ce rythme est déterministe, modifiable plus tard et ne constitue pas une note scolaire ;
+- chaque auto-évaluation est ajoutée à un journal privé : l'historique n'est pas écrasé et un autre élève ne peut ni le lire ni le modifier ;
+- l'élève peut conserver une courte note sur le point à reprendre lors de la prochaine séance ;
+- les filtres montrent ce qui reste à commencer, les notes à structurer, les thèmes dus et ceux déclarés maîtrisés ;
+- un thème permet de rouvrir directement le cours personnel ou les notes déjà collectées ;
+- le tableau de bord choisit sa prochaine action à partir de la progression réelle et affiche l'horizon configurable `2027-07` ;
+- la dernière vue de progression est mise en cache sur l'appareil personnel pour consultation hors ligne ;
+- sur cet appareil, une auto-évaluation saisie sans réseau met immédiatement à jour l'aperçu local, rejoint l'outbox et est rejouée à la reconnexion ;
+- chaque passage possède un UUID client et son heure d'exécution : le serveur traite les répétitions du même UUID de façon idempotente, sans dupliquer le journal ;
+- un appareil déclaré partagé ne conserve ni cet aperçu privé ni une file locale.
+
+La migration `0004_rainy_thing.sql` ajoute uniquement le journal des révisions. Aucune connaissance factuelle et aucune date précise d'examen ne sont inventées : juillet 2027 est un horizon de préparation configurable via `REVISION_TARGET_MONTH`.
 
 ## Décisions restant à valider pendant les incréments suivants
 

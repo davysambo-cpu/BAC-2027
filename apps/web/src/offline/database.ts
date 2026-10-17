@@ -10,6 +10,7 @@ import type {
   EnrichmentStatus,
   MutationKind,
   ProfilePreferences,
+  RevisionOverview,
   StudentCatalogueResponse,
   SyncEntityType,
 } from "@bac-2027/contracts";
@@ -135,6 +136,12 @@ export interface CachedCourseDraft {
   cachedAt: string;
 }
 
+export interface CachedRevisionOverview {
+  studentId: string;
+  overview: RevisionOverview;
+  cachedAt: string;
+}
+
 export class OfflineDatabase extends Dexie {
   resources!: EntityTable<LocalResource, "id">;
   dailyReports!: EntityTable<LocalDailyReport, "id">;
@@ -146,6 +153,7 @@ export class OfflineDatabase extends Dexie {
   authCache!: EntityTable<CachedAuthentication, "key">;
   catalogueCache!: EntityTable<CachedCatalogue, "key">;
   courseDrafts!: EntityTable<CachedCourseDraft, "id">;
+  revisionOverviews!: EntityTable<CachedRevisionOverview, "studentId">;
 
   constructor(name = "bac-2027") {
     super(name);
@@ -174,6 +182,12 @@ export class OfflineDatabase extends Dexie {
       ...learningStores,
       catalogueCache: "key, cachedAt",
       courseDrafts: "id, reportId, studentId, cachedAt, [studentId+reportId]",
+    });
+    this.version(6).stores({
+      ...learningStores,
+      catalogueCache: "key, cachedAt",
+      courseDrafts: "id, reportId, studentId, cachedAt, [studentId+reportId]",
+      revisionOverviews: "studentId, cachedAt",
     });
   }
 }
@@ -239,6 +253,23 @@ export async function readCachedCourseDraft(
   return cached?.draft ?? null;
 }
 
+export async function cacheRevisionOverview(
+  studentId: string,
+  overview: RevisionOverview,
+): Promise<void> {
+  await offlineDatabase.revisionOverviews.put({
+    studentId,
+    overview,
+    cachedAt: new Date().toISOString(),
+  });
+}
+
+export async function readCachedRevisionOverview(
+  studentId: string,
+): Promise<RevisionOverview | null> {
+  return (await offlineDatabase.revisionOverviews.get(studentId))?.overview ?? null;
+}
+
 export async function clearPrivateOfflineData(): Promise<void> {
   await offlineDatabase.transaction(
     "rw",
@@ -252,6 +283,7 @@ export async function clearPrivateOfflineData(): Promise<void> {
       offlineDatabase.syncMetadata,
       offlineDatabase.authCache,
       offlineDatabase.courseDrafts,
+      offlineDatabase.revisionOverviews,
     ],
     async () => {
       await Promise.all([
@@ -264,6 +296,7 @@ export async function clearPrivateOfflineData(): Promise<void> {
         offlineDatabase.syncMetadata.clear(),
         offlineDatabase.authCache.clear(),
         offlineDatabase.courseDrafts.clear(),
+        offlineDatabase.revisionOverviews.clear(),
       ]);
     },
   );

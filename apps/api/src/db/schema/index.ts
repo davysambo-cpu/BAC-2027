@@ -7,5 +7,6 @@ export * from "./knowledge";
 export * from "./planning";
 export * from "./quizzes";
 export * from "./resources";
+export * from "./revision";
 export * from "./sync";
 export * from "./users";

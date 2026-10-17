@@ -14,13 +14,16 @@ import {
   knowledgeCardSchema,
   profileResponseSchema,
   resetCodeResponseSchema,
+  revisionOverviewSchema,
   studentCatalogueResponseSchema,
+  topicRevisionReviewSchema,
   type ActivateInvitationRequest,
   type AuthResponse,
   type CompletePasswordResetRequest,
   type CourseDraft,
   type CreateDailyReportRequest,
   type CreateInvitationRequest,
+  type CreateTopicRevisionReviewRequest,
   type CreateKnowledgeCardRequest,
   type CurrentUser,
   type DailyReport,
@@ -32,8 +35,10 @@ import {
   type KnowledgeCardListResponse,
   type LoginRequest,
   type ProfileResponse,
+  type RevisionOverview,
   type ReviewDraftCorrectionRequest,
   type StudentCatalogueResponse,
+  type TopicRevisionReview,
   type UpdateKnowledgeCardRequest,
   type UpdateProfileRequest,
 } from "@bac-2027/contracts";
@@ -202,6 +207,25 @@ export function getStudentCatalogue(): Promise<StudentCatalogueResponse> {
 
 export function getAdminCatalogue(): Promise<StudentCatalogueResponse> {
   return request("/api/v1/admin/catalogue", studentCatalogueResponseSchema);
+}
+
+export function getRevisionOverview(): Promise<RevisionOverview> {
+  return request("/api/v1/revision/topics", revisionOverviewSchema);
+}
+
+export function recordTopicRevision(
+  catalogueItemId: string,
+  input: CreateTopicRevisionReviewRequest,
+): Promise<TopicRevisionReview> {
+  return request(
+    `/api/v1/revision/topics/${encodeURIComponent(catalogueItemId)}/reviews`,
+    topicRevisionReviewSchema,
+    {
+      method: "POST",
+      headers: { "X-BAC-Revision": "1" },
+      body: JSON.stringify(input),
+    },
+  );
 }
 
 export function listDailyReports(): Promise<DailyReportListResponse> {

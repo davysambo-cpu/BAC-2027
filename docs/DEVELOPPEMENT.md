@@ -125,6 +125,19 @@ Les mutations du corpus exigent `X-BAC-Knowledge-Write: 1`. L'actualisation d'un
 
 L'interface `EnrichmentProvider` permettra aussi de raccorder un moteur de recherche ou un modèle de génération. Toute implémentation doit renvoyer le contrat structuré, conserver ses métadonnées et associer chaque correction à un extrait exact de l'original ainsi qu'à au moins une citation. Un fournisseur externe pourra préparer un brouillon de fiche, mais la publication restera une action administrative.
 
+## Carnet personnel de révision
+
+Le programme visible fournit 191 thèmes de contrôle. `GET /api/v1/revision/topics` agrège, pour l'élève connecté, les bilans, les cours personnels validés et le journal `topic_revision_reviews`. `POST /api/v1/revision/topics/:catalogueItemId/reviews` ajoute une auto-évaluation privée et exige `X-BAC-Revision: 1`. Le corps contient un UUID client `id`, le niveau, la note facultative et `performedAt`. Réenvoyer le même UUID avec le même propriétaire renvoie le passage existant sans nouvelle insertion.
+
+Les rappels initiaux sont calculés à partir de `performedAt` :
+
+- `difficult` : 1 jour ;
+- `fragile` : 3 jours ;
+- `comfortable` : 7 jours ;
+- `mastered` : 21 jours.
+
+Sur un appareil personnel, la vue agrégée est cachée dans IndexedDB et une auto-évaluation sans réseau est conservée comme opération `topicRevisionReview` dans l'outbox. L'aperçu local est mis à jour immédiatement ; `syncPendingTopicRevisionReviews` rejoue les opérations à la reconnexion et les marque comme synchronisées après la réponse de l'API. Ce stockage persistant est désactivé sur un appareil partagé. `REVISION_TARGET_MONTH=2027-07` configure l'horizon affiché ; ce mois ne doit pas être présenté comme une date officielle précise de l'examen.
+
 ## Contrôles de qualité
 
 ```bash
@@ -163,7 +176,7 @@ Les variables privées ne doivent pas être préfixées par `VITE_`. Tout nom co
 
 En production, la validation refuse de démarrer si `DATABASE_DRIVER` n'est pas `postgres` ou si `AUTH_TOKEN_SECRET` conserve la valeur de développement. Le secret doit contenir au moins 32 caractères aléatoires et être fourni par le gestionnaire de secrets du déploiement.
 
-Les durées configurables de la Partie 4 sont `INVITATION_TTL_HOURS`, `RESET_CODE_TTL_MINUTES`, `PERSONAL_SESSION_TTL_DAYS` et `SHARED_SESSION_TTL_HOURS`.
+Les durées configurables de la Partie 4 sont `INVITATION_TTL_HOURS`, `RESET_CODE_TTL_MINUTES`, `PERSONAL_SESSION_TTL_DAYS` et `SHARED_SESSION_TTL_HOURS`. L'horizon du carnet est `REVISION_TARGET_MONTH` au format `AAAA-MM`.
 
 ## Résolution des problèmes
 

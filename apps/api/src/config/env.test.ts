@@ -10,11 +10,13 @@ describe("environment", () => {
     expect(parsed.API_PORT).toBe(3000);
     expect(parsed.DEFAULT_USER_STORAGE_QUOTA_MB).toBe(250);
     expect(parsed.EMBEDDED_PREVIEW_MODE).toBe(false);
+    expect(parsed.REVISION_TARGET_MONTH).toBe("2027-07");
     expect(parsed.SEED_DEMO_DATA).toBe(false);
   });
 
-  it("rejects an invalid API port", () => {
+  it("rejects invalid runtime values", () => {
     expect(() => readEnvironment({ API_PORT: "70000" })).toThrow();
+    expect(() => readEnvironment({ REVISION_TARGET_MONTH: "juillet-2027" })).toThrow();
   });
 
   it("requires PostgreSQL and a unique authentication secret in production", () => {
