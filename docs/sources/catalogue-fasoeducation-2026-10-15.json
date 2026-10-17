@@ -1,0 +1,1131 @@
+{
+  "receivedAt": "2026-10-16",
+  "classification": "reference_catalogue_non_normatif",
+  "portal": "https://fasoeducation.bf/",
+  "notice": "Inventaire fidèle des liens de cours visibles dans les neuf impressions PDF reçues. Il ne constitue pas encore le programme officiel validé de la Série D.",
+  "documents": [
+    {
+      "fileName": "Programme ang.pdf",
+      "sha256": "a7a9b8bc273a00be0885f45bf42ca940a808081d94be20ecc3c61b188c4aa25e",
+      "pdfPages": 2,
+      "pdfTitle": "Faso e-education - Anglais",
+      "printCreationDate": "D:20261015002531+00'00'",
+      "sourcePage": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale.html",
+      "catalogueSection": "ANGLAIS",
+      "itemCount": 18,
+      "items": [
+        {
+          "position": 1,
+          "title": "Reading Comprehension 1 (terminale C & D)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/reading-comprehension-1.html"
+        },
+        {
+          "position": 2,
+          "title": "Reading Comprehension 2 (terminale C & D)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/reading-comprehension-2.html"
+        },
+        {
+          "position": 3,
+          "title": "Vocabulary : Essential Minerals for body (terminale C & D)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/essential-minerals.html"
+        },
+        {
+          "position": 4,
+          "title": "Importance of success",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-importance-success.html"
+        },
+        {
+          "position": 5,
+          "title": "Street children listening",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-street-children-listening.html"
+        },
+        {
+          "position": 6,
+          "title": "Building",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-building.html"
+        },
+        {
+          "position": 7,
+          "title": "Conditional sentences",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-conditional-sentences.html"
+        },
+        {
+          "position": 8,
+          "title": "Some business expressions",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-business-expressions.html"
+        },
+        {
+          "position": 9,
+          "title": "Word formation with ee er or",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-word-formation.html"
+        },
+        {
+          "position": 10,
+          "title": "Starting your own business",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-starting-your-own-business.html"
+        },
+        {
+          "position": 11,
+          "title": "The damaging effects of smoking",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-damaging-effects-smoking.html"
+        },
+        {
+          "position": 12,
+          "title": "The use of participial phrases",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-use-participial-phrases.html"
+        },
+        {
+          "position": 13,
+          "title": "Grammar : verb patterns and Causative structures",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-verb-patterns-causative-structures.html"
+        },
+        {
+          "position": 14,
+          "title": "Vocabulary : describing trends",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-describing-trends.html"
+        },
+        {
+          "position": 15,
+          "title": "Reading comprehension : views about demographic trends",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-views-about-demographic-trends.html"
+        },
+        {
+          "position": 16,
+          "title": "Grammar : relative clauses",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-relative-clauses.html"
+        },
+        {
+          "position": 17,
+          "title": "Vocabulary : the necessity of tolerance",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-necessity-tolerance-vocabulary.html"
+        },
+        {
+          "position": 18,
+          "title": "Reading comprehension : the necessity of tolerance",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/anglais-terminale/esu-necessity-tolerance-reading.html"
+        }
+      ]
+    },
+    {
+      "fileName": "Programme chimie.pdf",
+      "sha256": "10cae5739e9c33d5c4e179f1f6b087947f14210f483165dbcd7c6f382ecacdb0",
+      "pdfPages": 2,
+      "pdfTitle": "Faso e-education - Sciences physiques terminale",
+      "printCreationDate": "D:20261015002025+00'00'",
+      "sourcePage": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale.html",
+      "catalogueSection": "CHIMIE",
+      "itemCount": 26,
+      "items": [
+        {
+          "position": 1,
+          "title": "Les alcools (terminales C-D-E)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/alcools.html"
+        },
+        {
+          "position": 2,
+          "title": "Les aldéhydes et les cétones (terminales C-D-E)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/aldehydes-cetones.html"
+        },
+        {
+          "position": 3,
+          "title": "Présentation des alcools et des polyols",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-presentation-alcools-polyols.html"
+        },
+        {
+          "position": 4,
+          "title": "Quelques propriétés chimiques des alcools",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-proprietes-chimiques-alcools.html"
+        },
+        {
+          "position": 5,
+          "title": "Préparation des alcools",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-preparation-alcools.html"
+        },
+        {
+          "position": 6,
+          "title": "Les composés carbonylés",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-composes-carbonyles.html"
+        },
+        {
+          "position": 7,
+          "title": "L'oxydation ménagée des alcools",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-oxydation-menagee-alcools.html"
+        },
+        {
+          "position": 8,
+          "title": "Les propriétés chimiques des aldéhydes et des cétones",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-proprietes-chimiques-aldehydes.html"
+        },
+        {
+          "position": 9,
+          "title": "Les acides carboxyliques",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-acides-carboxyliques.html"
+        },
+        {
+          "position": 10,
+          "title": "Estérification et hydrolyse",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-esterification-hydrolyse.html"
+        },
+        {
+          "position": 11,
+          "title": "Les facteurs d'équilibre d'estérification-hydrolyse",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-facteurs-equilibre-esterification-hydrolyse.html"
+        },
+        {
+          "position": 12,
+          "title": "La saponification",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-saponification.html"
+        },
+        {
+          "position": 13,
+          "title": "Les solutions aqueuses",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-solutions-aqueuses-terminale.html"
+        },
+        {
+          "position": 14,
+          "title": "Notion de pH",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-notion-de-ph.html"
+        },
+        {
+          "position": 15,
+          "title": "Les acides forts",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-acides-forts.html"
+        },
+        {
+          "position": 16,
+          "title": "Les bases fortes",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-bases-fortes.html"
+        },
+        {
+          "position": 17,
+          "title": "La solution d'acide éthanoïque",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-solution-acide-ethanoique.html"
+        },
+        {
+          "position": 18,
+          "title": "La solution d'éthanoate de sodium",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-solution-ethanoate-sodium.html"
+        },
+        {
+          "position": 19,
+          "title": "La notion de couple acide/base",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-notion-couple-acide-base.html"
+        },
+        {
+          "position": 20,
+          "title": "La constante d'acidité",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-constante-acidite.html"
+        },
+        {
+          "position": 21,
+          "title": "La classification des couples acide/base dans l'eau",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-classification-couples-acide-base-dans-eau.html"
+        },
+        {
+          "position": 22,
+          "title": "Zones de prédominance des formes acide et basique d'un couple acide/base",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-zones-predominance-formes-acide-basique-couple-acide-base.html"
+        },
+        {
+          "position": 23,
+          "title": "La réaction entre les solutions d'acide chlorhydrique et d'hydroxyde de sodium",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-reaction-entre-solutions-acide-chlorhydrique-hydroxyde-sodium.html"
+        },
+        {
+          "position": 24,
+          "title": "La réaction entre un acide faible et une base forte",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-reaction-entre-acide-faible-base-forte.html"
+        },
+        {
+          "position": 25,
+          "title": "La réaction entre une base faible et un acide fort",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-reaction-entre-base-faible-acide-fort.html"
+        },
+        {
+          "position": 26,
+          "title": "Les solutions tampons",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-solutions-tampons.html"
+        }
+      ]
+    },
+    {
+      "fileName": "Programme fr.pdf",
+      "sha256": "b64b78a3d18459e6cdb39358e4c3a95af0ee0799928e5cd902a2f813fdab7ea4",
+      "pdfPages": 2,
+      "pdfTitle": "Faso e-education - Français terminale",
+      "printCreationDate": "D:20261015002452+00'00'",
+      "sourcePage": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale.html",
+      "catalogueSection": "FRANCAIS",
+      "itemCount": 24,
+      "items": [
+        {
+          "position": 1,
+          "title": "Le commentaire composé en classe de terminale : généralités",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/commentaire-generalites.html"
+        },
+        {
+          "position": 2,
+          "title": "Le commentaire composé en classe de terminale : démarche méthodologique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/commentaire-demarche-methodologique.html"
+        },
+        {
+          "position": 3,
+          "title": "Application de la démarche méthodique du commentaire composé",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/commentaire-application.html"
+        },
+        {
+          "position": 4,
+          "title": "Le résumé de texte en classe de terminale : généralités",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/resume-generalites.html"
+        },
+        {
+          "position": 5,
+          "title": "Les notions et techniques nécessaires à la rédaction du résumé de texte",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/notions-techniques-resume.html"
+        },
+        {
+          "position": 6,
+          "title": "Le résumé de texte en classe de terminale : méthodologie",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/methodologie-redaction-resume.html"
+        },
+        {
+          "position": 7,
+          "title": "La rédaction du résumé de texte",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-redaction-resume-texte.html"
+        },
+        {
+          "position": 8,
+          "title": "Les modalisateurs et leur sens",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-modalisateurs-sens.html"
+        },
+        {
+          "position": 9,
+          "title": "La dissertation : généralités",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-dissertation-generalites.html"
+        },
+        {
+          "position": 10,
+          "title": "La démarche méthodologique de la dissertation",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-demarche-methodologique-dissertation.html"
+        },
+        {
+          "position": 11,
+          "title": "Le plan dialectique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-plan-dialectique.html"
+        },
+        {
+          "position": 12,
+          "title": "Le plan analytique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-plan-analytique.html"
+        },
+        {
+          "position": 13,
+          "title": "Le plan thématique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-plan-thematique.html"
+        },
+        {
+          "position": 14,
+          "title": "Le plan comparatif",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-plan-comparatif.html"
+        },
+        {
+          "position": 15,
+          "title": "Le plan inventaire",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-plan-inventaire.html"
+        },
+        {
+          "position": 16,
+          "title": "Le raisonnement déductif",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-raisonnement-deductif.html"
+        },
+        {
+          "position": 17,
+          "title": "Le raisonnement inductif",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-raisonnement-inductif.html"
+        },
+        {
+          "position": 18,
+          "title": "Le raisonnement par analogie",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-raisonnement-analogie.html"
+        },
+        {
+          "position": 19,
+          "title": "Le raisonnement par opposition",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-raisonnement-opposition.html"
+        },
+        {
+          "position": 20,
+          "title": "Le raisonnement par syllogisme",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-raisonnement-syllogisme.html"
+        },
+        {
+          "position": 21,
+          "title": "Le vocabulaire appréciatif et dépréciatif",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-vocabulaire-appreciatif-depreciatif.html"
+        },
+        {
+          "position": 22,
+          "title": "La versification",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-versification.html"
+        },
+        {
+          "position": 23,
+          "title": "La lecture méthodique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-lecture-methodique.html"
+        },
+        {
+          "position": 24,
+          "title": "Le champ lexical et le champ sémantique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/francais-terminale/esu-champs-lexical-semantique.html"
+        }
+      ]
+    },
+    {
+      "fileName": "Programme geo.pdf",
+      "sha256": "cab235c548a47715597d0096cc9203bea2f1608858a2211083357452ea1de30a",
+      "pdfPages": 1,
+      "pdfTitle": "Faso e-education - Histoire-géographie terminale",
+      "printCreationDate": "D:20261015002252+00'00'",
+      "sourcePage": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale.html",
+      "catalogueSection": "GEOGRAPHIE",
+      "itemCount": 4,
+      "items": [
+        {
+          "position": 1,
+          "title": "L'Union européenne (terminale A)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/union-europeenne.html"
+        },
+        {
+          "position": 2,
+          "title": "La Chine (terminale A)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/chine.html"
+        },
+        {
+          "position": 3,
+          "title": "Le Nigeria (terminale A)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/nigeria.html"
+        },
+        {
+          "position": 4,
+          "title": "Le secteur tertiaire : transports, commerce, tourisme, télécommunications",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/esu-secteur-tertiaire-transports-commerce-tourisme-telecommunications.html"
+        }
+      ]
+    },
+    {
+      "fileName": "Programme his.pdf",
+      "sha256": "9f726bf96e152ff4a17de519ee36fa596fde2c13df76d670929ca1087aec909e",
+      "pdfPages": 2,
+      "pdfTitle": "Faso e-education - Histoire-géographie terminale",
+      "printCreationDate": "D:20261015002321+00'00'",
+      "sourcePage": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale.html",
+      "catalogueSection": "HISTOIRE",
+      "itemCount": 10,
+      "items": [
+        {
+          "position": 1,
+          "title": "La notion de civilisation et son évolution (terminale A)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/notion-civilisation-evolution.html"
+        },
+        {
+          "position": 2,
+          "title": "Les causes de la décolonisation (terminale A)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/causes-decolonisation.html"
+        },
+        {
+          "position": 3,
+          "title": "La décolonisation du Burkina Faso (terminale A)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/decolonisation-burkina-faso.html"
+        },
+        {
+          "position": 4,
+          "title": "L'évolution politique du Burkina Faso (ex Haute- Volta) de 1960 à nos jours (terminale A)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/evolution-politique-burkina-faso.html"
+        },
+        {
+          "position": 5,
+          "title": "Les problèmes de l'Afrique indépendante (terminale A)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/problemes-afrique-independante.html"
+        },
+        {
+          "position": 6,
+          "title": "Les tensions idéologiques et les conflits (terminale A)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/tensions-ideologiques-conflits.html"
+        },
+        {
+          "position": 7,
+          "title": "La fin de la bipolarisation (terminale A)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/fin-bipolarisation.html"
+        },
+        {
+          "position": 8,
+          "title": "La Seconde Guerre mondiale",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/esu-seconde-guerre-mondiale.html"
+        },
+        {
+          "position": 9,
+          "title": "L'ONU",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/esu-onu.html"
+        },
+        {
+          "position": 10,
+          "title": "Les civilisations négro-africaines : caractéristiques et évolution",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/hg-terminale/esu-civilisations-negro-africaines-caracteristiques-evolution.html"
+        }
+      ]
+    },
+    {
+      "fileName": "Programme math.pdf",
+      "sha256": "83ddfc343f425b617ed4ff4b52a768071bcc4dfddc05899e1574adb115c31980",
+      "pdfPages": 2,
+      "pdfTitle": "Faso e-education - Mathématiques terminale",
+      "printCreationDate": "D:20261015002123+00'00'",
+      "sourcePage": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale.html",
+      "catalogueSection": "MATHEMATIQUES",
+      "itemCount": 21,
+      "items": [
+        {
+          "position": 1,
+          "title": "Les courbes paramétrées du plan (terminale D)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/courbes-parametrees-plan.html"
+        },
+        {
+          "position": 2,
+          "title": "Les notions de base sur les similitudes directes (terminale C)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/notions-bases-similitudes-directes.html"
+        },
+        {
+          "position": 3,
+          "title": "Fonction logarithme népérien",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-fonction-logarithme-neperien.html"
+        },
+        {
+          "position": 4,
+          "title": "Étude de la fonction logarithme népérien",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-etude-fonction-logarithme-neperien.html"
+        },
+        {
+          "position": 5,
+          "title": "Ensemble de définition et calcul de limite de la fonction",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-ensemble-definition-calcul-limite-fonction.html"
+        },
+        {
+          "position": 6,
+          "title": "Équations et inéquations logarithmiques",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-equations-inequations-logarithmiques.html"
+        },
+        {
+          "position": 7,
+          "title": "Dérivée de la fonction ln(u) et primitive de la fonction u'/u",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-derivee-fonction-inu-primitive-fonction.html"
+        },
+        {
+          "position": 8,
+          "title": "Étude de la fonction logarithme décimal",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-etude-fonction-logarithme-decimal.html"
+        },
+        {
+          "position": 9,
+          "title": "Fonction exponentielle",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-fonction-exponentielle.html"
+        },
+        {
+          "position": 10,
+          "title": "Fonction puissance",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-fonction-puissance.html"
+        },
+        {
+          "position": 11,
+          "title": "Croissance comparée des fonctions",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-croissance-comparee-fonctions.html"
+        },
+        {
+          "position": 12,
+          "title": "Le vocabulaire des probabilités",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-vocabulaire-probabilites.html"
+        },
+        {
+          "position": 13,
+          "title": "Probabilités",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-probabilites.html"
+        },
+        {
+          "position": 14,
+          "title": "Variable aléatoire réelle",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-variable-aleatoire-reelle.html"
+        },
+        {
+          "position": 15,
+          "title": "Équation différentielle du type y' + a y = 0",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-equation-differentielle-type-y.html"
+        },
+        {
+          "position": 16,
+          "title": "Équation différentielle du second ordre",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-equation-differentielle-second-ordre.html"
+        },
+        {
+          "position": 17,
+          "title": "Intégrale d'une fonction continue",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-integrale-fonction-continue.html"
+        },
+        {
+          "position": 18,
+          "title": "Représentation géométrique d'un nombre complexe",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-representation-geometrique-nombre-complexe.html"
+        },
+        {
+          "position": 19,
+          "title": "Formes trigonométrique - exponentielle d'un nombre complexe",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-formes-trigonometrique-exponentielle-nombre-complexe.html"
+        },
+        {
+          "position": 20,
+          "title": "Formules de Moivre et d'Euler",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-formules-moivre-euler.html"
+        },
+        {
+          "position": 21,
+          "title": "Théorème de la bijection et sa réciproque",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/maths-terminale/esu-bijection-reciproque.html"
+        }
+      ]
+    },
+    {
+      "fileName": "Programme philo.pdf",
+      "sha256": "ae2e64b21ab0e3ab8b0addfb3cb3acec3186e6e0d354da1d6778ce89f0ed1f31",
+      "pdfPages": 2,
+      "pdfTitle": "Faso e-education - Philosophie",
+      "printCreationDate": "D:20261015002414+00'00'",
+      "sourcePage": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale.html",
+      "catalogueSection": "PHILOSOPHIE",
+      "itemCount": 31,
+      "items": [
+        {
+          "position": 1,
+          "title": "Le bonheur",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/bonheur.html"
+        },
+        {
+          "position": 2,
+          "title": "La connaissance du vivant",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/connaissance-vivant.html"
+        },
+        {
+          "position": 3,
+          "title": "Le droit et la justice",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/droit-justice.html"
+        },
+        {
+          "position": 4,
+          "title": "Le langage",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/langage.html"
+        },
+        {
+          "position": 5,
+          "title": "L'existence et la mort",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/existence-mort.html"
+        },
+        {
+          "position": 6,
+          "title": "La liberté",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/liberte.html"
+        },
+        {
+          "position": 7,
+          "title": "Logique et mathématiques",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/logique-mathematiques.html"
+        },
+        {
+          "position": 8,
+          "title": "Le temps",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/temps.html"
+        },
+        {
+          "position": 9,
+          "title": "La théorie et l'expérience",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/theorie-experience.html"
+        },
+        {
+          "position": 10,
+          "title": "La violence et la paix",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/violence-paix.html"
+        },
+        {
+          "position": 11,
+          "title": "Le commentaire philosophique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/commentaire-philosophique.html"
+        },
+        {
+          "position": 12,
+          "title": "La Conscience - L'Inconscient",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-conscience-inconscient.html"
+        },
+        {
+          "position": 13,
+          "title": "Société-Pouvoir",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-societe-pouvoir.html"
+        },
+        {
+          "position": 14,
+          "title": "Théorie et Expérience",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/theorie-experience.html"
+        },
+        {
+          "position": 15,
+          "title": "Méthodologie de la dissertation philosophique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-dissertation-philosophique-terminale.html"
+        },
+        {
+          "position": 16,
+          "title": "Grille d'évaluation de la dissertation philosophique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-grille-evaluation-dissertation-philosophique.html"
+        },
+        {
+          "position": 17,
+          "title": "L'Existence et la Mort",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-existence-mort.html"
+        },
+        {
+          "position": 18,
+          "title": "L'État",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-etat.html"
+        },
+        {
+          "position": 19,
+          "title": "Autrui",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-autrui.html"
+        },
+        {
+          "position": 20,
+          "title": "La Personne",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-personne.html"
+        },
+        {
+          "position": 21,
+          "title": "Méthodologie du commentaire philosophique de texte",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-commentaire-philosophique.html"
+        },
+        {
+          "position": 22,
+          "title": "Grille d'évaluation du commentaire philosophique de texte",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-grille-evaluation-commentaire-philosophique.html"
+        },
+        {
+          "position": 23,
+          "title": "L'Histoire",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-histoire.html"
+        },
+        {
+          "position": 24,
+          "title": "La Religion",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-religion.html"
+        },
+        {
+          "position": 25,
+          "title": "L'Art",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-art.html"
+        },
+        {
+          "position": 26,
+          "title": "La Liberté",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-liberte.html"
+        },
+        {
+          "position": 27,
+          "title": "Le Bonheur",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-bonheur.html"
+        },
+        {
+          "position": 28,
+          "title": "La Nature et culture",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-nature-culture.html"
+        },
+        {
+          "position": 29,
+          "title": "L’irrationnel et le sens",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-irrationnel-sens.html"
+        },
+        {
+          "position": 30,
+          "title": "La Vérité",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-verite.html"
+        },
+        {
+          "position": 31,
+          "title": "La technique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/philosophie-terminale/esu-technique.html"
+        }
+      ]
+    },
+    {
+      "fileName": "Programme Sciences physiques terminale.pdf",
+      "sha256": "bb0a0c3b3c60d10792e0e4121bf5cb536302b624d1cfbe5e56dbf6312f961ef1",
+      "pdfPages": 3,
+      "pdfTitle": "Faso e-education - Sciences physiques terminale",
+      "printCreationDate": "D:20261015001930+00'00'",
+      "sourcePage": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale.html",
+      "catalogueSection": "PHYSIQUE",
+      "itemCount": 32,
+      "items": [
+        {
+          "position": 1,
+          "title": "Le pendule élastique horizontal",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/pendule-elastique-horizontal.html"
+        },
+        {
+          "position": 2,
+          "title": "Le condensateur (terminales C-D-E)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/condensateur.html"
+        },
+        {
+          "position": 3,
+          "title": "Les oscillations électriques libres (terminales C-E)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/oscillations-electriques-libres.html"
+        },
+        {
+          "position": 4,
+          "title": "Composition du noyau atomique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-composition-noyau-atomique.html"
+        },
+        {
+          "position": 5,
+          "title": "Les unités de masse et d'énergie en physique nucléaire",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-unites-masse-energie-physique-nucleaire.html"
+        },
+        {
+          "position": 6,
+          "title": "Énergie d'un noyau",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-energie-noyau.html"
+        },
+        {
+          "position": 7,
+          "title": "Généralités sur les réactions nucléaires spontanées",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-reactions-nucleaires-spontanees.html"
+        },
+        {
+          "position": 8,
+          "title": "Les différents types de radioactivité",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-types-radioactivite.html"
+        },
+        {
+          "position": 9,
+          "title": "La loi de la décroissance radioactive",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-loi-decroissance-radioactive.html"
+        },
+        {
+          "position": 10,
+          "title": "Généralités sur les réactions nucléaires provoquées",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-generalites-reactions-nucleaires-provoquees.html"
+        },
+        {
+          "position": 11,
+          "title": "La fission nucléaire",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-fission-nucleaire.html"
+        },
+        {
+          "position": 12,
+          "title": "La fusion nucléaire",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-fusion-nucleaire.html"
+        },
+        {
+          "position": 13,
+          "title": "Énergie libérée par une réaction nucléaire provoquée",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-energie-liberee-reaction-nucleaire.html"
+        },
+        {
+          "position": 14,
+          "title": "Généralités sur la cinématique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-generalites-cinematique.html"
+        },
+        {
+          "position": 15,
+          "title": "Les mouvements rectilignes",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-mouvements-rectilignes.html"
+        },
+        {
+          "position": 16,
+          "title": "Le mouvement circulaire",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-mouvement-circulaire.html"
+        },
+        {
+          "position": 17,
+          "title": "Les lois de Newton",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-lois-newton.html"
+        },
+        {
+          "position": 18,
+          "title": "Le travail mécanique d'une force constante",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-travail-mecanique-force-constante.html"
+        },
+        {
+          "position": 19,
+          "title": "Le théorème de l'énergie cinétique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-theoreme-energie-cinetique.html"
+        },
+        {
+          "position": 20,
+          "title": "La loi de la gravitation",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-loi-gravitation.html"
+        },
+        {
+          "position": 21,
+          "title": "Le champ de gravitation",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-champ-gravitation.html"
+        },
+        {
+          "position": 22,
+          "title": "Mouvement des satellites et des planètes",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-mouvement-satellites-planetes.html"
+        },
+        {
+          "position": 23,
+          "title": "Le mouvement d'un point matériel dans le champ de pesanteur uniforme",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-mouvement-point-materiel-champ-pesanteur-uniforme.html"
+        },
+        {
+          "position": 24,
+          "title": "Les interactions électriques",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-interactions-electriques.html"
+        },
+        {
+          "position": 25,
+          "title": "Le mouvement d'une particule chargée dans un champ électrique uniforme",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-mouvement-particule-chargee-champ-electrique.html"
+        },
+        {
+          "position": 26,
+          "title": "Champ magnétique créé par un solénoïde",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-champ-magnetique-cree-solenoide.html"
+        },
+        {
+          "position": 27,
+          "title": "Propriétés du condensateur",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-propriete-condensateur.html"
+        },
+        {
+          "position": 28,
+          "title": "Charge et décharge d'un condensateur à travers une résistance en régime sinusoïdal forcé",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-charge-decharge-condensateur-travers-resistance-regime-sinusoidal-force.html"
+        },
+        {
+          "position": 29,
+          "title": "Phénomène d'induction électromagnétique et propriété de la bobine inductive",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-phenomene-induction-electromagnetique-propriete-bobine-inductive.html"
+        },
+        {
+          "position": 30,
+          "title": "Étude expérimentale des oscillations électriques forcées",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-etude-experimentale-oscillations-electriques-forcees.html"
+        },
+        {
+          "position": 31,
+          "title": "Étude théorique des oscillations électriques forcées",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-etude-theorique-oscillations-electriques-forcees.html"
+        },
+        {
+          "position": 32,
+          "title": "Puissance en régime sinusoïdal forcé",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/sp-terminale/esu-puissance-regime-sinusoidal-force.html"
+        }
+      ]
+    },
+    {
+      "fileName": "Programme SVT.pdf",
+      "sha256": "19c95c5aef9d4b9359c9985bf23ddff86fdebec9ed995904c477aa4f8a78b9ca",
+      "pdfPages": 3,
+      "pdfTitle": "Faso e-education - Sciences de la Vie et de la Terre",
+      "printCreationDate": "D:20261015001835+00'00'",
+      "sourcePage": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale.html",
+      "catalogueSection": "SVT",
+      "itemCount": 37,
+      "items": [
+        {
+          "position": 1,
+          "title": "Etude expérimentale des réflexes médullaires chez la grenouille",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/etude-reflexes-medullaires.html"
+        },
+        {
+          "position": 2,
+          "title": "Interprétation histologique des réflexes médullaires",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/interpretation-histologique-reflexes-medullaires.html"
+        },
+        {
+          "position": 3,
+          "title": "Les réflexes conditionnels",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/reflexes-conditionnels.html"
+        },
+        {
+          "position": 4,
+          "title": "Exceptions aux lois de MELDEL : Le linkage partiel",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/linkage-partiel.html"
+        },
+        {
+          "position": 5,
+          "title": "Le potentiel de repos (PR)",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/potentiel-repos.html"
+        },
+        {
+          "position": 6,
+          "title": "Relations humorales",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/relations-humorales.html"
+        },
+        {
+          "position": 7,
+          "title": "Monohybridisme avec dominance de caractère",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-monohybridisme-dominance-caractere.html"
+        },
+        {
+          "position": 8,
+          "title": "Monohybridisme sans dominance de caractères",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-monohybridisme-sans-dominance-caracteres.html"
+        },
+        {
+          "position": 9,
+          "title": "Dihybridisme avec dominance de caractère",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-dihybridisme-dominance-caractere.html"
+        },
+        {
+          "position": 10,
+          "title": "Interprétation chromosomique du monohybridisme",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-interpretation-chromosomique-monohybridisme.html"
+        },
+        {
+          "position": 11,
+          "title": "Interprétation chromosomique du dihybridisme",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-interpretation-chromosomique-dihybridisme.html"
+        },
+        {
+          "position": 12,
+          "title": "Monohybridisme lié au sexe",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-monohybridisme-lie-sexe.html"
+        },
+        {
+          "position": 13,
+          "title": "Exceptions aux Lois de Mendel : Le linkage absolu",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-exceptions-lois-mendel-linkage-absolu.html"
+        },
+        {
+          "position": 14,
+          "title": "Dihybridisme lié au sexe avec crossing-over",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-dihybridisme-lie-sexe.html"
+        },
+        {
+          "position": 15,
+          "title": "Hérédité autosomale dominante",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-heredite-autosomale-dominante.html"
+        },
+        {
+          "position": 16,
+          "title": "L'arbre généalogique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-arbre-genealogique.html"
+        },
+        {
+          "position": 17,
+          "title": "Hérédité autosomale récessive",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-heredite-autosomale-recessive.html"
+        },
+        {
+          "position": 18,
+          "title": "Notion de carte factorielle",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-notion-carte-factorielle.html"
+        },
+        {
+          "position": 19,
+          "title": "L'hérédité hétérosomale dominante",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-heredite-heterosomale-dominante.html"
+        },
+        {
+          "position": 20,
+          "title": "L'hérédité hétérosomale récessive",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-heredite-heterosomale-recessive.html"
+        },
+        {
+          "position": 21,
+          "title": "Les moyens de défense de l'organisme",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-moyens-defense-organisme.html"
+        },
+        {
+          "position": 22,
+          "title": "Les organes du système immunitaire",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-organes-systeme-immunitaire.html"
+        },
+        {
+          "position": 23,
+          "title": "Les cellules et les molécules du système immunitaire",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-cellules-molecules-systeme-immunitaire.html"
+        },
+        {
+          "position": 24,
+          "title": "Les mécanismes de la défense immunitaire",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-mecanismes-defense-immunitaire.html"
+        },
+        {
+          "position": 25,
+          "title": "La réponse immunitaire spécifique",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-reponse-immunitaire-specifique.html"
+        },
+        {
+          "position": 26,
+          "title": "Le système immunitaire et le VIH",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-systeme-immunitaire-vih.html"
+        },
+        {
+          "position": 27,
+          "title": "La découverte de la cellule : Les différentes parties de la cellule",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-decouverte-cellule-differentes-parties-cellule.html"
+        },
+        {
+          "position": 28,
+          "title": "L'ultrastructure de la cellule 1",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-ultrastructure-cellule-1.html"
+        },
+        {
+          "position": 29,
+          "title": "L'ultrastructure de la cellule 2",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-ultrastructure-cellule-2.html"
+        },
+        {
+          "position": 30,
+          "title": "Les Acides nucléiques : ADN et ARN",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-acides-nucleiques-adn-arn.html"
+        },
+        {
+          "position": 31,
+          "title": "Organisation des appareils génitaux",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-organisation-appareils-genitaux.html"
+        },
+        {
+          "position": 32,
+          "title": "La gamétogénèse et les gamètes",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-gametogenese-gametes.html"
+        },
+        {
+          "position": 33,
+          "title": "Les gamètes",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-gametes.html"
+        },
+        {
+          "position": 34,
+          "title": "Fonctions des gonades",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-fonctions-gonades.html"
+        },
+        {
+          "position": 35,
+          "title": "La Régulation Hormonale",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-regulation-hormonale.html"
+        },
+        {
+          "position": 36,
+          "title": "Fécondation et grossesse",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-fecondation-grossesse.html"
+        },
+        {
+          "position": 37,
+          "title": "Parturition et lactation",
+          "sourceUrl": "https://fasoeducation.bf/espace-eleves/secondaire/secondaire-general/cours-terminale-generale/svt-terminale/esu-parturition-lactation.html"
+        }
+      ]
+    }
+  ]
+}

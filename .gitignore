@@ -1,0 +1,28 @@
+# Dependencies and builds
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local data and uploads
+.data/
+uploads/
+*.sqlite
+*.sqlite3
+
+# Logs and tooling
+*.log
+.DS_Store
+.vscode/
+.idea/
+.venv/
+__pycache__/
+*.py[cod]
+
+# PWA development output
+apps/web/dev-dist/

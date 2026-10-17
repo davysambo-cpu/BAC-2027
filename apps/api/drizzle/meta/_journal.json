@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792031163693,
+      "tag": "0000_huge_sentry",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792191523600,
+      "tag": "0001_ambiguous_chameleon",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792196886901,
+      "tag": "0002_faithful_lilith",
+      "breakpoints": true
+    }
+  ]
+}

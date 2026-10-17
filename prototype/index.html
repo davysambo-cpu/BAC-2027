@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b3d2e">
+  <meta name="description" content="Prototype UX/UI de BAC-2027, espace de préparation au baccalauréat Série D.">
+  <title>BAC-2027 — Prototype UX/UI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+  <svg class="svg-sprite" aria-hidden="true">
+    <symbol id="icon-home" viewBox="0 0 24 24"><path d="M3 10.8 12 3l9 7.8V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/><path d="M9 22h6"/></symbol>
+    <symbol id="icon-folder" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24"><path d="M5 3v3M19 3v3M3 9h18M5 5h14a2 2 0 0 1 2 2v13H3V7a2 2 0 0 1 2-2Z"/><path d="M7 13h3v3H7z"/></symbol>
+    <symbol id="icon-quiz" viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v16H4V5a2 2 0 0 1 2-2Z"/><path d="m8 9 1.5 1.5L12 8M14 10h3M8 15l1.5 1.5L12 14M14 16h3"/></symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="icon-filter" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+    <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M4 15v5h16v-5"/></symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v5h5M9 12h6M9 16h6"/></symbol>
+    <symbol id="icon-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m4 17 5-5 4 4 2-2 5 4"/></symbol>
+    <symbol id="icon-audio" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></symbol>
+    <symbol id="icon-video" viewBox="0 0 24 24"><rect x="3" y="5" width="14" height="14" rx="2"/><path d="m17 10 4-2v8l-4-2Z"/></symbol>
+    <symbol id="icon-note" viewBox="0 0 24 24"><path d="M5 3h14v18H5Z"/><path d="M8 8h8M8 12h8M8 16h5"/></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-cloud" viewBox="0 0 24 24"><path d="M7 19h11a4 4 0 0 0 .7-7.9A7 7 0 0 0 5.2 9.3 5 5 0 0 0 7 19Z"/><path d="m9 14 2 2 4-4"/></symbol>
+    <symbol id="icon-cloud-off" viewBox="0 0 24 24"><path d="M7 19h11a4 4 0 0 0 2-7.5M18.7 9A7 7 0 0 0 7.4 6.5M4.5 9.5A5 5 0 0 0 7 19M3 3l18 18"/></symbol>
+    <symbol id="icon-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 9A7 7 0 0 1 18 7l2 5M4 12l2 5a7 7 0 0 0 11.9-2"/></symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M4 4h6a3 3 0 0 1 3 3v13a3 3 0 0 0-3-3H4ZM20 4h-4a3 3 0 0 0-3 3v13a3 3 0 0 1 3-3h4Z"/></symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v13m0 0 5-5m-5 5-5-5M4 21h16"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1a1.7 1.7 0 0 0 1.9.3A1.7 1.7 0 0 0 10 3V2.8h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M17 14a7 7 0 0 1 5 7"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="icon-logout" viewBox="0 0 24 24"><path d="M10 4H4v16h6M14 8l4 4-4 4M8 12h10"/></symbol>
+    <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="icon-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20Z"/><path d="M12 9v5M12 18h.01"/></symbol>
+    <symbol id="icon-wifi" viewBox="0 0 24 24"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 20h.01M2 9a14 14 0 0 1 20 0"/></symbol>
+  </svg>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+  <!-- Connexion -->
+  <section id="login-view" class="auth-layout" aria-labelledby="login-title">
+    <div class="auth-brand-panel">
+      <div class="brand brand-on-dark">
+        <span class="brand-mark">B27</span>
+        <span class="brand-name">BAC-2027</span>
+      </div>
+      <div class="auth-brand-copy">
+        <p class="eyebrow eyebrow-light">Votre année, bien organisée</p>
+        <h1>Tout ce qu'il faut pour avancer jusqu'au BAC.</h1>
+        <p>Rassemblez vos cours, planifiez vos révisions et mesurez vos progrès, même lorsque la connexion est instable.</p>
+      </div>
+      <ul class="auth-benefits">
+        <li><span class="benefit-icon"><svg class="icon"><use href="#icon-folder"/></svg></span><span><strong>Un classeur personnel</strong> pour garder tous vos supports au même endroit.</span></li>
+        <li><span class="benefit-icon"><svg class="icon"><use href="#icon-calendar"/></svg></span><span><strong>Un planning clair</strong> pour travailler régulièrement.</span></li>
+        <li><span class="benefit-icon"><svg class="icon"><use href="#icon-cloud"/></svg></span><span><strong>Un mode hors ligne</strong> qui protège votre travail.</span></li>
+      </ul>
+      <p class="auth-brand-note">Prototype de conception · Série D · Burkina Faso</p>
+    </div>
+
+    <div class="auth-form-panel">
+      <div class="auth-mobile-brand brand">
+        <span class="brand-mark">B27</span>
+        <span class="brand-name">BAC-2027</span>
+      </div>
+      <div class="auth-form-card">
+        <p class="eyebrow">Espace élève</p>
+        <h2 id="login-title">Bienvenue</h2>
+        <p class="muted">Utilisez les identifiants transmis par l'administration.</p>
+
+        <form id="login-form" novalidate>
+          <div class="form-field">
+            <label for="username">Nom d'utilisateur</label>
+            <input id="username" name="username" autocomplete="username" value="awa07" required>
+            <p class="field-error" id="username-error" hidden>Indiquez votre nom d'utilisateur.</p>
+          </div>
+          <div class="form-field">
+            <label for="password">Mot de passe</label>
+            <div class="password-field">
+              <input id="password" name="password" type="password" autocomplete="current-password" value="bac2027" required>
+              <button class="icon-button password-toggle" type="button" aria-label="Afficher le mot de passe" aria-pressed="false">
+                <svg class="icon"><use href="#icon-eye"/></svg>
+              </button>
+            </div>
+            <p class="field-error" id="password-error" hidden>Indiquez votre mot de passe.</p>
+          </div>
+          <button class="button button-primary button-full" type="submit">Se connecter</button>
+        </form>
+
+        <div class="demo-hint" role="note">
+          <svg class="icon"><use href="#icon-lock"/></svg>
+          <span>Identifiants de démonstration déjà renseignés.</span>
+        </div>
+
+        <button id="access-help" class="text-button" type="button">Accès perdu ?</button>
+        <div class="auth-divider"><span>Prototype</span></div>
+        <button id="open-admin" class="button button-secondary button-full" type="button">
+          <svg class="icon"><use href="#icon-settings"/></svg>
+          Voir l'espace administrateur
+        </button>
+      </div>
+      <p class="prototype-note">Aucune donnée réelle n'est envoyée. Ce prototype sert uniquement à valider l'expérience.</p>
+    </div>
+  </section>
+
+  <!-- Espace élève -->
+  <section id="student-shell" class="app-shell" hidden>
+    <aside class="sidebar student-sidebar" aria-label="Navigation élève">
+      <div class="brand sidebar-brand">
+        <span class="brand-mark">B27</span>
+        <span class="brand-name">BAC-2027</span>
+      </div>
+      <nav class="side-nav">
+        <button class="nav-item active" type="button" data-view="dashboard">
+          <svg class="icon"><use href="#icon-home"/></svg><span>Accueil</span>
+        </button>
+        <button class="nav-item" type="button" data-view="resources">
+          <svg class="icon"><use href="#icon-folder"/></svg><span>Ressources</span>
+        </button>
+        <button class="nav-item" type="button" data-view="planning">
+          <svg class="icon"><use href="#icon-calendar"/></svg><span>Planning</span>
+        </button>
+        <button class="nav-item" type="button" data-view="quiz">
+          <svg class="icon"><use href="#icon-quiz"/></svg><span>Quiz</span>
+        </button>
+        <button class="nav-item" type="button" data-view="profile">
+          <svg class="icon"><use href="#icon-user"/></svg><span>Profil</span>
+        </button>
+      </nav>
+      <div class="sidebar-help card-soft">
+        <span class="sidebar-help-icon"><svg class="icon"><use href="#icon-book"/></svg></span>
+        <p><strong>Besoin d'aide ?</strong><br><span>Consultez le guide rapide.</span></p>
+        <button class="text-button small" type="button" data-demo-message="Le centre d'aide sera détaillé après le prototype.">Ouvrir le guide</button>
+      </div>
+      <div class="sidebar-user">
+        <span class="avatar">AK</span>
+        <span><strong>Awa K.</strong><small>Série D</small></span>
+        <button class="icon-button" type="button" data-logout aria-label="Se déconnecter"><svg class="icon"><use href="#icon-logout"/></svg></button>
+      </div>
+    </aside>
+
+    <div class="app-column">
+      <header class="topbar">
+        <div class="mobile-brand brand">
+          <span class="brand-mark">B27</span>
+          <span class="brand-name">BAC-2027</span>
+        </div>
+        <div class="topbar-spacer"></div>
+        <button id="connection-toggle" class="connection-pill" type="button" aria-pressed="false" title="Simuler le mode hors ligne">
+          <svg class="icon online-icon"><use href="#icon-cloud"/></svg>
+          <svg class="icon offline-icon"><use href="#icon-cloud-off"/></svg>
+          <span class="connection-label">Synchronisé</span>
+        </button>
+        <button class="avatar avatar-button" type="button" data-view="profile" aria-label="Ouvrir le profil d'Awa">AK</button>
+      </header>
+
+      <div id="offline-banner" class="offline-banner" role="status" hidden>
+        <svg class="icon"><use href="#icon-cloud-off"/></svg>
+        <span><strong>Vous êtes hors ligne.</strong> Votre travail restera enregistré sur cet appareil.</span>
+      </div>
+
+      <main id="main-content" class="main-content" tabindex="-1">
+        <!-- Tableau de bord -->
+        <section id="view-dashboard" class="view active" data-page="dashboard" aria-labelledby="dashboard-title">
+          <div class="page-heading dashboard-heading">
+            <div>
+              <p class="eyebrow">Jeudi 15 octobre</p>
+              <h1 id="dashboard-title">Bonjour Awa</h1>
+              <p class="page-subtitle">Voici l'essentiel pour poursuivre votre préparation.</p>
+            </div>
+            <button class="button button-primary desktop-action" type="button" data-open-resource>
+              <svg class="icon"><use href="#icon-plus"/></svg>Ajouter un cours
+            </button>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span class="stat-icon stat-icon-green"><svg class="icon"><use href="#icon-folder"/></svg></span>
+              <div><strong id="resource-count">18</strong><span>ressources</span></div>
+              <span class="stat-trend">+3 cette semaine</span>
+            </article>
+            <article class="stat-card">
+              <span class="stat-icon stat-icon-teal"><svg class="icon"><use href="#icon-chart"/></svg></span>
+              <div><strong>42 %</strong><span>progression</span></div>
+              <span class="stat-trend">+6 % ce mois</span>
+            </article>
+            <article class="stat-card">
+              <span class="stat-icon stat-icon-blue"><svg class="icon"><use href="#icon-quiz"/></svg></span>
+              <div><strong>7/10</strong><span>dernier quiz</span></div>
+              <button class="inline-link" type="button" data-view="quiz">Voir la correction</button>
+            </article>
+            <article class="stat-card">
+              <span class="stat-icon stat-icon-gold"><svg class="icon"><use href="#icon-clock"/></svg></span>
+              <div><strong>3 h 15</strong><span>cette semaine</span></div>
+              <button class="inline-link" type="button" data-view="planning">Voir le planning</button>
+            </article>
+          </div>
+
+          <div class="quick-actions" aria-label="Actions rapides">
+            <button type="button" data-open-resource><span><svg class="icon"><use href="#icon-plus"/></svg></span>Ajouter un cours</button>
+            <button type="button" data-open-session><span><svg class="icon"><use href="#icon-calendar"/></svg></span>Planifier</button>
+            <button type="button" data-view="quiz"><span><svg class="icon"><use href="#icon-quiz"/></svg></span>Faire un quiz</button>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="card next-session-card">
+              <div class="section-heading">
+                <div><p class="eyebrow">Aujourd'hui</p><h2>Prochaine séance</h2></div>
+                <button class="inline-link" type="button" data-view="planning">Voir tout</button>
+              </div>
+              <div class="session-highlight">
+                <div class="date-block"><strong>17:00</strong><span>45 min</span></div>
+                <div class="session-copy">
+                  <span class="subject-tag">Mathématiques</span>
+                  <h3>Suites numériques</h3>
+                  <p>Revoir le cours et terminer les exercices 4 à 7.</p>
+                </div>
+              </div>
+              <button class="button button-primary" type="button" data-complete-dashboard-session>
+                <svg class="icon"><use href="#icon-check"/></svg>Marquer comme terminée
+              </button>
+            </article>
+
+            <article class="card recent-resources-card">
+              <div class="section-heading">
+                <div><p class="eyebrow">Mon classeur</p><h2>Ressources récentes</h2></div>
+                <button class="inline-link" type="button" data-view="resources">Voir tout</button>
+              </div>
+              <div class="compact-list">
+                <button class="compact-resource" type="button" data-resource-detail data-title="Limites et continuité" data-meta="PDF · Mathématiques · Analyse">
+                  <span class="file-icon file-icon-pdf"><svg class="icon"><use href="#icon-file"/></svg></span>
+                  <span><strong>Limites et continuité</strong><small>PDF · Mathématiques</small></span>
+                  <span class="sync-dot success" title="Synchronisé"></span>
+                </button>
+                <button class="compact-resource" type="button" data-resource-detail data-title="Génétique — notes du cours" data-meta="Note · SVT · Génétique">
+                  <span class="file-icon file-icon-note"><svg class="icon"><use href="#icon-note"/></svg></span>
+                  <span><strong>Génétique — notes du cours</strong><small>Note · SVT</small></span>
+                  <span class="sync-dot warning" title="À synchroniser"></span>
+                </button>
+                <button class="compact-resource" type="button" data-resource-detail data-title="Mécanique — exercices" data-meta="Image · Sciences physiques">
+                  <span class="file-icon file-icon-image"><svg class="icon"><use href="#icon-image"/></svg></span>
+                  <span><strong>Mécanique — exercices</strong><small>Image · Sciences physiques</small></span>
+                  <span class="sync-dot success" title="Synchronisé"></span>
+                </button>
+              </div>
+            </article>
+
+            <article class="card progress-card">
+              <div class="section-heading">
+                <div><p class="eyebrow">Progression</p><h2>Par matière</h2></div>
+                <button class="inline-link" type="button" data-open-progress>Voir le détail</button>
+              </div>
+              <div class="progress-list">
+                <div class="progress-row"><div><span>Mathématiques</span><strong>68 %</strong></div><div class="progress-track"><span style="width:68%"></span></div></div>
+                <div class="progress-row"><div><span>SVT</span><strong>46 %</strong></div><div class="progress-track"><span style="width:46%"></span></div></div>
+                <div class="progress-row"><div><span>Sciences physiques</span><strong>39 %</strong></div><div class="progress-track"><span style="width:39%"></span></div></div>
+              </div>
+              <p class="insight"><svg class="icon"><use href="#icon-chart"/></svg><span><strong>Priorité conseillée :</strong> révisez la mécanique cette semaine.</span></p>
+            </article>
+
+            <article class="card library-card">
+              <div class="section-heading">
+                <div><p class="eyebrow">Bibliothèque</p><h2>Nouveautés</h2></div>
+                <button class="inline-link" type="button" data-library-link>Explorer</button>
+              </div>
+              <div class="library-feature">
+                <span class="library-illustration"><svg class="icon"><use href="#icon-book"/></svg></span>
+                <div><span class="subject-tag">SVT</span><h3>Fiche : brassage génétique</h3><p>Publiée par l'administration · PDF · 2,4 Mo</p></div>
+              </div>
+              <button class="button button-secondary button-full" type="button" data-download-resource>
+                <svg class="icon"><use href="#icon-download"/></svg>Rendre disponible hors ligne
+              </button>
+            </article>
+          </div>
+        </section>
+
+        <!-- Ressources -->
+        <section id="view-resources" class="view" data-page="resources" aria-labelledby="resources-title" hidden>
+          <div class="page-heading">
+            <div><p class="eyebrow">Vos supports de cours</p><h1 id="resources-title">Ressources</h1><p class="page-subtitle">Retrouvez vos documents personnels et les contenus publiés.</p></div>
+            <button class="button button-primary" type="button" data-open-resource><svg class="icon"><use href="#icon-plus"/></svg>Ajouter une ressource</button>
+          </div>
+
+          <div class="segmented-control" role="tablist" aria-label="Catégories de ressources">
+            <button id="tab-personal" role="tab" aria-selected="true" aria-controls="resources-personal" data-resource-tab="personal" type="button">Mon classeur <span>18</span></button>
+            <button id="tab-library" role="tab" aria-selected="false" aria-controls="resources-library" data-resource-tab="library" type="button">Bibliothèque <span>42</span></button>
+            <button id="tab-offline" role="tab" aria-selected="false" aria-controls="resources-offline" data-resource-tab="offline" type="button">Hors ligne <span>6</span></button>
+          </div>
+
+          <div class="toolbar">
+            <label class="search-field">
+              <span class="sr-only">Rechercher une ressource</span>
+              <svg class="icon"><use href="#icon-search"/></svg>
+              <input id="resource-search" type="search" placeholder="Rechercher par titre ou matière">
+            </label>
+            <button class="button button-secondary" type="button" data-demo-message="Les filtres par matière, chapitre et type seront disponibles ici."><svg class="icon"><use href="#icon-filter"/></svg>Filtres</button>
+          </div>
+
+          <div id="resources-personal" class="resource-panel" role="tabpanel" aria-labelledby="tab-personal">
+            <div class="content-section-heading"><div><h2>Mon classeur</h2><p class="muted">Vos ressources sont privées.</p></div><span class="privacy-note"><svg class="icon"><use href="#icon-lock"/></svg>Privé</span></div>
+            <div id="personal-resource-grid" class="resource-grid">
+              <article class="resource-card searchable" data-search="limites continuité mathématiques analyse pdf">
+                <button class="resource-card-main" type="button" data-resource-detail data-title="Limites et continuité" data-meta="PDF · Mathématiques · Analyse · 3,1 Mo">
+                  <span class="resource-type-icon file-icon-pdf"><svg class="icon"><use href="#icon-file"/></svg></span>
+                  <span class="resource-card-copy"><span class="subject-tag">Mathématiques</span><strong>Limites et continuité</strong><small>PDF · 3,1 Mo · Modifié hier</small></span>
+                </button>
+                <div class="resource-card-footer"><span class="status status-success"><svg class="icon"><use href="#icon-check"/></svg>Synchronisé</span><button class="icon-button" type="button" aria-label="Plus d'actions" data-demo-message="Les actions Modifier, Télécharger et Supprimer seront regroupées ici.">•••</button></div>
+              </article>
+              <article class="resource-card searchable" data-search="génétique notes svt note">
+                <button class="resource-card-main" type="button" data-resource-detail data-title="Génétique — notes du cours" data-meta="Note · SVT · Génétique · Créée aujourd'hui">
+                  <span class="resource-type-icon file-icon-note"><svg class="icon"><use href="#icon-note"/></svg></span>
+                  <span class="resource-card-copy"><span class="subject-tag">SVT</span><strong>Génétique — notes du cours</strong><small>Note · Modifiée aujourd'hui</small></span>
+                </button>
+                <div class="resource-card-footer"><span class="status status-warning pending-status"><svg class="icon"><use href="#icon-refresh"/></svg>À synchroniser</span><button class="icon-button" type="button" aria-label="Plus d'actions" data-demo-message="Les actions Modifier, Télécharger et Supprimer seront regroupées ici.">•••</button></div>
+              </article>
+              <article class="resource-card searchable" data-search="mécanique exercices sciences physiques image">
+                <button class="resource-card-main" type="button" data-resource-detail data-title="Mécanique — exercices" data-meta="3 images · Sciences physiques · Mécanique">
+                  <span class="resource-type-icon file-icon-image"><svg class="icon"><use href="#icon-image"/></svg></span>
+                  <span class="resource-card-copy"><span class="subject-tag">Sciences physiques</span><strong>Mécanique — exercices</strong><small>3 images · 5,8 Mo</small></span>
+                </button>
+                <div class="resource-card-footer"><span class="status status-success"><svg class="icon"><use href="#icon-check"/></svg>Synchronisé</span><button class="icon-button" type="button" aria-label="Plus d'actions" data-demo-message="Les actions Modifier, Télécharger et Supprimer seront regroupées ici.">•••</button></div>
+              </article>
+              <article class="resource-card searchable" data-search="philosophie liberté audio">
+                <button class="resource-card-main" type="button" data-resource-detail data-title="La liberté — résumé audio" data-meta="Audio · Philosophie · 12 min">
+                  <span class="resource-type-icon file-icon-audio"><svg class="icon"><use href="#icon-audio"/></svg></span>
+                  <span class="resource-card-copy"><span class="subject-tag">Philosophie</span><strong>La liberté — résumé audio</strong><small>Audio · 12 min · 8,4 Mo</small></span>
+                </button>
+                <div class="resource-card-footer"><span class="status status-success"><svg class="icon"><use href="#icon-check"/></svg>Synchronisé</span><button class="icon-button" type="button" aria-label="Plus d'actions" data-demo-message="Les actions Modifier, Télécharger et Supprimer seront regroupées ici.">•••</button></div>
+              </article>
+            </div>
+            <div id="resource-no-results" class="empty-state" hidden><svg class="icon"><use href="#icon-search"/></svg><h3>Aucune ressource trouvée</h3><p>Essayez un autre mot-clé ou retirez les filtres.</p></div>
+          </div>
+
+          <div id="resources-library" class="resource-panel" role="tabpanel" aria-labelledby="tab-library" hidden>
+            <div class="content-section-heading"><div><h2>Bibliothèque commune</h2><p class="muted">Contenus vérifiés et publiés par l'administration.</p></div><span class="verified-note"><svg class="icon"><use href="#icon-check"/></svg>Vérifié</span></div>
+            <div class="resource-grid">
+              <article class="resource-card searchable" data-search="brassage génétique svt pdf"><button class="resource-card-main" type="button" data-resource-detail data-title="Fiche : brassage génétique" data-meta="PDF · SVT · Publié par l'administration"><span class="resource-type-icon file-icon-pdf"><svg class="icon"><use href="#icon-file"/></svg></span><span class="resource-card-copy"><span class="subject-tag">SVT</span><strong>Fiche : brassage génétique</strong><small>PDF · 2,4 Mo · 12 oct.</small></span></button><div class="resource-card-footer"><span class="status status-neutral">Commun</span><button class="icon-button" type="button" aria-label="Télécharger hors ligne" data-download-resource><svg class="icon"><use href="#icon-download"/></svg></button></div></article>
+              <article class="resource-card searchable" data-search="suites mathématiques vidéo"><button class="resource-card-main" type="button" data-resource-detail data-title="Comprendre les suites" data-meta="Vidéo · Mathématiques · 18 min"><span class="resource-type-icon file-icon-video"><svg class="icon"><use href="#icon-video"/></svg></span><span class="resource-card-copy"><span class="subject-tag">Mathématiques</span><strong>Comprendre les suites</strong><small>Vidéo · 18 min · 9 oct.</small></span></button><div class="resource-card-footer"><span class="status status-neutral">Commun</span><button class="icon-button" type="button" aria-label="Télécharger hors ligne" data-download-resource><svg class="icon"><use href="#icon-download"/></svg></button></div></article>
+              <article class="resource-card searchable" data-search="mécanique lois newton sciences physiques pdf"><button class="resource-card-main" type="button" data-resource-detail data-title="Les lois de Newton" data-meta="PDF · Sciences physiques · Mécanique"><span class="resource-type-icon file-icon-pdf"><svg class="icon"><use href="#icon-file"/></svg></span><span class="resource-card-copy"><span class="subject-tag">Sciences physiques</span><strong>Les lois de Newton</strong><small>PDF · 1,7 Mo · 8 oct.</small></span></button><div class="resource-card-footer"><span class="status status-neutral">Commun</span><button class="icon-button" type="button" aria-label="Télécharger hors ligne" data-download-resource><svg class="icon"><use href="#icon-download"/></svg></button></div></article>
+            </div>
+          </div>
+
+          <div id="resources-offline" class="resource-panel" role="tabpanel" aria-labelledby="tab-offline" hidden>
+            <div class="content-section-heading"><div><h2>Disponibles hors ligne</h2><p class="muted">6 ressources · 184 Mo utilisés</p></div><button class="inline-link" type="button" data-view="profile">Gérer le stockage</button></div>
+            <div class="storage-summary"><div><span>184 Mo utilisés sur 2 Go</span><strong>9 %</strong></div><div class="storage-track"><span style="width:9%"></span></div></div>
+            <div class="resource-grid">
+              <article class="resource-card"><button class="resource-card-main" type="button" data-resource-detail data-title="Fiche : brassage génétique" data-meta="Disponible hors ligne · PDF · SVT"><span class="resource-type-icon file-icon-pdf"><svg class="icon"><use href="#icon-file"/></svg></span><span class="resource-card-copy"><span class="subject-tag">SVT</span><strong>Fiche : brassage génétique</strong><small>PDF · 2,4 Mo</small></span></button><div class="resource-card-footer"><span class="status status-success"><svg class="icon"><use href="#icon-download"/></svg>Sur l'appareil</span><button class="text-button small" type="button" data-demo-message="La ressource serait retirée uniquement de l'appareil.">Retirer</button></div></article>
+              <article class="resource-card"><button class="resource-card-main" type="button" data-resource-detail data-title="Comprendre les suites" data-meta="Disponible hors ligne · Vidéo · Mathématiques"><span class="resource-type-icon file-icon-video"><svg class="icon"><use href="#icon-video"/></svg></span><span class="resource-card-copy"><span class="subject-tag">Mathématiques</span><strong>Comprendre les suites</strong><small>Vidéo · 126 Mo</small></span></button><div class="resource-card-footer"><span class="status status-success"><svg class="icon"><use href="#icon-download"/></svg>Sur l'appareil</span><button class="text-button small" type="button" data-demo-message="La ressource serait retirée uniquement de l'appareil.">Retirer</button></div></article>
+            </div>
+          </div>
+        </section>
+
+        <!-- Planning -->
+        <section id="view-planning" class="view" data-page="planning" aria-labelledby="planning-title" hidden>
+          <div class="page-heading">
+            <div><p class="eyebrow">Votre organisation</p><h1 id="planning-title">Planning</h1><p class="page-subtitle">Préparez des séances réalistes et avancez régulièrement.</p></div>
+            <button class="button button-primary" type="button" data-open-session><svg class="icon"><use href="#icon-plus"/></svg>Planifier une séance</button>
+          </div>
+          <div class="planning-summary card-soft">
+            <div><strong>3 h 15</strong><span>planifiées cette semaine</span></div>
+            <div><strong>2 / 5</strong><span>séances terminées</span></div>
+            <div><strong>3 jours</strong><span>de régularité</span></div>
+          </div>
+          <div class="planning-layout">
+            <div class="card calendar-card">
+              <div class="section-heading"><div><p class="eyebrow">Octobre 2026</p><h2>Cette semaine</h2></div><div class="view-toggle"><button class="active" type="button">Liste</button><button type="button" data-demo-message="La vue semaine affichera les mêmes séances sur une grille horaire.">Semaine</button></div></div>
+              <div id="session-list" class="session-list">
+                <div class="day-group"><div class="day-label"><span>AUJ.</span><strong>15</strong></div><div class="day-sessions"><article class="session-card"><span class="session-color math"></span><div><span class="subject-tag">Mathématiques</span><h3>Suites numériques</h3><p><svg class="icon"><use href="#icon-clock"/></svg>17:00 · 45 min</p></div><button class="session-check" type="button" aria-label="Marquer la séance Suites numériques comme terminée"><svg class="icon"><use href="#icon-check"/></svg></button></article></div></div>
+                <div class="day-group"><div class="day-label"><span>VEN.</span><strong>16</strong></div><div class="day-sessions"><article class="session-card"><span class="session-color svt"></span><div><span class="subject-tag">SVT</span><h3>Génétique</h3><p><svg class="icon"><use href="#icon-clock"/></svg>18:30 · 30 min</p></div><button class="session-check" type="button" aria-label="Marquer la séance Génétique comme terminée"><svg class="icon"><use href="#icon-check"/></svg></button></article><article class="session-card completed"><span class="session-color physics"></span><div><span class="subject-tag">Sciences physiques</span><h3>Exercices de mécanique</h3><p><svg class="icon"><use href="#icon-check"/></svg>Terminée · 40 min</p></div><button class="session-check checked" type="button" aria-label="Séance terminée" aria-pressed="true"><svg class="icon"><use href="#icon-check"/></svg></button></article></div></div>
+                <div class="day-group"><div class="day-label"><span>SAM.</span><strong>17</strong></div><div class="day-sessions"><article class="session-card"><span class="session-color philosophy"></span><div><span class="subject-tag">Philosophie</span><h3>La liberté</h3><p><svg class="icon"><use href="#icon-clock"/></svg>10:00 · 45 min</p></div><button class="session-check" type="button" aria-label="Marquer la séance La liberté comme terminée"><svg class="icon"><use href="#icon-check"/></svg></button></article></div></div>
+              </div>
+            </div>
+            <aside class="card planning-aside">
+              <p class="eyebrow">Conseil de la semaine</p><h2>Gardez un rythme régulier</h2><p>Vous avez prévu trois matières différentes. Ajoutez une courte séance de correction pour consolider vos quiz.</p>
+              <button class="button button-secondary button-full" type="button" data-open-session>Ajouter une séance</button>
+            </aside>
+          </div>
+        </section>
+
+        <!-- Quiz -->
+        <section id="view-quiz" class="view" data-page="quiz" aria-labelledby="quiz-title" hidden>
+          <div id="quiz-listing">
+            <div class="page-heading"><div><p class="eyebrow">Testez vos acquis</p><h1 id="quiz-title">Quiz</h1><p class="page-subtitle">Entraînez-vous et comprenez chaque erreur.</p></div><button class="button button-secondary" type="button" data-open-progress><svg class="icon"><use href="#icon-chart"/></svg>Ma progression</button></div>
+            <article class="featured-quiz card">
+              <div class="featured-quiz-copy"><span class="badge badge-recommended">Recommandé</span><span class="subject-tag">Mathématiques</span><h2>Limites et continuité</h2><p>Vérifiez les notions essentielles avant de poursuivre le chapitre.</p><ul class="quiz-meta"><li>10 questions</li><li>10 minutes</li><li>Disponible hors ligne</li></ul><button class="button button-primary" type="button" data-start-quiz>Commencer le quiz</button></div>
+              <div class="quiz-score-ring"><span>Votre meilleur score</span><strong>7<small>/10</small></strong><span>Il y a 3 jours</span></div>
+            </article>
+            <div class="content-section-heading"><div><h2>Tous les quiz</h2><p class="muted">Choisissez une matière pour continuer.</p></div><button class="button button-secondary button-small" type="button" data-demo-message="Les filtres par matière et difficulté seront disponibles ici."><svg class="icon"><use href="#icon-filter"/></svg>Filtrer</button></div>
+            <div class="quiz-grid">
+              <article class="quiz-card"><div class="quiz-card-top"><span class="file-icon file-icon-note"><svg class="icon"><use href="#icon-quiz"/></svg></span><span class="status status-success"><svg class="icon"><use href="#icon-download"/></svg>Hors ligne</span></div><span class="subject-tag">SVT</span><h3>Brassage génétique</h3><p>8 questions · 8 min</p><button class="inline-link" type="button" data-start-quiz>Commencer <svg class="icon"><use href="#icon-chevron"/></svg></button></article>
+              <article class="quiz-card"><div class="quiz-card-top"><span class="file-icon file-icon-image"><svg class="icon"><use href="#icon-quiz"/></svg></span><span class="status status-neutral">Nouveau</span></div><span class="subject-tag">Sciences physiques</span><h3>Lois de Newton</h3><p>12 questions · 15 min</p><button class="inline-link" type="button" data-start-quiz>Commencer <svg class="icon"><use href="#icon-chevron"/></svg></button></article>
+              <article class="quiz-card"><div class="quiz-card-top"><span class="file-icon file-icon-audio"><svg class="icon"><use href="#icon-quiz"/></svg></span><span class="status status-neutral">Déjà fait</span></div><span class="subject-tag">Philosophie</span><h3>La conscience</h3><p>10 questions · Meilleur score 8/10</p><button class="inline-link" type="button" data-start-quiz>Recommencer <svg class="icon"><use href="#icon-chevron"/></svg></button></article>
+            </div>
+            <article class="card history-preview"><div><p class="eyebrow">Dernière tentative</p><h2>Limites et continuité</h2><p class="muted">12 octobre · 7 bonnes réponses sur 10</p></div><div class="history-score">70 %</div><button class="button button-secondary" type="button" data-demo-message="La correction détaillée affichera les réponses, explications et ressources liées.">Voir la correction</button></article>
+          </div>
+
+          <div id="quiz-player" class="quiz-player" hidden>
+            <div class="quiz-player-header"><button class="icon-button" type="button" data-close-quiz aria-label="Quitter le quiz"><svg class="icon"><use href="#icon-arrow-left"/></svg></button><div><span id="quiz-progress-label">Question 1 sur 3</span><div class="quiz-progress-track"><span id="quiz-progress-bar" style="width:33%"></span></div></div></div>
+            <article class="quiz-question-card card">
+              <span class="subject-tag">Mathématiques · Limites</span>
+              <h2 id="quiz-question" tabindex="-1">Question</h2>
+              <form id="quiz-answer-form"><fieldset><legend class="sr-only">Choisissez une réponse</legend><div id="quiz-options" class="answer-options"></div></fieldset><div class="quiz-actions"><button class="button button-secondary" id="quiz-previous" type="button" disabled>Précédente</button><button class="button button-primary" id="quiz-next" type="submit">Question suivante</button></div></form>
+            </article>
+          </div>
+
+          <div id="quiz-result" class="quiz-result" hidden>
+            <article class="card result-card"><span class="result-icon"><svg class="icon"><use href="#icon-check"/></svg></span><p class="eyebrow">Quiz terminé</p><h2>Bon travail, Awa</h2><div class="result-score"><strong id="result-score">2/3</strong><span id="result-percent">67 % de bonnes réponses</span></div><p>Vos réponses sont enregistrées. Consultez les explications pour revoir les notions difficiles.</p><div class="result-actions"><button class="button button-primary" type="button" data-demo-message="La correction détaillée présentera chaque réponse et son explication.">Voir la correction</button><button class="button button-secondary" type="button" data-back-to-quizzes>Retour aux quiz</button></div></article>
+          </div>
+        </section>
+
+        <!-- Profil -->
+        <section id="view-profile" class="view" data-page="profile" aria-labelledby="profile-title" hidden>
+          <div class="page-heading"><div><p class="eyebrow">Votre espace</p><h1 id="profile-title">Profil</h1><p class="page-subtitle">Gérez votre compte, votre stockage et la synchronisation.</p></div></div>
+          <div class="profile-layout">
+            <div>
+              <article class="card profile-card"><span class="avatar avatar-large">AK</span><div><h2>Awa K.</h2><p>@awa07 · Série D</p><span class="status status-success"><svg class="icon"><use href="#icon-check"/></svg>Compte actif</span></div><button class="button button-secondary button-small" type="button" data-demo-message="Le formulaire permettra de modifier uniquement les informations non sensibles.">Modifier</button></article>
+              <article class="card settings-list"><h2>Compte et préférences</h2><button type="button" data-demo-message="Les informations du profil seront modifiables ici."><span><svg class="icon"><use href="#icon-user"/></svg><span><strong>Informations personnelles</strong><small>Nom affiché et préférences</small></span></span><svg class="icon"><use href="#icon-chevron"/></svg></button><button type="button" data-demo-message="Les préférences de matières et d'affichage seront regroupées ici."><span><svg class="icon"><use href="#icon-settings"/></svg><span><strong>Préférences</strong><small>Matières et affichage</small></span></span><svg class="icon"><use href="#icon-chevron"/></svg></button><button type="button" data-demo-message="Le guide expliquera le classeur, le planning, les quiz et le mode hors ligne."><span><svg class="icon"><use href="#icon-book"/></svg><span><strong>Aide et guide</strong><small>Comprendre BAC-2027</small></span></span><svg class="icon"><use href="#icon-chevron"/></svg></button></article>
+            </div>
+            <div>
+              <article class="card sync-card"><div class="section-heading"><div><p class="eyebrow">Synchronisation</p><h2>2 éléments en attente</h2></div><span class="sync-visual"><svg class="icon"><use href="#icon-refresh"/></svg></span></div><p>Votre note de SVT et une séance seront envoyées lors de la prochaine synchronisation.</p><ul><li><span>Note · Génétique</span><span class="status status-warning">En attente</span></li><li><span>Séance · Suites</span><span class="status status-warning">En attente</span></li></ul><button id="sync-now" class="button button-primary button-full" type="button"><svg class="icon"><use href="#icon-refresh"/></svg>Synchroniser maintenant</button></article>
+              <article class="card storage-card"><div class="section-heading"><div><p class="eyebrow">Stockage hors ligne</p><h2>184 Mo sur 2 Go</h2></div><strong>9 %</strong></div><div class="storage-track storage-track-large"><span style="width:9%"></span></div><div class="storage-legend"><span><i class="legend-docs"></i>Documents 38 Mo</span><span><i class="legend-media"></i>Médias 146 Mo</span></div><button class="button button-secondary button-full" type="button" data-library-link>Gérer les téléchargements</button></article>
+            </div>
+          </div>
+          <div class="profile-footer-actions"><button class="button button-secondary" type="button" id="switch-admin"><svg class="icon"><use href="#icon-settings"/></svg>Voir l'espace administrateur</button><button class="button button-danger-ghost" type="button" data-logout><svg class="icon"><use href="#icon-logout"/></svg>Se déconnecter</button></div>
+        </section>
+      </main>
+
+      <nav class="bottom-nav" aria-label="Navigation élève mobile">
+        <button class="active" type="button" data-view="dashboard"><svg class="icon"><use href="#icon-home"/></svg><span>Accueil</span></button>
+        <button type="button" data-view="resources"><svg class="icon"><use href="#icon-folder"/></svg><span>Ressources</span></button>
+        <button type="button" data-view="planning"><svg class="icon"><use href="#icon-calendar"/></svg><span>Planning</span></button>
+        <button type="button" data-view="quiz"><svg class="icon"><use href="#icon-quiz"/></svg><span>Quiz</span></button>
+        <button type="button" data-view="profile"><svg class="icon"><use href="#icon-user"/></svg><span>Profil</span></button>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Espace administrateur -->
+  <section id="admin-shell" class="app-shell admin-shell" hidden>
+    <aside class="sidebar admin-sidebar" aria-label="Navigation administrateur">
+      <div class="brand sidebar-brand"><span class="brand-mark">B27</span><span><span class="brand-name">BAC-2027</span><small>Administration</small></span></div>
+      <nav class="side-nav">
+        <button class="nav-item active" type="button" data-admin-view="admin-dashboard"><svg class="icon"><use href="#icon-home"/></svg><span>Vue d'ensemble</span></button>
+        <button class="nav-item" type="button" data-admin-view="admin-students"><svg class="icon"><use href="#icon-users"/></svg><span>Élèves</span></button>
+        <button class="nav-item" type="button" data-admin-view="admin-structure"><svg class="icon"><use href="#icon-book"/></svg><span>Pédagogie</span></button>
+        <button class="nav-item" type="button" data-admin-view="admin-resources"><svg class="icon"><use href="#icon-folder"/></svg><span>Ressources</span></button>
+        <button class="nav-item" type="button" data-admin-view="admin-quizzes"><svg class="icon"><use href="#icon-quiz"/></svg><span>Quiz</span></button>
+        <button class="nav-item" type="button" data-admin-view="admin-storage"><svg class="icon"><use href="#icon-cloud"/></svg><span>Stockage</span></button>
+        <button class="nav-item" type="button" data-admin-view="admin-journal"><svg class="icon"><use href="#icon-file"/></svg><span>Journal</span></button>
+      </nav>
+      <div class="sidebar-user"><span class="avatar">AD</span><span><strong>Administrateur</strong><small>Accès complet</small></span><button class="icon-button" type="button" data-logout aria-label="Se déconnecter"><svg class="icon"><use href="#icon-logout"/></svg></button></div>
+    </aside>
+    <div class="app-column">
+      <header class="topbar admin-topbar"><div class="mobile-brand brand"><span class="brand-mark">B27</span><span><span class="brand-name">BAC-2027</span><small>Admin</small></span></div><div class="topbar-spacer"></div><button id="switch-student" class="button button-secondary button-small" type="button">Vue élève</button><span class="avatar">AD</span></header>
+      <nav class="admin-mobile-nav" aria-label="Navigation administrateur mobile"><button class="active" data-admin-view="admin-dashboard" type="button">Accueil</button><button data-admin-view="admin-students" type="button">Élèves</button><button data-admin-view="admin-resources" type="button">Ressources</button><button data-admin-view="admin-quizzes" type="button">Quiz</button></nav>
+      <main class="main-content admin-content" tabindex="-1">
+        <section id="admin-dashboard" class="admin-view active" aria-labelledby="admin-dashboard-title">
+          <div class="page-heading"><div><p class="eyebrow">Administration</p><h1 id="admin-dashboard-title">Vue d'ensemble</h1><p class="page-subtitle">Suivez les comptes, les contenus et les alertes importantes.</p></div><button class="button button-primary" type="button" data-open-invite><svg class="icon"><use href="#icon-plus"/></svg>Inviter un élève</button></div>
+          <div class="stats-grid admin-stats"><article class="stat-card"><span class="stat-icon stat-icon-green"><svg class="icon"><use href="#icon-users"/></svg></span><div><strong>128</strong><span>élèves actifs</span></div><span class="stat-trend">+12 ce mois</span></article><article class="stat-card"><span class="stat-icon stat-icon-teal"><svg class="icon"><use href="#icon-folder"/></svg></span><div><strong>42</strong><span>ressources</span></div><span class="stat-trend">38 publiées</span></article><article class="stat-card"><span class="stat-icon stat-icon-blue"><svg class="icon"><use href="#icon-quiz"/></svg></span><div><strong>18</strong><span>quiz</span></div><span class="stat-trend">14 publiés</span></article><article class="stat-card"><span class="stat-icon stat-icon-gold"><svg class="icon"><use href="#icon-cloud"/></svg></span><div><strong>94 %</strong><span>synchronisés</span></div><span class="stat-trend">3 erreurs à examiner</span></article></div>
+          <div class="admin-priority-grid"><article class="card priority-card"><span class="priority-icon warning"><svg class="icon"><use href="#icon-alert"/></svg></span><div><p class="eyebrow">À traiter</p><h2>5 invitations en attente</h2><p>Deux invitations expirent dans moins de 48 heures.</p><button class="inline-link" type="button" data-admin-view="admin-students">Voir les élèves</button></div></article><article class="card priority-card"><span class="priority-icon danger"><svg class="icon"><use href="#icon-refresh"/></svg></span><div><p class="eyebrow">Synchronisation</p><h2>3 erreurs persistantes</h2><p>Les données locales restent conservées sur les appareils.</p><button class="inline-link" type="button" data-admin-view="admin-storage">Examiner</button></div></article></div>
+          <article class="card admin-table-card"><div class="section-heading"><div><p class="eyebrow">Contenus</p><h2>Ressources récentes</h2></div><button class="inline-link" type="button" data-admin-view="admin-resources">Voir toutes</button></div><div class="table-wrap"><table><thead><tr><th>Ressource</th><th>Matière</th><th>Statut</th><th>Mise à jour</th><th><span class="sr-only">Action</span></th></tr></thead><tbody><tr><td><strong>Brassage génétique</strong><small>PDF · 2,4 Mo</small></td><td>SVT</td><td><span class="status status-success">Publiée</span></td><td>12 oct.</td><td><button class="text-button small" type="button" data-demo-message="Ouverture de l'éditeur de ressource.">Ouvrir</button></td></tr><tr><td><strong>Comprendre les suites</strong><small>Vidéo · 126 Mo</small></td><td>Mathématiques</td><td><span class="status status-warning">Brouillon</span></td><td>11 oct.</td><td><button class="text-button small" type="button" data-demo-message="Ouverture de l'éditeur de ressource.">Modifier</button></td></tr><tr><td><strong>Les lois de Newton</strong><small>PDF · 1,7 Mo</small></td><td>Sciences physiques</td><td><span class="status status-success">Publiée</span></td><td>8 oct.</td><td><button class="text-button small" type="button" data-demo-message="Ouverture de l'éditeur de ressource.">Ouvrir</button></td></tr></tbody></table></div></article>
+        </section>
+
+        <section id="admin-students" class="admin-view" hidden><div class="page-heading"><div><p class="eyebrow">Gestion des accès</p><h1>Élèves</h1><p class="page-subtitle">Invitez, recherchez et accompagnez les comptes du pilote.</p></div><button class="button button-primary" type="button" data-open-invite><svg class="icon"><use href="#icon-plus"/></svg>Inviter un élève</button></div><div class="toolbar"><label class="search-field"><span class="sr-only">Rechercher un élève</span><svg class="icon"><use href="#icon-search"/></svg><input type="search" placeholder="Nom ou nom d'utilisateur"></label><button class="button button-secondary" type="button" data-demo-message="Filtres par statut de compte et date d'invitation."><svg class="icon"><use href="#icon-filter"/></svg>Filtres</button></div><article class="card admin-table-card"><div class="table-wrap"><table><thead><tr><th>Élève</th><th>Identifiant</th><th>Statut</th><th>Dernière activité</th><th><span class="sr-only">Action</span></th></tr></thead><tbody id="student-table-body"><tr><td><strong>Awa K.</strong><small>Série D</small></td><td>@awa07</td><td><span class="status status-success">Actif</span></td><td>Aujourd'hui, 10:42</td><td><button class="text-button small" type="button" data-demo-message="La fiche élève n'affichera que les informations administratives autorisées.">Voir</button></td></tr><tr><td><strong>Issa O.</strong><small>Série D</small></td><td>@issa16</td><td><span class="status status-warning">Invitation</span></td><td>Jamais</td><td><button class="text-button small" type="button" data-demo-message="L'invitation peut être renouvelée ou annulée.">Gérer</button></td></tr><tr><td><strong>Mariam T.</strong><small>Série D</small></td><td>@mariam03</td><td><span class="status status-success">Actif</span></td><td>Hier, 19:16</td><td><button class="text-button small" type="button" data-demo-message="La fiche élève n'affichera que les informations administratives autorisées.">Voir</button></td></tr></tbody></table></div></article></section>
+
+        <section id="admin-structure" class="admin-view" hidden><div class="page-heading"><div><p class="eyebrow">Structure pédagogique</p><h1>Matières et chapitres</h1><p class="page-subtitle">La liste reste provisoire jusqu'à réception du document officiel.</p></div><button class="button button-primary" type="button" data-demo-message="L'ajout définitif attendra la validation du programme officiel."><svg class="icon"><use href="#icon-plus"/></svg>Ajouter une matière</button></div><div class="notice notice-warning"><svg class="icon"><use href="#icon-alert"/></svg><div><strong>Validation officielle requise avant la Partie 5</strong><p>Les exemples ci-dessous servent uniquement au prototype.</p></div></div><div class="structure-grid"><article class="card subject-admin-card"><span class="subject-admin-icon">M</span><div><h2>Mathématiques</h2><p>4 chapitres de démonstration</p></div><button class="icon-button" type="button" data-demo-message="Ouverture des chapitres de démonstration."><svg class="icon"><use href="#icon-chevron"/></svg></button></article><article class="card subject-admin-card"><span class="subject-admin-icon teal">SVT</span><div><h2>Sciences de la vie et de la Terre</h2><p>3 chapitres de démonstration</p></div><button class="icon-button" type="button" data-demo-message="Ouverture des chapitres de démonstration."><svg class="icon"><use href="#icon-chevron"/></svg></button></article><article class="card subject-admin-card"><span class="subject-admin-icon blue">SP</span><div><h2>Sciences physiques</h2><p>3 chapitres de démonstration</p></div><button class="icon-button" type="button" data-demo-message="Ouverture des chapitres de démonstration."><svg class="icon"><use href="#icon-chevron"/></svg></button></article></div></section>
+
+        <section id="admin-resources" class="admin-view" hidden><div class="page-heading"><div><p class="eyebrow">Bibliothèque commune</p><h1>Ressources</h1><p class="page-subtitle">Créez, vérifiez et publiez les contenus communs.</p></div><button class="button button-primary" type="button" data-demo-message="Le formulaire complet de publication reprendra les champs définis dans le cahier des charges."><svg class="icon"><use href="#icon-plus"/></svg>Nouvelle ressource</button></div><div class="admin-content-tabs"><button class="active" type="button">Toutes <span>42</span></button><button type="button">Publiées <span>38</span></button><button type="button">Brouillons <span>4</span></button></div><article class="card admin-table-card"><div class="table-wrap"><table><thead><tr><th>Titre</th><th>Type</th><th>Matière</th><th>Statut</th><th>Source</th><th><span class="sr-only">Action</span></th></tr></thead><tbody><tr><td><strong>Brassage génétique</strong></td><td>PDF</td><td>SVT</td><td><span class="status status-success">Publiée</span></td><td>Renseignée</td><td><button class="text-button small" type="button" data-demo-message="Ouverture de l'éditeur de ressource.">Modifier</button></td></tr><tr><td><strong>Comprendre les suites</strong></td><td>Vidéo</td><td>Mathématiques</td><td><span class="status status-warning">Brouillon</span></td><td>À compléter</td><td><button class="text-button small" type="button" data-demo-message="Ouverture de l'éditeur de ressource.">Modifier</button></td></tr><tr><td><strong>Les lois de Newton</strong></td><td>PDF</td><td>Sciences physiques</td><td><span class="status status-success">Publiée</span></td><td>Renseignée</td><td><button class="text-button small" type="button" data-demo-message="Ouverture de l'éditeur de ressource.">Modifier</button></td></tr></tbody></table></div></article></section>
+
+        <section id="admin-quizzes" class="admin-view" hidden><div class="page-heading"><div><p class="eyebrow">Évaluations</p><h1>Quiz</h1><p class="page-subtitle">Préparez des exercices courts avec une correction claire.</p></div><button class="button button-primary" type="button" data-demo-message="L'éditeur permettra d'ajouter les questions, réponses et explications."><svg class="icon"><use href="#icon-plus"/></svg>Nouveau quiz</button></div><div class="quiz-grid admin-quiz-grid"><article class="quiz-card"><div class="quiz-card-top"><span class="file-icon file-icon-note"><svg class="icon"><use href="#icon-quiz"/></svg></span><span class="status status-success">Publié</span></div><span class="subject-tag">Mathématiques</span><h3>Limites et continuité</h3><p>10 questions · 84 tentatives</p><button class="inline-link" type="button" data-demo-message="Ouverture de l'éditeur du quiz.">Modifier <svg class="icon"><use href="#icon-chevron"/></svg></button></article><article class="quiz-card"><div class="quiz-card-top"><span class="file-icon file-icon-image"><svg class="icon"><use href="#icon-quiz"/></svg></span><span class="status status-success">Publié</span></div><span class="subject-tag">SVT</span><h3>Brassage génétique</h3><p>8 questions · 61 tentatives</p><button class="inline-link" type="button" data-demo-message="Ouverture de l'éditeur du quiz.">Modifier <svg class="icon"><use href="#icon-chevron"/></svg></button></article><article class="quiz-card"><div class="quiz-card-top"><span class="file-icon file-icon-video"><svg class="icon"><use href="#icon-quiz"/></svg></span><span class="status status-warning">Brouillon</span></div><span class="subject-tag">Sciences physiques</span><h3>Travail et énergie</h3><p>6 questions · Non publié</p><button class="inline-link" type="button" data-demo-message="Ouverture de l'éditeur du quiz.">Continuer <svg class="icon"><use href="#icon-chevron"/></svg></button></article></div></section>
+
+        <section id="admin-storage" class="admin-view" hidden><div class="page-heading"><div><p class="eyebrow">Infrastructure</p><h1>Stockage et synchronisation</h1><p class="page-subtitle">Vue de conception des volumes et incidents.</p></div></div><div class="stats-grid"><article class="stat-card"><span class="stat-icon stat-icon-teal"><svg class="icon"><use href="#icon-cloud"/></svg></span><div><strong>8,4 Go</strong><span>stockage total</span></div></article><article class="stat-card"><span class="stat-icon stat-icon-gold"><svg class="icon"><use href="#icon-refresh"/></svg></span><div><strong>37</strong><span>opérations en attente</span></div></article><article class="stat-card"><span class="stat-icon stat-icon-blue"><svg class="icon"><use href="#icon-wifi"/></svg></span><div><strong>94 %</strong><span>appareils synchronisés</span></div></article></div><div class="notice notice-warning"><svg class="icon"><use href="#icon-alert"/></svg><div><strong>3 erreurs persistantes</strong><p>Le prototype conserve les données locales et propose une nouvelle tentative sans suppression.</p></div><button class="button button-secondary button-small" type="button" data-demo-message="La liste des opérations permettra d'examiner et relancer chaque erreur.">Examiner</button></div></section>
+
+        <section id="admin-journal" class="admin-view" hidden><div class="page-heading"><div><p class="eyebrow">Traçabilité</p><h1>Journal administratif</h1><p class="page-subtitle">Consultez les actions sensibles effectuées par les administrateurs.</p></div></div><article class="card timeline"><div class="timeline-item"><span></span><div><strong>Compte élève invité</strong><p>@issa16 · par Administrateur</p><small>Aujourd'hui, 09:14</small></div></div><div class="timeline-item"><span></span><div><strong>Ressource publiée</strong><p>« Brassage génétique » · SVT</p><small>12 octobre, 18:22</small></div></div><div class="timeline-item"><span></span><div><strong>Accès réinitialisé</strong><p>@mariam03 · vérification effectuée</p><small>11 octobre, 16:08</small></div></div></article></section>
+      </main>
+    </div>
+  </section>
+
+  <!-- Dialogues -->
+  <dialog id="resource-dialog" class="dialog dialog-form" aria-labelledby="resource-dialog-title">
+    <form id="resource-form" method="dialog">
+      <div class="dialog-header"><div><p class="eyebrow">Mon classeur</p><h2 id="resource-dialog-title">Ajouter une ressource</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Fermer">×</button></div>
+      <div class="dialog-body">
+        <fieldset class="resource-type-field"><legend>Type de ressource</legend><div class="type-options"><label><input type="radio" name="resource-type" value="Note" checked><span><svg class="icon"><use href="#icon-note"/></svg>Note</span></label><label><input type="radio" name="resource-type" value="Document"><span><svg class="icon"><use href="#icon-file"/></svg>Document</span></label><label><input type="radio" name="resource-type" value="Image"><span><svg class="icon"><use href="#icon-image"/></svg>Image</span></label><label><input type="radio" name="resource-type" value="Audio"><span><svg class="icon"><use href="#icon-audio"/></svg>Audio</span></label><label><input type="radio" name="resource-type" value="Vidéo"><span><svg class="icon"><use href="#icon-video"/></svg>Vidéo</span></label></div></fieldset>
+        <div class="form-field"><label for="resource-title">Titre <span aria-hidden="true">*</span></label><input id="resource-title" name="title" required placeholder="Ex. Exercices sur les suites"><p class="field-error" id="resource-title-error" hidden>Ajoutez un titre.</p></div>
+        <div class="form-row"><div class="form-field"><label for="resource-subject">Matière <span aria-hidden="true">*</span></label><select id="resource-subject" name="subject" required><option value="">Choisir</option><option>Mathématiques</option><option>SVT</option><option>Sciences physiques</option><option>Philosophie</option></select></div><div class="form-field"><label for="resource-chapter">Chapitre</label><select id="resource-chapter" name="chapter"><option value="">Non classé</option><option>Analyse</option><option>Suites</option><option>Génétique</option><option>Mécanique</option></select></div></div>
+        <div id="note-content-field" class="form-field"><label for="resource-note">Votre note</label><textarea id="resource-note" rows="4" placeholder="Écrivez ou collez vos notes ici…"></textarea></div>
+        <div class="upload-zone"><svg class="icon"><use href="#icon-upload"/></svg><div><strong>Ajouter depuis l'appareil</strong><span>PDF, image, audio ou vidéo · limites à définir</span></div><input id="resource-file" type="file" aria-label="Choisir un fichier"></div>
+        <div class="privacy-callout"><svg class="icon"><use href="#icon-lock"/></svg><span><strong>Cette ressource restera privée.</strong> Vous seul pourrez la consulter.</span></div>
+      </div>
+      <div class="dialog-footer"><button class="button button-secondary" type="button" data-close-dialog>Annuler</button><button class="button button-primary" type="submit">Enregistrer</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="session-dialog" class="dialog dialog-form" aria-labelledby="session-dialog-title">
+    <form id="session-form" method="dialog">
+      <div class="dialog-header"><div><p class="eyebrow">Planning</p><h2 id="session-dialog-title">Planifier une séance</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Fermer">×</button></div>
+      <div class="dialog-body"><div class="form-field"><label for="session-title">Objectif de la séance</label><input id="session-title" name="title" required placeholder="Ex. Revoir les exercices sur les limites"></div><div class="form-row"><div class="form-field"><label for="session-subject">Matière</label><select id="session-subject" name="subject" required><option value="">Choisir</option><option>Mathématiques</option><option>SVT</option><option>Sciences physiques</option><option>Philosophie</option></select></div><div class="form-field"><label for="session-duration">Durée</label><select id="session-duration" name="duration"><option>30 min</option><option selected>45 min</option><option>60 min</option><option>90 min</option></select></div></div><div class="form-row"><div class="form-field"><label for="session-date">Date</label><input id="session-date" name="date" type="date" value="2026-10-17" required></div><div class="form-field"><label for="session-time">Heure</label><input id="session-time" name="time" type="time" value="16:00" required></div></div><div class="privacy-callout"><svg class="icon"><use href="#icon-cloud"/></svg><span>La séance peut être enregistrée hors ligne puis synchronisée.</span></div></div>
+      <div class="dialog-footer"><button class="button button-secondary" type="button" data-close-dialog>Annuler</button><button class="button button-primary" type="submit">Planifier</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="resource-detail-dialog" class="dialog dialog-detail" aria-labelledby="detail-title">
+    <div class="dialog-header"><div><p class="eyebrow">Aperçu de ressource</p><h2 id="detail-title">Ressource</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Fermer">×</button></div>
+    <div class="dialog-body"><div class="document-preview"><svg class="icon"><use href="#icon-file"/></svg><span>Aperçu du contenu</span><small>Le lecteur définitif sera choisi selon le type de fichier.</small></div><p id="detail-meta" class="muted"></p><div class="privacy-callout"><svg class="icon"><use href="#icon-lock"/></svg><span>La visibilité et l'état de synchronisation seront toujours affichés ici.</span></div></div>
+    <div class="dialog-footer"><button class="button button-secondary" type="button" data-close-dialog>Fermer</button><button class="button button-primary" type="button" data-demo-message="Le document serait ouvert dans son lecteur adapté.">Ouvrir</button></div>
+  </dialog>
+
+  <dialog id="progress-dialog" class="dialog dialog-detail" aria-labelledby="progress-title">
+    <div class="dialog-header"><div><p class="eyebrow">Progression</p><h2 id="progress-title">Vue détaillée</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Fermer">×</button></div>
+    <div class="dialog-body"><p class="muted">La progression combine les séances terminées et les quiz réalisés. Elle reste indicative.</p><div class="progress-list progress-list-large"><div class="progress-row"><div><span>Mathématiques</span><strong>68 %</strong></div><div class="progress-track"><span style="width:68%"></span></div><small>6 séances · 4 quiz</small></div><div class="progress-row"><div><span>SVT</span><strong>46 %</strong></div><div class="progress-track"><span style="width:46%"></span></div><small>4 séances · 2 quiz</small></div><div class="progress-row"><div><span>Sciences physiques</span><strong>39 %</strong></div><div class="progress-track"><span style="width:39%"></span></div><small>3 séances · 2 quiz</small></div></div></div>
+    <div class="dialog-footer"><button class="button button-primary" type="button" data-close-dialog>Fermer</button></div>
+  </dialog>
+
+  <dialog id="invite-dialog" class="dialog dialog-form" aria-labelledby="invite-title">
+    <form id="invite-form" method="dialog"><div class="dialog-header"><div><p class="eyebrow">Accès contrôlé</p><h2 id="invite-title">Inviter un élève</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Fermer">×</button></div><div class="dialog-body"><div class="form-field"><label for="invite-name">Nom affiché</label><input id="invite-name" name="name" required placeholder="Ex. Adama S."></div><div class="form-field"><label for="invite-username">Nom d'utilisateur</label><div class="input-prefix"><span>@</span><input id="invite-username" name="username" required placeholder="adama12"></div></div><div class="form-field"><label for="invite-series">Série</label><select id="invite-series" name="series"><option>Série D</option></select></div><div class="privacy-callout"><svg class="icon"><use href="#icon-lock"/></svg><span>Un code temporaire sera généré. L'élève choisira son mot de passe à la première connexion.</span></div></div><div class="dialog-footer"><button class="button button-secondary" type="button" data-close-dialog>Annuler</button><button class="button button-primary" type="submit">Créer l'invitation</button></div></form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>

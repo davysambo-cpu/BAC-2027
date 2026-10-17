@@ -1,0 +1,45 @@
+{
+  "name": "bac-2027",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Plateforme PWA de préparation au BAC 2027 pour la Série D au Burkina Faso.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10.0.0"
+  },
+  "packageManager": "npm@10.9.8",
+  "scripts": {
+    "dev": "concurrently --kill-others --names WEB,API --prefix-colors cyan,green \"npm run dev -w @bac-2027/web\" \"npm run dev -w @bac-2027/api\"",
+    "dev:web": "npm run dev -w @bac-2027/web",
+    "dev:api": "npm run dev -w @bac-2027/api",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "audit:production": "npm audit --omit=dev",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build",
+    "db:generate": "npm run db:generate -w @bac-2027/api",
+    "db:migrate": "npm run db:migrate -w @bac-2027/api",
+    "db:seed": "npm run db:seed -w @bac-2027/api",
+    "catalogue:import": "npm run catalogue:import -w @bac-2027/api",
+    "admin:create": "npm run admin:create -w @bac-2027/api"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "concurrently": "^10.0.0",
+    "eslint": "^10.12.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.2"
+  }
+}
