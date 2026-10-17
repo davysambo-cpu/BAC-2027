@@ -4,7 +4,6 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthContext";
 import { AdminRoute, ProtectedRoute } from "./components/ProtectedRoute";
 import { ActivationPage } from "./pages/ActivationPage";
-import { AdminPage } from "./pages/AdminPage";
 import { DashboardPage } from "./pages/DashboardPage";
 import { LoginPage } from "./pages/LoginPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
@@ -12,6 +11,9 @@ import { PlaceholderPage } from "./pages/PlaceholderPage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { RecoveryPage } from "./pages/RecoveryPage";
 
+const AdminPage = lazy(() =>
+  import("./pages/AdminPage").then((module) => ({ default: module.AdminPage })),
+);
 const ResourcesPage = lazy(() => import("./pages/ResourcesPage"));
 
 export function App() {
@@ -81,7 +83,11 @@ export function App() {
             path="/admin"
             element={
               <AdminRoute>
-                <AdminPage />
+                <Suspense
+                  fallback={<div className="route-loading">Chargement de l'administration…</div>}
+                >
+                  <AdminPage />
+                </Suspense>
               </AdminRoute>
             }
           />
