@@ -23,6 +23,8 @@ Le canal privé de signalement sera défini avant l'ouverture du MVP à des util
 - médias de bilan limités en taille et en nombre, vérifiés par signature binaire et accessibles uniquement à leur propriétaire ;
 - clés de stockage générées par le serveur, réponses privées `no-store` et blocage de l'interprétation de type avec `nosniff` ;
 - brouillons pédagogiques privés, réponses des fournisseurs strictement validées et corrections impossibles sans extrait original et citation ;
+- publication du corpus réservée à l'administration, protégée par un en-tête d'intention, un contrôle de version et un journal d'audit ;
+- liens de citation limités à HTTP(S) et règles de contradiction limitées à des chaînes littérales non exécutables ;
 - aucun envoi à un fournisseur externe tant qu'il n'est pas explicitement configuré ; le mode local déterministe reste le repli sans coût ;
 - mots de passe hachés avec Argon2id ;
 - jetons aléatoires conservés uniquement sous forme de condensat HMAC-SHA-256 ;

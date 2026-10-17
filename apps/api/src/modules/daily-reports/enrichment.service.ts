@@ -49,24 +49,41 @@ export class EnrichmentService {
     private readonly now: () => Date = () => new Date(),
   ) {}
 
-  async generate(user: CurrentUser, reportId: string): Promise<CourseDraft> {
+  async generate(user: CurrentUser, reportId: string, force = false): Promise<CourseDraft> {
     this.requireStudent(user);
     const input = await this.repository.findReportInput(user.id, reportId);
     if (!input) throw this.reportNotFound();
 
     const existing = await this.repository.findLatestDraft(user.id, reportId);
-    if (existing && existing.baseReportVersion === input.report.version && !existing.failureCode) {
+    if (
+      !force &&
+      existing &&
+      existing.baseReportVersion === input.report.version &&
+      !existing.failureCode
+    ) {
       return existing;
     }
 
     try {
       const result = providerResultSchema.parse(await this.provider.generate(input));
       this.validateCorrections(input.report.originalSummary, result);
+      if (
+        force &&
+        existing &&
+        existing.baseReportVersion === input.report.version &&
+        existing.provider === result.provider &&
+        existing.model === result.model &&
+        existing.promptVersion === result.promptVersion &&
+        !existing.failureCode
+      ) {
+        return existing;
+      }
       return await this.repository.save({
         reportId,
         studentId: user.id,
         baseReportVersion: input.report.version,
         result,
+        forceNewGeneration: force,
         now: this.now(),
       });
     } catch (error) {

@@ -149,6 +149,12 @@ export const courseDraftSchema = z.object({
   acceptedAt: isoDateTimeSchema.nullable(),
 });
 
+export const generateCourseDraftRequestSchema = z
+  .object({
+    force: z.boolean().default(false),
+  })
+  .default({ force: false });
+
 export const reviewDraftCorrectionRequestSchema = z.object({
   reviewStatus: z.enum(["accepted", "rejected", "ask_teacher"]),
 });
@@ -170,4 +176,5 @@ export type GeneratedCourseContent = z.infer<typeof generatedCourseContentSchema
 export type DraftCitation = z.infer<typeof draftCitationSchema>;
 export type DraftCorrection = z.infer<typeof draftCorrectionSchema>;
 export type CourseDraft = z.infer<typeof courseDraftSchema>;
+export type GenerateCourseDraftRequest = z.infer<typeof generateCourseDraftRequestSchema>;
 export type ReviewDraftCorrectionRequest = z.infer<typeof reviewDraftCorrectionRequestSchema>;

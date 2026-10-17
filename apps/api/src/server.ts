@@ -12,6 +12,9 @@ import { DailyReportService } from "./modules/daily-reports/daily-report.service
 import { LocalOutlineEnrichmentProvider } from "./modules/daily-reports/enrichment.provider";
 import { DrizzleEnrichmentRepository } from "./modules/daily-reports/enrichment.repository";
 import { EnrichmentService } from "./modules/daily-reports/enrichment.service";
+import { CuratedCorpusEnrichmentProvider } from "./modules/knowledge/curated-enrichment.provider";
+import { DrizzleKnowledgeRepository } from "./modules/knowledge/knowledge.repository";
+import { KnowledgeService } from "./modules/knowledge/knowledge.service";
 import { createMediaStorage } from "./modules/media/media.storage";
 
 const connection = await createDatabaseConnection();
@@ -30,10 +33,12 @@ const dailyReportAttachmentService = new DailyReportAttachmentService(
   mediaStorage,
   environment,
 );
+const knowledgeRepository = new DrizzleKnowledgeRepository(connection.database);
+const knowledgeService = new KnowledgeService(knowledgeRepository);
 const enrichmentRepository = new DrizzleEnrichmentRepository(connection.database);
 const enrichmentService = new EnrichmentService(
   enrichmentRepository,
-  new LocalOutlineEnrichmentProvider(),
+  new CuratedCorpusEnrichmentProvider(knowledgeRepository, new LocalOutlineEnrichmentProvider()),
 );
 const app = buildApp(
   {
@@ -47,6 +52,7 @@ const app = buildApp(
     dailyReportService,
     dailyReportAttachmentService,
     enrichmentService,
+    knowledgeService,
     environment,
   },
 );

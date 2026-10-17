@@ -518,6 +518,37 @@ export default function ResourcesPage() {
     }
   }
 
+  async function refreshCourseDraft() {
+    if (!activeReport) return;
+    if (auth.offline) {
+      setDraftError(
+        "Une connexion est nécessaire pour rechercher une fiche approuvée plus récente.",
+      );
+      return;
+    }
+    setDraftLoading(true);
+    setDraftError(null);
+    try {
+      const previousId = courseDraft?.id;
+      const draft = await generateCourseDraft(activeReport.id, true);
+      applyDraft(draft);
+      if (personalDevice && auth.user) void cacheCourseDraft(auth.user.id, draft);
+      setMessage(
+        draft.id === previousId
+          ? "Le brouillon utilise déjà la version la plus récente du corpus."
+          : draft.provider === "curated-corpus"
+            ? "Une fiche approuvée plus récente a été appliquée. Vérifiez le nouveau brouillon."
+            : "Aucune fiche approuvée n'est encore publiée pour ce thème.",
+      );
+    } catch (error) {
+      setDraftError(
+        error instanceof ApiClientError ? error.message : "Le corpus n'a pas pu être actualisé.",
+      );
+    } finally {
+      setDraftLoading(false);
+    }
+  }
+
   async function validateCourseDraft() {
     if (!activeReport) return;
     setDraftLoading(true);
@@ -842,6 +873,16 @@ export default function ResourcesPage() {
                     </p>
                   </div>
                 )}
+                {courseDraft.provider === "curated-corpus" && (
+                  <div className="catalogue-notice compact verified" role="note">
+                    <span aria-hidden="true">✓</span>
+                    <p>
+                      Ce brouillon utilise une fiche publiée par l'administration. Les corrections
+                      automatiques restent limitées aux expressions explicitement prévues dans cette
+                      fiche et doivent être confirmées ci-dessous.
+                    </p>
+                  </div>
+                )}
 
                 <section className="draft-section">
                   <h4>Objectifs de travail</h4>
@@ -1021,21 +1062,33 @@ export default function ResourcesPage() {
                   ? "Ce brouillon est validé comme cours personnel. L'original reste consultable à côté."
                   : "Validez uniquement après avoir lu le brouillon et traité chaque correction proposée."}
               </p>
-              {courseDraft.status !== "accepted" && (
+              <div className="draft-validation-actions">
                 <button
-                  className="primary-action fit"
+                  className="secondary-action"
                   type="button"
-                  disabled={
-                    draftLoading ||
-                    courseDraft.corrections.some(
-                      (correction) => correction.reviewStatus === "proposed",
-                    )
-                  }
-                  onClick={() => void validateCourseDraft()}
+                  disabled={draftLoading}
+                  onClick={() => void refreshCourseDraft()}
                 >
-                  {draftLoading ? "Enregistrement…" : "Valider comme cours personnel"}
+                  {courseDraft.provider === "local-outline"
+                    ? "Rechercher une fiche approuvée"
+                    : "Actualiser depuis le corpus"}
                 </button>
-              )}
+                {courseDraft.status !== "accepted" && (
+                  <button
+                    className="primary-action fit"
+                    type="button"
+                    disabled={
+                      draftLoading ||
+                      courseDraft.corrections.some(
+                        (correction) => correction.reviewStatus === "proposed",
+                      )
+                    }
+                    onClick={() => void validateCourseDraft()}
+                  >
+                    {draftLoading ? "Enregistrement…" : "Valider comme cours personnel"}
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </section>

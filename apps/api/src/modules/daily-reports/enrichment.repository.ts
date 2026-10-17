@@ -19,6 +19,7 @@ export interface SaveEnrichmentInput {
   studentId: string;
   baseReportVersion: number;
   result: EnrichmentResult;
+  forceNewGeneration: boolean;
   now: Date;
 }
 
@@ -109,6 +110,7 @@ export class DrizzleEnrichmentRepository implements EnrichmentRepository {
       catalogueItem:
         row.itemId && row.itemTitle && row.itemSection && row.itemValidationStatus
           ? {
+              id: row.itemId,
               title: row.itemTitle,
               section: row.itemSection,
               url: row.itemUrl,
@@ -165,7 +167,9 @@ export class DrizzleEnrichmentRepository implements EnrichmentRepository {
         .orderBy(desc(courseDrafts.generationNumber))
         .limit(1);
 
-      if (existing?.baseReportVersion === input.baseReportVersion) return existing.id;
+      if (existing?.baseReportVersion === input.baseReportVersion && !input.forceNewGeneration) {
+        return existing.id;
+      }
 
       const generationNumber = existing ? existing.generationNumber + 1 : 1;
       const [created] = await transaction

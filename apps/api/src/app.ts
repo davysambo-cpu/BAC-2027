@@ -16,6 +16,8 @@ import { dailyReportRoutes } from "./modules/daily-reports/daily-report.routes";
 import type { DailyReportService } from "./modules/daily-reports/daily-report.service";
 import { enrichmentRoutes } from "./modules/daily-reports/enrichment.routes";
 import type { EnrichmentService } from "./modules/daily-reports/enrichment.service";
+import { knowledgeRoutes } from "./modules/knowledge/knowledge.routes";
+import type { KnowledgeService } from "./modules/knowledge/knowledge.service";
 import { healthRoutes } from "./routes/health";
 
 interface AppDependencies {
@@ -24,6 +26,7 @@ interface AppDependencies {
   dailyReportService?: DailyReportService;
   dailyReportAttachmentService?: DailyReportAttachmentService;
   enrichmentService?: EnrichmentService;
+  knowledgeService?: KnowledgeService;
   environment?: Environment;
 }
 
@@ -70,6 +73,13 @@ export function buildApp(options: FastifyServerOptions = {}, dependencies: AppDe
     void app.register(enrichmentRoutes, {
       authService: dependencies.authService,
       enrichmentService: dependencies.enrichmentService,
+      environment,
+    });
+  }
+  if (dependencies.authService && dependencies.knowledgeService) {
+    void app.register(knowledgeRoutes, {
+      authService: dependencies.authService,
+      knowledgeService: dependencies.knowledgeService,
       environment,
     });
   }

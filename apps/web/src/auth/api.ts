@@ -10,6 +10,8 @@ import {
   dailyReportListResponseSchema,
   dailyReportSchema,
   invitationResponseSchema,
+  knowledgeCardListResponseSchema,
+  knowledgeCardSchema,
   profileResponseSchema,
   resetCodeResponseSchema,
   studentCatalogueResponseSchema,
@@ -19,16 +21,20 @@ import {
   type CourseDraft,
   type CreateDailyReportRequest,
   type CreateInvitationRequest,
+  type CreateKnowledgeCardRequest,
   type CurrentUser,
   type DailyReport,
   type DailyReportAttachment,
   type DailyReportAttachmentKind,
   type DailyReportAttachmentListResponse,
   type DailyReportListResponse,
+  type KnowledgeCard,
+  type KnowledgeCardListResponse,
   type LoginRequest,
   type ProfileResponse,
   type ReviewDraftCorrectionRequest,
   type StudentCatalogueResponse,
+  type UpdateKnowledgeCardRequest,
   type UpdateProfileRequest,
 } from "@bac-2027/contracts";
 import type { z } from "zod";
@@ -163,8 +169,39 @@ export function updateUserStatus(
   });
 }
 
+export function listKnowledgeCards(): Promise<KnowledgeCardListResponse> {
+  return request("/api/v1/admin/knowledge-cards", knowledgeCardListResponseSchema);
+}
+
+export function createKnowledgeCard(input: CreateKnowledgeCardRequest): Promise<KnowledgeCard> {
+  return request("/api/v1/admin/knowledge-cards", knowledgeCardSchema, {
+    method: "POST",
+    headers: { "X-BAC-Knowledge-Write": "1" },
+    body: JSON.stringify(input),
+  });
+}
+
+export function updateKnowledgeCard(
+  cardId: string,
+  input: UpdateKnowledgeCardRequest,
+): Promise<KnowledgeCard> {
+  return request(
+    `/api/v1/admin/knowledge-cards/${encodeURIComponent(cardId)}`,
+    knowledgeCardSchema,
+    {
+      method: "PUT",
+      headers: { "X-BAC-Knowledge-Write": "1" },
+      body: JSON.stringify(input),
+    },
+  );
+}
+
 export function getStudentCatalogue(): Promise<StudentCatalogueResponse> {
   return request("/api/v1/catalogue", studentCatalogueResponseSchema);
+}
+
+export function getAdminCatalogue(): Promise<StudentCatalogueResponse> {
+  return request("/api/v1/admin/catalogue", studentCatalogueResponseSchema);
 }
 
 export function listDailyReports(): Promise<DailyReportListResponse> {
@@ -217,11 +254,15 @@ export function listDailyReportAttachments(
   );
 }
 
-export function generateCourseDraft(reportId: string): Promise<CourseDraft> {
+export function generateCourseDraft(reportId: string, force = false): Promise<CourseDraft> {
   return request(
     `/api/v1/daily-reports/${encodeURIComponent(reportId)}/enrichment`,
     courseDraftSchema,
-    { method: "POST", headers: { "X-BAC-Enrichment": "1" } },
+    {
+      method: "POST",
+      headers: { "X-BAC-Enrichment": "1" },
+      body: JSON.stringify({ force }),
+    },
   );
 }
 

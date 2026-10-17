@@ -1,7 +1,11 @@
 import cookie from "@fastify/cookie";
 import type { FastifyPluginAsync, FastifyRequest } from "fastify";
 
-import { reviewDraftCorrectionRequestSchema, uuidSchema } from "@bac-2027/contracts";
+import {
+  generateCourseDraftRequestSchema,
+  reviewDraftCorrectionRequestSchema,
+  uuidSchema,
+} from "@bac-2027/contracts";
 
 import type { Environment } from "../../config/env";
 import { ApplicationError } from "../../lib/errors";
@@ -52,9 +56,11 @@ export const enrichmentRoutes: FastifyPluginAsync<EnrichmentRoutesOptions> = asy
     async (request, reply) => {
       requireMutationIntent(request);
       const { reportId } = request.params as { reportId: string };
+      const { force } = generateCourseDraftRequestSchema.parse(request.body);
       const draft = await enrichmentService.generate(
         await currentUser(request),
         uuidSchema.parse(reportId),
+        force,
       );
       reply.header("Cache-Control", "private, no-store");
       return reply.status(201).send(draft);

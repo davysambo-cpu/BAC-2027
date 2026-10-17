@@ -206,16 +206,17 @@ Organiser et rendre accessibles les ressources nécessaires aux révisions : mat
 - [x] Modéliser les séries, matières, chapitres et types de ressources.
 - [x] Permettre à l'élève d'enregistrer un bilan quotidien rattaché à une matière et à un thème du catalogue.
 - [x] Conserver sans l'écraser le texte original saisi par l'élève.
-- [ ] Produire à partir du bilan un brouillon de cours structuré, avec explications factuelles, sources et points à vérifier.
+- [x] Produire à partir du bilan un brouillon structuré avec explications factuelles, sources et points à vérifier lorsqu'une fiche approuvée couvre le thème.
 - [x] Livrer l'adaptateur local déterministe, la persistance versionnée et l'interface de brouillon/sources/corrections sans prétendre effectuer une vérification factuelle.
-- [ ] Signaler les contradictions possibles et faire valider toute correction avant qu'elle remplace une information saisie.
+- [x] Signaler les contradictions prévues par une fiche approuvée et faire valider toute correction avant qu'elle remplace une information saisie.
+- [ ] Constituer progressivement les premières fiches réelles à partir de documents pédagogiques vérifiés.
 - [x] Créer la navigation entre les matières et les thèmes du catalogue.
 - [x] Afficher le bilan original et son brouillon de cours de manière distincte, lisible et responsive.
 - [x] Ajouter la recherche et le filtre par matière nécessaires au premier catalogue.
 - [x] Finaliser le transfert serveur privé des photos et audios autorisés, avec reprise de l'outbox.
-- [ ] Prévoir la création et la mise à jour des contenus.
+- [x] Permettre à l'administration de créer, modifier, publier et archiver les fiches de savoir avec contrôle de version.
 - [x] Définir une méthode de vérification pédagogique des contenus et une politique de sources fiables.
-- [ ] Garder les contenus personnels privés ; seule l'administration peut publier une ressource dans la bibliothèque commune.
+- [x] Garder les contenus personnels privés ; seule l'administration peut publier une fiche dans le corpus commun.
 - [x] Afficher clairement la source et le niveau de validation d'une entrée du catalogue.
 - [ ] Finaliser et tester la consultation et la saisie hors ligne pour les connexions lentes.
 
@@ -232,12 +233,12 @@ Organiser et rendre accessibles les ressources nécessaires aux révisions : mat
 
 - [ ] Un élève trouve rapidement une ressource liée à sa série et à sa matière.
 - [ ] La hiérarchie matière → chapitre → ressource est cohérente.
-- [ ] Un bilan quotidien est sauvegardé même si la connexion est interrompue.
-- [ ] Le brouillon généré distingue le texte de l'élève, les explications ajoutées, les sources et les corrections proposées.
+- [x] Un bilan quotidien est sauvegardé même si la connexion est interrompue.
+- [x] Le brouillon généré distingue le texte de l'élève, les explications ajoutées, les sources et les corrections proposées.
 - [x] Aucune correction automatique ne supprime silencieusement le texte original de l'élève.
 - [ ] Les contenus sont lisibles sur téléphone.
-- [ ] Les ressources affichent les informations nécessaires sur leur origine et leur niveau de validation.
-- [ ] L'ajout ou la correction d'un contenu ne nécessite pas de modifier toute l'application.
+- [x] Les ressources affichent les informations nécessaires sur leur origine et leur niveau de validation.
+- [x] L'ajout ou la correction d'un contenu ne nécessite pas de modifier toute l'application.
 
 ---
 
@@ -381,7 +382,7 @@ Préparer une version stable, sécurisée, rapide et maintenable, puis la mettre
 
 - **Partie :** Partie 5 — Matières et contenus pédagogiques.
 - **Statut :** `🟨 En cours`
-- **Prochaine action :** raccorder à l'adaptateur un corpus pédagogique approuvé et un fournisseur serveur plafonné afin d'ajouter des explications factuelles sourcées et de détecter les contradictions ; conserver le mode local gratuit comme repli.
+- **Prochaine action :** réaliser la recette responsive du nouveau corpus administré, puis saisir et faire approuver les premières fiches réelles à partir de documents pédagogiques vérifiés ; raccorder ensuite un fournisseur plafonné pour assister leur préparation sans publication automatique.
 - **Sources déjà analysées :** neuf impressions du catalogue Faso e-education, inventoriées dans [`docs/ANALYSE_SOURCES_PARTIE_5.md`](./docs/ANALYSE_SOURCES_PARTIE_5.md).
 - **Rappel :** le catalogue est la base de travail choisie par le porteur, avec validation institutionnelle en attente ; ne pas le présenter comme un référentiel administratif exhaustif.
 
@@ -435,5 +436,6 @@ Préparer une version stable, sécurisée, rapide et maintenable, puis la mettre
 | 2026-10-17 | 5 | Le porteur approuve le premier incrément du catalogue et du bilan quotidien. | La recette humaine confirme que le parcours peut servir de base à la suite. | Le travail continue avec le transfert serveur sécurisé des photos et audios, puis l'enrichissement expliqué et sourcé. |
 | 2026-10-17 | 5 | Les médias de bilan passent par l'API avec contrôle de signature, limites de 2 photos de 5 Mo et 1 audio de 10 Mo, quota global et stockage S3 privé obligatoire en production. | Protéger les contenus personnels tout en gardant un parcours économique et reprenable sur connexion instable. | Le bilan est synchronisé avant ses médias ; l'appareil personnel conserve une outbox, l'appareil partagé envoie sans persistance locale et le stockage fichier reste réservé au développement. |
 | 2026-10-17 | 5 | Un fournisseur local déterministe structure le bilan sans inventer d'information et sert de repli gratuit au futur enrichissement factuel. | Livrer dès maintenant le parcours original → brouillon → sources → décisions, sans présenter une génération non configurée comme fiable. | Le contrat fournisseur, la persistance versionnée, les citations, les corrections confirmées et la validation du cours sont opérationnels ; la recherche, l'OCR, la transcription et les explications factuelles externes restent à raccorder. |
+| 2026-10-17 | 5 | Le corpus factuel est administré par thème et reste vide par défaut ; seule une fiche explicitement publiée peut enrichir ou corriger un bilan. | Ne jamais transformer une connaissance inventée ou une source non vérifiée en contenu commun. | L'administration peut versionner, sourcer, publier et archiver les fiches ; le fournisseur `curated-corpus` les utilise avec citations et revient au mode local lorsqu'aucune fiche n'est disponible. |
 
 > Ajouter une ligne à ce tableau lorsqu'un choix important est validé : technologie, fonctionnalité, design, règle métier ou changement de périmètre.

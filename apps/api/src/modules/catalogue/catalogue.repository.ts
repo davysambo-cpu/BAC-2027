@@ -18,12 +18,24 @@ export interface SeriesCatalogueRecord {
 
 export interface CatalogueRepository {
   findStudentCatalogue(seriesCode: string): Promise<SeriesCatalogueRecord | null>;
+  findAdminCatalogue(seriesCode: string): Promise<SeriesCatalogueRecord | null>;
 }
 
 export class DrizzleCatalogueRepository implements CatalogueRepository {
   constructor(private readonly database: AppDatabase) {}
 
   async findStudentCatalogue(seriesCode: string): Promise<SeriesCatalogueRecord | null> {
+    return this.findCatalogue(seriesCode, false);
+  }
+
+  async findAdminCatalogue(seriesCode: string): Promise<SeriesCatalogueRecord | null> {
+    return this.findCatalogue(seriesCode, true);
+  }
+
+  private async findCatalogue(
+    seriesCode: string,
+    includeHiddenEntries: boolean,
+  ): Promise<SeriesCatalogueRecord | null> {
     const [series] = await this.database
       .select({ id: academicSeries.id, code: academicSeries.code, name: academicSeries.name })
       .from(academicSeries)
@@ -46,7 +58,7 @@ export class DrizzleCatalogueRepository implements CatalogueRepository {
           eq(seriesSubjects.seriesId, series.id),
           eq(seriesSubjects.isActive, true),
           eq(subjects.isActive, true),
-          ne(seriesSubjects.validationStatus, "excluded"),
+          includeHiddenEntries ? undefined : ne(seriesSubjects.validationStatus, "excluded"),
         ),
       )
       .orderBy(asc(seriesSubjects.position), asc(subjects.name));
@@ -81,8 +93,8 @@ export class DrizzleCatalogueRepository implements CatalogueRepository {
             subjectRows.map((subject) => subject.id),
           ),
           eq(catalogueItems.isActive, true),
-          ne(catalogueItems.seriesDScope, "explicitly_excludes"),
-          ne(catalogueItems.validationStatus, "excluded"),
+          includeHiddenEntries ? undefined : ne(catalogueItems.seriesDScope, "explicitly_excludes"),
+          includeHiddenEntries ? undefined : ne(catalogueItems.validationStatus, "excluded"),
         ),
       )
       .orderBy(asc(catalogueItems.subjectId), asc(catalogueItems.subjectPosition));

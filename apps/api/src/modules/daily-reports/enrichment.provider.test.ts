@@ -18,6 +18,7 @@ describe("local outline enrichment provider", () => {
       },
       subjectName: "Mathématiques",
       catalogueItem: {
+        id: "30db9b8b-dbc3-465f-b0e8-6f90884906ad",
         title: "Un thème du catalogue",
         section: "Mathématiques",
         url: "https://example.test/theme",

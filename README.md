@@ -12,7 +12,7 @@ BAC-2027 doit permettre aux élèves de rassembler progressivement leurs cours, 
 | 2 — Expérience utilisateur et design | ✅ Terminée |
 | 3 — Architecture et fondations techniques | ✅ Terminée |
 | 4 — Comptes utilisateurs et profils | ✅ Terminée |
-| 5 — Matières et contenus pédagogiques | 🟨 Catalogue, bilans multimédias et brouillons structurés opérationnels ; enrichissement factuel à raccorder |
+| 5 — Matières et contenus pédagogiques | 🟨 Corpus sourcé administrable et enrichissement factuel opérationnels ; premières fiches réelles à valider |
 | 6 à 8 | ⬜ À faire |
 
 Le statut détaillé et les prochaines actions se trouvent dans [`PLAN_PROJET.md`](./PLAN_PROJET.md).

@@ -227,7 +227,25 @@ Le parcours de brouillon structuré et de vérification est maintenant branché 
 - le cours validé et ses sources sont mis en cache sur un appareil personnel afin de rester consultables après une coupure ;
 - les routes restent privées et contrôlent la propriété du bilan.
 
-Le fournisseur local rend immédiatement utilisable la structuration et le parcours de confirmation, sans coût externe. Il **n'effectue pas encore** d'OCR, de transcription, de recherche web ou de vérification factuelle. La prochaine étape est de raccorder une source de contenu approuvée et un fournisseur serveur plafonné ; l'interface et les contrôles de correction sont déjà prêts pour recevoir leurs résultats sans écraser l'original.
+Le fournisseur local rend immédiatement utilisable la structuration et le parcours de confirmation, sans coût externe. Il **n'effectue pas** d'OCR, de transcription, de recherche web ou de vérification factuelle.
+
+## Quatrième incrément réalisé — corpus approuvé
+
+BAC-2027 peut désormais recevoir des contenus factuels sans dépendre d'un modèle payant ni qualifier automatiquement une source de fiable :
+
+- l'administration dispose d'un formulaire de création, modification, publication et archivage des fiches de savoir ;
+- sa vue conserve les 203 entrées du catalogue, dont les 12 thèmes d'autres séries toujours masqués aux élèves de Série D ;
+- une fiche est liée à un seul thème précis du catalogue et conserve sa version ;
+- elle contient objectifs, synthèse, définitions, explications, exemples, extrait justificatif et provenance ;
+- les niveaux autorisés sont `source pédagogique sélectionnée` et `source institutionnelle vérifiée` ; l'interface rappelle que ce classement engage l'administration ;
+- les URL sont limitées à HTTP(S), les écritures exigent un en-tête d'intention et toutes les opérations de publication sont journalisées ;
+- une règle de correction est un triplet littéral `expression repérée | correction | explication` : aucun motif exécutable n'est accepté ;
+- le fournisseur `curated-corpus` utilise uniquement une fiche publiée rattachée au thème du bilan ; sinon il revient au mode `local-outline` ;
+- chaque correction issue du corpus cite automatiquement la source de la fiche et reste soumise à la décision de l'élève ;
+- un élève peut rechercher une fiche récemment publiée ou actualisée sans modifier son bilan original ; une nouvelle génération versionnée n'est créée que si le corpus a réellement changé ;
+- les conflits d'édition administratifs sont bloqués par contrôle de version optimiste.
+
+Le corpus est volontairement **vide par défaut** : le logiciel ne publie aucune connaissance inventée ou non approuvée. Les premières fiches réelles devront être saisies à partir de documents pédagogiques vérifiés par le porteur ou son équipe. Un fournisseur externe pourra ensuite proposer des brouillons, mais leur publication dans le corpus restera une action administrative explicite.
 
 ## Décisions restant à valider pendant les incréments suivants
 

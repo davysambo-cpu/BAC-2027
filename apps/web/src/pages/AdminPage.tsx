@@ -11,6 +11,7 @@ import {
 } from "../auth/api";
 import { useAuth } from "../auth/auth-context";
 import { AppShell } from "../components/AppShell";
+import { KnowledgeCardsPanel } from "../components/KnowledgeCardsPanel";
 
 export function AdminPage() {
   const auth = useAuth();
@@ -260,6 +261,7 @@ export function AdminPage() {
           </div>
         )}
       </section>
+      <KnowledgeCardsPanel />
     </AppShell>
   );
 }

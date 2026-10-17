@@ -240,7 +240,9 @@ Il ne met pas automatiquement en cache tous les médias. Les médias communs son
 
 Le domaine dépend d'une interface `EnrichmentProvider`, jamais du SDK propriétaire d'un fournisseur. Chaque résultat est validé avant écriture et conserve le fournisseur, le modèle, la version de consigne et la version du bilan utilisée.
 
-Le fournisseur `local-outline` est le repli gratuit et déterministe : il structure uniquement le texte existant et signale explicitement l'absence de vérification factuelle. Un fournisseur externe futur devra respecter les mêmes contrats :
+Le fournisseur `local-outline` est le repli gratuit et déterministe : il structure uniquement le texte existant et signale explicitement l'absence de vérification factuelle. Le fournisseur `curated-corpus` cherche ensuite une fiche publiée pour le thème exact du bilan et restitue son contenu structuré avec citation. Les règles de contradiction sont des expressions littérales administrées, jamais du code ou des expressions régulières exécutables.
+
+Une actualisation forcée compare le fournisseur et la version de la fiche : elle crée une nouvelle génération uniquement lorsque le corpus disponible a réellement changé. Un fournisseur externe futur pourra assister la préparation d'une fiche, mais ne pourra pas la publier automatiquement et devra respecter les mêmes contrats :
 
 - aucune modification du bilan original ;
 - toute correction référence un extrait exact de l'original ;
@@ -271,7 +273,8 @@ Les détails techniques et traces ne sont jamais renvoyés au navigateur en prod
 PostgreSQL conserve :
 
 - comptes, invitations et profils ;
-- matières et chapitres ;
+- matières, chapitres et catalogue ;
+- fiches de savoir approuvées, versions, règles littérales et provenance ;
 - métadonnées des ressources ;
 - planning ;
 - quiz, questions, tentatives et résultats ;

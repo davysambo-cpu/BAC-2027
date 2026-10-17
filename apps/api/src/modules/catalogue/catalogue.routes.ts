@@ -18,16 +18,27 @@ export const catalogueRoutes: FastifyPluginAsync<CatalogueRoutesOptions> = async
 ) => {
   await app.register(cookie);
 
+  async function currentUser(request: Parameters<typeof sessionTokenFromRequest>[0]) {
+    const session = await authService.authenticate(sessionTokenFromRequest(request, environment));
+    return session.user;
+  }
+
   app.get(
     "/api/v1/catalogue",
     {
       config: { rateLimit: { max: 60, timeWindow: "1 minute" } },
     },
     async (request, reply) => {
-      const session = await authService.authenticate(sessionTokenFromRequest(request, environment));
-      const catalogue = await catalogueService.getStudentCatalogue(session.user.seriesCode ?? "D");
+      const user = await currentUser(request);
+      const catalogue = await catalogueService.getStudentCatalogue(user.seriesCode ?? "D");
       reply.header("Cache-Control", "private, max-age=300");
       return catalogue;
     },
   );
+
+  app.get("/api/v1/admin/catalogue", async (request, reply) => {
+    const catalogue = await catalogueService.getAdminCatalogue(await currentUser(request), "D");
+    reply.header("Cache-Control", "private, no-store");
+    return catalogue;
+  });
 };

@@ -107,9 +107,23 @@ Les limites du pilote sont configurables : deux photos de 5 Mo et un audio de 10
 
 ## Enrichissement pédagogique
 
-Le serveur utilise actuellement `LocalOutlineEnrichmentProvider`. Ce fournisseur déterministe et gratuit organise le bilan, les points compris et les questions, puis rattache le thème à sa source de catalogue. Il ne réalise aucune vérification factuelle et ne doit pas être présenté comme un service d'IA, d'OCR ou de transcription.
+Le serveur utilise `CuratedCorpusEnrichmentProvider`, qui cherche une fiche publiée pour le thème exact du bilan. Sans fiche, il délègue à `LocalOutlineEnrichmentProvider` : ce repli déterministe et gratuit organise le bilan, les points compris et les questions sans effectuer de vérification factuelle.
 
-L'interface `EnrichmentProvider` permet de raccorder ultérieurement un corpus approuvé, un moteur de recherche ou un modèle de génération. Toute implémentation doit renvoyer le contrat structuré, conserver ses métadonnées et associer chaque correction à un extrait exact de l'original ainsi qu'à au moins une citation. Les tests d'intégration utilisent un fournisseur déterministe simulé pour couvrir l'acceptation, le refus et le blocage des corrections en attente sans effectuer d'appel payant.
+Les fiches sont administrées depuis `/admin`. Une fiche contient sa provenance, un extrait justificatif et des sections pédagogiques structurées. Les champs multilignes utilisent une entrée par ligne ; les définitions suivent `terme | explication` et les règles de correction `expression littérale | correction | explication`. Une fiche publiée est utilisée immédiatement pour les nouvelles générations. Un brouillon élève déjà créé peut demander une actualisation ; une nouvelle génération n'est persistée que si le fournisseur ou la version de la fiche a changé.
+
+Le corpus reste vide après l'installation et le seed : aucune connaissance ne doit être publiée automatiquement. Les niveaux `curated` et `institutional` sont attribués par l'administration après vérification. Les créations, publications, mises à jour et archivages sont journalisés dans `admin_audit_logs`.
+
+Routes privées concernées :
+
+- `GET /api/v1/admin/catalogue` : vue complète des 203 entrées, réservée à l'administration ;
+- `GET /api/v1/admin/knowledge-cards` : couverture et versions actuelles ;
+- `POST /api/v1/admin/knowledge-cards` : création ;
+- `PUT /api/v1/admin/knowledge-cards/:cardId` : modification, publication ou archivage ;
+- `POST /api/v1/daily-reports/:reportId/enrichment` avec `{ "force": true }` : recherche explicite d'une fiche nouvelle ou actualisée.
+
+Les mutations du corpus exigent `X-BAC-Knowledge-Write: 1`. L'actualisation d'un brouillon exige l'en-tête d'enrichissement existant.
+
+L'interface `EnrichmentProvider` permettra aussi de raccorder un moteur de recherche ou un modèle de génération. Toute implémentation doit renvoyer le contrat structuré, conserver ses métadonnées et associer chaque correction à un extrait exact de l'original ainsi qu'à au moins une citation. Un fournisseur externe pourra préparer un brouillon de fiche, mais la publication restera une action administrative.
 
 ## Contrôles de qualité
 

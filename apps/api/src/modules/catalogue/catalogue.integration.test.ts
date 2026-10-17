@@ -68,6 +68,22 @@ describe("initial student catalogue", () => {
       .insert(studentProfiles)
       .values({ userId: studentId, seriesCode: "D" });
 
+    const adminPassword = "Admin-Catalogue-2027";
+    await connection.database.insert(users).values({
+      id: randomUUID(),
+      username: "catalogue-admin",
+      displayName: "Administration Catalogue",
+      passwordHash: await hash(adminPassword, {
+        type: argon2id,
+        memoryCost: 19_456,
+        timeCost: 2,
+        parallelism: 1,
+      }),
+      passwordChangedAt: new Date(),
+      role: "admin",
+      status: "active",
+    });
+
     const authService = new AuthService(
       new DrizzleAuthRepository(connection.database),
       environment,
@@ -122,6 +138,45 @@ describe("initial student catalogue", () => {
       );
       expect(visibleTitles).not.toContain("L'Union européenne (terminale A)");
       expect(visibleTitles).not.toContain("Les oscillations électriques libres (terminales C-E)");
+
+      const forbiddenAdminCatalogueResponse = await app.inject({
+        method: "GET",
+        url: "/api/v1/admin/catalogue",
+        headers: { cookie },
+      });
+      expect(forbiddenAdminCatalogueResponse.statusCode).toBe(403);
+
+      const adminLoginResponse = await app.inject({
+        method: "POST",
+        url: "/api/v1/auth/login",
+        payload: {
+          username: "catalogue-admin",
+          password: adminPassword,
+          deviceType: "personal",
+        },
+      });
+      const adminCookieHeader = adminLoginResponse.headers["set-cookie"];
+      const adminCookie = (
+        Array.isArray(adminCookieHeader) ? adminCookieHeader[0] : adminCookieHeader
+      )?.split(";", 1)[0];
+      expect(adminCookie).toBeTruthy();
+
+      const adminCatalogueResponse = await app.inject({
+        method: "GET",
+        url: "/api/v1/admin/catalogue",
+        headers: { cookie: adminCookie },
+      });
+      expect(adminCatalogueResponse.statusCode).toBe(200);
+      const adminCatalogue = studentCatalogueResponseSchema.parse(adminCatalogueResponse.json());
+      expect(adminCatalogue.subjects.flatMap((subject) => subject.items)).toHaveLength(203);
+      const adminTitles = adminCatalogue.subjects.flatMap((subject) =>
+        subject.items.map((item) => item.title),
+      );
+      expect(adminTitles).toContain(
+        "Les notions de base sur les similitudes directes (terminale C)",
+      );
+      expect(adminTitles).toContain("L'Union européenne (terminale A)");
+      expect(adminTitles).toContain("Les oscillations électriques libres (terminales C-E)");
 
       const [hiddenCount] = await connection.database
         .select({ value: count() })

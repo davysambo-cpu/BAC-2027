@@ -3,6 +3,7 @@ export * from "./curriculum";
 export * from "./daily-reports";
 export * from "./enums";
 export * from "./learning";
+export * from "./knowledge";
 export * from "./planning";
 export * from "./quizzes";
 export * from "./resources";

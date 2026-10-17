@@ -11,6 +11,7 @@ export interface EnrichmentReportInput {
   };
   subjectName: string;
   catalogueItem: {
+    id: string;
     title: string;
     section: string;
     url: string | null;
