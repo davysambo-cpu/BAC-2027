@@ -1,11 +1,8 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
-let runtime: ReturnType<typeof loadRuntime> | undefined;
+import { createApiRuntime } from "../apps/api/src/runtime";
 
-async function loadRuntime() {
-  const { createApiRuntime } = await import("../apps/api/src/runtime");
-  return createApiRuntime();
-}
+let runtime: ReturnType<typeof createApiRuntime> | undefined;
 
 function runtimeErrorMessage(error: unknown): string {
   if (error instanceof Error) return error.message;
@@ -14,7 +11,7 @@ function runtimeErrorMessage(error: unknown): string {
 
 export default async function handler(request: IncomingMessage, response: ServerResponse) {
   try {
-    runtime ??= loadRuntime();
+    runtime ??= createApiRuntime();
     const { app } = await runtime;
     await app.ready();
     app.server.emit("request", request, response);
