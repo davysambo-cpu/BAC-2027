@@ -20,6 +20,7 @@ Le canal privé de signalement sera défini avant l'ouverture du MVP à des util
 - frontend et API servis sous la même origine en production ;
 - données privées contrôlées côté serveur ;
 - fichiers stockés séparément des données relationnelles, dans un stockage S3 privé en production ;
+- exception limitée au pilote Vercel : `PILOT_MODE=true` autorise un répertoire `/tmp` non durable pour les médias de recette ; cette option reste interdite pour la production finale ;
 - médias de bilan limités en taille et en nombre, vérifiés par signature binaire et accessibles uniquement à leur propriétaire ;
 - clés de stockage générées par le serveur, réponses privées `no-store` et blocage de l'interprétation de type avec `nosniff` ;
 - brouillons pédagogiques privés, réponses des fournisseurs strictement validées et corrections impossibles sans extrait original et citation ;

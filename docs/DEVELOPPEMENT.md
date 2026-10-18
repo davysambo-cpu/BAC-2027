@@ -182,7 +182,9 @@ Copier `.env.example` vers `.env`. Ne jamais modifier l'exemple avec un secret r
 
 Les variables privées ne doivent pas être préfixées par `VITE_`. Tout nom commençant par `VITE_` peut être envoyé au navigateur.
 
-En production, la validation refuse de démarrer si `DATABASE_DRIVER` n'est pas `postgres` ou si `AUTH_TOKEN_SECRET` conserve la valeur de développement. Le secret doit contenir au moins 32 caractères aléatoires et être fourni par le gestionnaire de secrets du déploiement.
+En production, la validation refuse de démarrer si `DATABASE_DRIVER` n'est pas `postgres` ou si `AUTH_TOKEN_SECRET` conserve la valeur de développement. Le secret doit contenir au moins 32 caractères aléatoires et être fourni par le gestionnaire de secrets du déploiement. Une fonction serverless doit aussi limiter `DATABASE_MAX_CONNECTIONS` à `1` afin d'utiliser correctement le pooler PostgreSQL.
+
+`PILOT_MODE=true` autorise uniquement l'environnement de recette documenté dans [`DEPLOIEMENT_PILOTE.md`](./DEPLOIEMENT_PILOTE.md) à utiliser un stockage média éphémère. `PILOT_SEED_DATA=true` exige en plus `PILOT_STUDENT_PASSWORD` et ne doit jamais être activé sur l'environnement final.
 
 Les durées configurables de la Partie 4 sont `INVITATION_TTL_HOURS`, `RESET_CODE_TTL_MINUTES`, `PERSONAL_SESSION_TTL_DAYS` et `SHARED_SESSION_TTL_HOURS`. L'horizon du carnet est `REVISION_TARGET_MONTH` au format `AAAA-MM`.
 

@@ -56,7 +56,7 @@ export async function createDatabaseConnection(
   }
 
   const client = postgres(configuration.DATABASE_URL, {
-    max: configuration.NODE_ENV === "production" ? 10 : 3,
+    max: configuration.DATABASE_MAX_CONNECTIONS,
     prepare: false,
   });
 

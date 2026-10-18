@@ -11,6 +11,8 @@ describe("environment", () => {
     expect(parsed.DEFAULT_USER_STORAGE_QUOTA_MB).toBe(250);
     expect(parsed.EMBEDDED_PREVIEW_MODE).toBe(false);
     expect(parsed.REVISION_TARGET_MONTH).toBe("2027-07");
+    expect(parsed.PILOT_MODE).toBe(false);
+    expect(parsed.PILOT_SEED_DATA).toBe(false);
     expect(parsed.SEED_DEMO_DATA).toBe(false);
   });
 
@@ -33,5 +35,20 @@ describe("environment", () => {
         OBJECT_STORAGE_SECRET_KEY: "production-secret-key",
       }).DATABASE_DRIVER,
     ).toBe("postgres");
+  });
+
+  it("allows ephemeral media only in an explicit pilot deployment", () => {
+    const base = {
+      NODE_ENV: "production",
+      DATABASE_DRIVER: "postgres",
+      DATABASE_URL: "postgresql://bac2027:secret@database.example:5432/bac2027",
+      AUTH_TOKEN_SECRET: "pilot-only-random-secret-with-at-least-32-characters",
+      MEDIA_STORAGE_DRIVER: "filesystem",
+    };
+    expect(() => readEnvironment(base)).toThrow();
+    expect(readEnvironment({ ...base, PILOT_MODE: "true" }).PILOT_MODE).toBe(true);
+    expect(() =>
+      readEnvironment({ ...base, PILOT_MODE: "true", PILOT_SEED_DATA: "true" }),
+    ).toThrow();
   });
 });

@@ -29,6 +29,7 @@
     "db:migrate": "npm run db:migrate -w @bac-2027/api",
     "db:seed": "npm run db:seed -w @bac-2027/api",
     "catalogue:import": "npm run catalogue:import -w @bac-2027/api",
+    "pilot:seed": "npm run pilot:seed -w @bac-2027/api",
     "admin:create": "npm run admin:create -w @bac-2027/api"
   },
   "devDependencies": {

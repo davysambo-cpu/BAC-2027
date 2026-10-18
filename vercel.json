@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "npm run db:migrate && npm run catalogue:import && npm run pilot:seed && npm run build --workspace @bac-2027/web",
+  "outputDirectory": "apps/web/dist",
+  "functions": {
+    "api/[...path].ts": {
+      "maxDuration": 30,
+      "includeFiles": "apps/api/src/**"
+    }
+  },
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/api/(.*)", "dest": "/api/[...path].ts" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}

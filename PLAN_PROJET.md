@@ -386,7 +386,7 @@ Préparer une version stable, sécurisée, rapide et maintenable, puis la mettre
 
 - **Partie :** Partie 6 — Tableau de bord et planning de révision.
 - **Statut :** `🟨 En cours`
-- **Prochaine action :** réaliser la recette responsive et hors ligne du premier planning avec peu puis beaucoup de séances, ajuster les priorités du tableau de bord et décider si une vue hebdomadaire est utile au MVP.
+- **Prochaine action :** terminer le déploiement pilote Vercel + Supabase, puis réaliser la recette responsive et hors ligne du premier planning sur téléphone et ordinateur.
 - **Premier incrément :** création, modification, validation, réouverture et suppression privées sont raccordées au programme, au tableau de bord et à l'outbox Dexie.
 - **Rappel :** le planning doit rester utile sur téléphone et avec une connexion instable ; aucune notification externe n'est prévue tant qu'un besoin du pilote ne la justifie pas.
 
@@ -446,5 +446,6 @@ Préparer une version stable, sécurisée, rapide et maintenable, puis la mettre
 | 2026-10-17 | 5 | La recette finale du carnet est approuvée et la Partie 5 est terminée. | Le porteur a validé l'affichage responsive et le parcours de révision après les contrôles automatisés de reconnexion et d'idempotence. | La Partie 6 peut commencer en réutilisant les priorités et rappels du carnet. |
 | 2026-10-17 | 6 | La Partie 6 — Tableau de bord et planning de révision est ouverte. | Les contenus personnels et les rappels par thème sont désormais assez stables pour planifier le travail quotidien. | Le premier incrément raccorde les séances privées existantes au programme et au tableau de bord, sans notification externe. |
 | 2026-10-17 | 6 | Le planning privilégie une liste chronologique privée et hors ligne plutôt qu'une grille mensuelle ou des notifications externes. | La liste reste lisible sur les petits téléphones et ne dépend d'aucun service payant ; l'élève garde la maîtrise de son rythme. | Les séances portent un UUID client, un contrôle de version et un lien facultatif vers le programme ; les vues en retard, aujourd'hui, à venir et historique sont calculées localement. |
+| 2026-10-18 | 6 | La recette multi-appareil utilisera un pilote dédié Vercel + Supabase plutôt que le lien temporaire Arena. | Le proxy E2B expire hors de la session et ne permet pas une validation fiable sur un autre téléphone ou ordinateur. | Deux ressources isolées `bac-2027-pilot` sont créées ; PostgreSQL conserve les données, tandis que les médias restent explicitement éphémères jusqu'au raccordement S3. |
 
 > Ajouter une ligne à ce tableau lorsqu'un choix important est validé : technologie, fonctionnalité, design, règle métier ou changement de périmètre.

@@ -26,6 +26,7 @@ const environmentSchema = z
       .string()
       .min(1)
       .default("postgresql://bac2027:bac2027_dev@localhost:5432/bac2027"),
+    DATABASE_MAX_CONNECTIONS: z.coerce.number().int().min(1).max(20).default(3),
     PGLITE_DATA_DIR: z.string().min(1).default("../../.data/pglite"),
     AUTH_TOKEN_SECRET: z.string().min(32).default("bac-2027-development-token-secret-change-me"),
     SESSION_COOKIE_NAME: z.string().min(1).default("bac2027_session"),
@@ -53,6 +54,9 @@ const environmentSchema = z
     MAX_VIDEO_SIZE_MB: z.coerce.number().int().positive().default(150),
     MAX_DAILY_REPORT_IMAGES: z.coerce.number().int().min(1).max(5).default(2),
     MAX_DAILY_REPORT_AUDIO: z.coerce.number().int().min(1).max(2).default(1),
+    PILOT_MODE: booleanFromEnvironment,
+    PILOT_SEED_DATA: booleanFromEnvironment,
+    PILOT_STUDENT_PASSWORD: z.string().optional(),
     SEED_DEMO_DATA: booleanFromEnvironment,
   })
   .superRefine((value, context) => {
@@ -85,7 +89,7 @@ const environmentSchema = z
         message: "Production requires a unique authentication token secret.",
       });
     }
-    if (value.MEDIA_STORAGE_DRIVER !== "s3") {
+    if (value.MEDIA_STORAGE_DRIVER !== "s3" && !value.PILOT_MODE) {
       context.addIssue({
         code: "custom",
         path: ["MEDIA_STORAGE_DRIVER"],
@@ -93,13 +97,21 @@ const environmentSchema = z
       });
     }
     if (
-      value.OBJECT_STORAGE_ACCESS_KEY === "replace-me" ||
-      value.OBJECT_STORAGE_SECRET_KEY === "replace-me"
+      value.MEDIA_STORAGE_DRIVER === "s3" &&
+      (value.OBJECT_STORAGE_ACCESS_KEY === "replace-me" ||
+        value.OBJECT_STORAGE_SECRET_KEY === "replace-me")
     ) {
       context.addIssue({
         code: "custom",
         path: ["OBJECT_STORAGE_ACCESS_KEY"],
         message: "Production requires explicitly configured object-storage credentials.",
+      });
+    }
+    if (value.PILOT_SEED_DATA && (!value.PILOT_MODE || !value.PILOT_STUDENT_PASSWORD)) {
+      context.addIssue({
+        code: "custom",
+        path: ["PILOT_SEED_DATA"],
+        message: "Pilot seed data requires pilot mode and an explicit student password.",
       });
     }
   });
