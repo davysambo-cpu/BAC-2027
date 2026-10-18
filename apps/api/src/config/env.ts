@@ -27,6 +27,7 @@ const environmentSchema = z
       .min(1)
       .default("postgresql://bac2027:bac2027_dev@localhost:5432/bac2027"),
     DATABASE_MAX_CONNECTIONS: z.coerce.number().int().min(1).max(20).default(3),
+    DATABASE_USERNAME: z.string().min(1).optional(),
     PGLITE_DATA_DIR: z.string().min(1).default("../../.data/pglite"),
     AUTH_TOKEN_SECRET: z.string().min(32).default("bac-2027-development-token-secret-change-me"),
     SESSION_COOKIE_NAME: z.string().min(1).default("bac2027_session"),

@@ -58,6 +58,7 @@ export async function createDatabaseConnection(
   const client = postgres(configuration.DATABASE_URL, {
     max: configuration.DATABASE_MAX_CONNECTIONS,
     prepare: false,
+    ...(configuration.DATABASE_USERNAME ? { username: configuration.DATABASE_USERNAME } : {}),
   });
 
   return {

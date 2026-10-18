@@ -23,6 +23,7 @@ Les valeurs suivantes doivent être configurées dans Vercel sans être ajoutée
 
 - `DATABASE_DRIVER=postgres` ;
 - `DATABASE_URL` vers le pooler PostgreSQL du projet pilote ;
+- `DATABASE_USERNAME=postgres.<project-ref>` si l’URL fournie utilise encore `postgres` comme identifiant ;
 - `DATABASE_MAX_CONNECTIONS=1` ;
 - `AUTH_TOKEN_SECRET` aléatoire d'au moins 32 caractères ;
 - `PILOT_MODE=true` ;

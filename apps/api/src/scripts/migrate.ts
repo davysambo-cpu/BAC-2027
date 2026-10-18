@@ -13,6 +13,7 @@ if (environment.DATABASE_DRIVER !== "postgres") {
 const client = postgres(environment.DATABASE_URL, {
   max: 1,
   prepare: false,
+  ...(environment.DATABASE_USERNAME ? { username: environment.DATABASE_USERNAME } : {}),
 });
 
 try {
