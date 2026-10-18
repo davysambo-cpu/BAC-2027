@@ -15,6 +15,8 @@ import {
   profileResponseSchema,
   resetCodeResponseSchema,
   revisionOverviewSchema,
+  revisionSessionListResponseSchema,
+  revisionSessionSchema,
   studentCatalogueResponseSchema,
   topicRevisionReviewSchema,
   type ActivateInvitationRequest,
@@ -23,8 +25,10 @@ import {
   type CourseDraft,
   type CreateDailyReportRequest,
   type CreateInvitationRequest,
-  type CreateTopicRevisionReviewRequest,
   type CreateKnowledgeCardRequest,
+  type CreateRevisionSessionRequest,
+  type CreateTopicRevisionReviewRequest,
+  type DeleteRevisionSessionRequest,
   type CurrentUser,
   type DailyReport,
   type DailyReportAttachment,
@@ -36,11 +40,14 @@ import {
   type LoginRequest,
   type ProfileResponse,
   type RevisionOverview,
+  type RevisionSession,
+  type RevisionSessionListResponse,
   type ReviewDraftCorrectionRequest,
   type StudentCatalogueResponse,
   type TopicRevisionReview,
   type UpdateKnowledgeCardRequest,
   type UpdateProfileRequest,
+  type UpdateRevisionSessionRequest,
 } from "@bac-2027/contracts";
 import type { z } from "zod";
 
@@ -85,6 +92,30 @@ async function request<T>(path: string, schema: z.ZodType<T>, init?: RequestInit
   }
 
   return schema.parse(await response.json());
+}
+
+async function requestWithoutContent(path: string, init: RequestInit): Promise<void> {
+  const headers = new Headers(init.headers);
+  headers.set("Accept", "application/json");
+  if (init.body) headers.set("Content-Type", "application/json");
+  if (inMemorySessionAccessToken) {
+    headers.set("X-BAC-Preview-Session", inMemorySessionAccessToken);
+  }
+  const response = await fetch(path, {
+    ...init,
+    credentials: "same-origin",
+    headers,
+  });
+  if (!response.ok) {
+    if (response.status === 401) inMemorySessionAccessToken = null;
+    const body: unknown = await response.json().catch(() => null);
+    const parsed = apiErrorSchema.safeParse(body);
+    throw new ApiClientError(
+      response.status,
+      parsed.success ? parsed.data.error.code : "INTERNAL_ERROR",
+      parsed.success ? parsed.data.error.message : "Le service est temporairement indisponible.",
+    );
+  }
 }
 
 async function authenticate(
@@ -226,6 +257,46 @@ export function recordTopicRevision(
       body: JSON.stringify(input),
     },
   );
+}
+
+export function listRevisionSessions(): Promise<RevisionSessionListResponse> {
+  return request("/api/v1/planning/sessions", revisionSessionListResponseSchema);
+}
+
+export function createRevisionSession(
+  input: CreateRevisionSessionRequest,
+): Promise<RevisionSession> {
+  return request("/api/v1/planning/sessions", revisionSessionSchema, {
+    method: "POST",
+    headers: { "X-BAC-Planning": "1" },
+    body: JSON.stringify(input),
+  });
+}
+
+export function updateRevisionSession(
+  sessionId: string,
+  input: UpdateRevisionSessionRequest,
+): Promise<RevisionSession> {
+  return request(
+    `/api/v1/planning/sessions/${encodeURIComponent(sessionId)}`,
+    revisionSessionSchema,
+    {
+      method: "PATCH",
+      headers: { "X-BAC-Planning": "1" },
+      body: JSON.stringify(input),
+    },
+  );
+}
+
+export function deleteRevisionSession(
+  sessionId: string,
+  input: DeleteRevisionSessionRequest,
+): Promise<void> {
+  return requestWithoutContent(`/api/v1/planning/sessions/${encodeURIComponent(sessionId)}`, {
+    method: "DELETE",
+    headers: { "X-BAC-Planning": "1" },
+    body: JSON.stringify(input),
+  });
 }
 
 export function listDailyReports(): Promise<DailyReportListResponse> {

@@ -18,6 +18,8 @@ import { enrichmentRoutes } from "./modules/daily-reports/enrichment.routes";
 import type { EnrichmentService } from "./modules/daily-reports/enrichment.service";
 import { knowledgeRoutes } from "./modules/knowledge/knowledge.routes";
 import type { KnowledgeService } from "./modules/knowledge/knowledge.service";
+import { planningRoutes } from "./modules/planning/planning.routes";
+import type { PlanningService } from "./modules/planning/planning.service";
 import { revisionRoutes } from "./modules/revision/revision.routes";
 import type { RevisionService } from "./modules/revision/revision.service";
 import { healthRoutes } from "./routes/health";
@@ -29,6 +31,7 @@ interface AppDependencies {
   dailyReportAttachmentService?: DailyReportAttachmentService;
   enrichmentService?: EnrichmentService;
   knowledgeService?: KnowledgeService;
+  planningService?: PlanningService;
   revisionService?: RevisionService;
   environment?: Environment;
 }
@@ -83,6 +86,13 @@ export function buildApp(options: FastifyServerOptions = {}, dependencies: AppDe
     void app.register(knowledgeRoutes, {
       authService: dependencies.authService,
       knowledgeService: dependencies.knowledgeService,
+      environment,
+    });
+  }
+  if (dependencies.authService && dependencies.planningService) {
+    void app.register(planningRoutes, {
+      authService: dependencies.authService,
+      planningService: dependencies.planningService,
       environment,
     });
   }

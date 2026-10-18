@@ -26,6 +26,9 @@ Le canal privé de signalement sera défini avant l'ouverture du MVP à des util
 - historique d'auto-évaluation privé, toujours filtré par l'identifiant de l'élève et limité aux thèmes visibles de sa série ;
 - écriture d'une révision protégée par un en-tête d'intention, une limite de débit, un UUID unique par élève et le rejet d'une heure d'exécution trop future ;
 - auto-évaluations hors ligne conservées uniquement sur un appareil personnel et retirées de la file des opérations en attente après acquittement idempotent du serveur ;
+- séances de planning privées, filtrées par propriétaire, limitées aux matières et thèmes visibles et protégées par version optimiste ;
+- mutations du planning protégées par `X-BAC-Planning`, limitation de débit et répétitions idempotentes après perte de réponse ;
+- planning hors ligne persistant uniquement sur appareil personnel, puis effacé avec les autres données privées à la déconnexion ;
 - publication du corpus réservée à l'administration, protégée par un en-tête d'intention, un contrôle de version et un journal d'audit ;
 - liens de citation limités à HTTP(S) et règles de contradiction limitées à des chaînes littérales non exécutables ;
 - aucun envoi à un fournisseur externe tant qu'il n'est pas explicitement configuré ; le mode local déterministe reste le repli sans coût ;

@@ -1,0 +1,2 @@
+ALTER TABLE "revision_sessions" ADD COLUMN "catalogue_item_id" uuid;--> statement-breakpoint
+ALTER TABLE "revision_sessions" ADD CONSTRAINT "revision_sessions_catalogue_item_id_catalogue_items_id_fk" FOREIGN KEY ("catalogue_item_id") REFERENCES "public"."catalogue_items"("id") ON DELETE set null ON UPDATE no action;

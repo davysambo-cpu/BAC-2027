@@ -256,14 +256,14 @@ Aider l'élève à organiser son travail, visualiser ses priorités et savoir qu
 
 ## Travail à réaliser
 
-- [ ] Concevoir le tableau de bord personnel.
-- [ ] Permettre de définir des objectifs de révision.
-- [ ] Créer, modifier et terminer une séance de révision.
-- [ ] Organiser les séances dans un calendrier ou une liste planifiée.
-- [ ] Relier une séance à une matière, un chapitre ou une ressource.
-- [ ] Mettre en évidence les tâches du jour et les retards.
-- [ ] Prévoir les rappels uniquement s'ils appartiennent au MVP.
-- [ ] Gérer les états vides, les erreurs et les chargements.
+- [x] Concevoir et raccorder le tableau de bord personnel aux priorités réelles.
+- [x] Permettre de définir un objectif quotidien de révision dans le profil et l'afficher dans le planning.
+- [x] Créer, modifier, terminer, rouvrir et supprimer une séance de révision.
+- [x] Organiser les séances dans une liste chronologique adaptée au téléphone.
+- [x] Relier une séance à une matière et à un thème visible du programme.
+- [x] Mettre en évidence les tâches du jour et les retards.
+- [x] Conserver les rappels pédagogiques dans le carnet sans ajouter de notification externe au premier incrément.
+- [x] Gérer les états vides, les erreurs, les chargements et les opérations locales à resynchroniser.
 - [ ] Tester les usages avec peu et beaucoup de séances.
 
 ## Livrables
@@ -277,8 +277,8 @@ Aider l'élève à organiser son travail, visualiser ses priorités et savoir qu
 ## Critères de validation
 
 - [ ] L'élève sait immédiatement ce qu'il doit réviser.
-- [ ] Une séance peut être créée, modifiée, terminée et supprimée.
-- [ ] Les changements sont correctement enregistrés.
+- [x] Une séance peut être créée, modifiée, terminée, rouverte et supprimée.
+- [x] Les changements sont correctement enregistrés en ligne et repris hors ligne sur appareil personnel.
 - [ ] Le planning reste lisible sur un petit écran.
 - [ ] Le tableau de bord ne présente que des informations utiles et compréhensibles.
 
@@ -386,9 +386,9 @@ Préparer une version stable, sécurisée, rapide et maintenable, puis la mettre
 
 - **Partie :** Partie 6 — Tableau de bord et planning de révision.
 - **Statut :** `🟨 En cours`
-- **Prochaine action :** livrer un premier incrément permettant de planifier, modifier, terminer et supprimer une séance privée reliée au programme, puis l'intégrer aux priorités du tableau de bord.
-- **Socle disponible :** le carnet de la Partie 5 fournit déjà les thèmes dus, les cours prêts et l'objectif quotidien du profil ; le schéma `revision_sessions` et le stockage Dexie sont prêts à être raccordés.
-- **Rappel :** le planning doit rester utile sur téléphone et avec une connexion instable, sans créer de notification externe dans le premier incrément.
+- **Prochaine action :** réaliser la recette responsive et hors ligne du premier planning avec peu puis beaucoup de séances, ajuster les priorités du tableau de bord et décider si une vue hebdomadaire est utile au MVP.
+- **Premier incrément :** création, modification, validation, réouverture et suppression privées sont raccordées au programme, au tableau de bord et à l'outbox Dexie.
+- **Rappel :** le planning doit rester utile sur téléphone et avec une connexion instable ; aucune notification externe n'est prévue tant qu'un besoin du pilote ne la justifie pas.
 
 ---
 
@@ -445,5 +445,6 @@ Préparer une version stable, sécurisée, rapide et maintenable, puis la mettre
 | 2026-10-17 | 5 | Une auto-évaluation peut être saisie hors ligne sur un appareil personnel et synchronisée de manière idempotente. | Une connexion instable ne doit ni bloquer un passage de révision ni le dupliquer lors d'une nouvelle tentative. | Chaque passage porte un UUID client et son heure d'exécution ; l'aperçu est optimiste, l'outbox est rejouée à la reconnexion et aucun stockage privé persistant n'est utilisé sur appareil partagé. |
 | 2026-10-17 | 5 | La recette finale du carnet est approuvée et la Partie 5 est terminée. | Le porteur a validé l'affichage responsive et le parcours de révision après les contrôles automatisés de reconnexion et d'idempotence. | La Partie 6 peut commencer en réutilisant les priorités et rappels du carnet. |
 | 2026-10-17 | 6 | La Partie 6 — Tableau de bord et planning de révision est ouverte. | Les contenus personnels et les rappels par thème sont désormais assez stables pour planifier le travail quotidien. | Le premier incrément raccorde les séances privées existantes au programme et au tableau de bord, sans notification externe. |
+| 2026-10-17 | 6 | Le planning privilégie une liste chronologique privée et hors ligne plutôt qu'une grille mensuelle ou des notifications externes. | La liste reste lisible sur les petits téléphones et ne dépend d'aucun service payant ; l'élève garde la maîtrise de son rythme. | Les séances portent un UUID client, un contrôle de version et un lien facultatif vers le programme ; les vues en retard, aujourd'hui, à venir et historique sont calculées localement. |
 
 > Ajouter une ligne à ce tableau lorsqu'un choix important est validé : technologie, fonctionnalité, design, règle métier ou changement de périmètre.

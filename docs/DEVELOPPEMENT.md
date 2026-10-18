@@ -138,6 +138,14 @@ Les rappels initiaux sont calculés à partir de `performedAt` :
 
 Sur un appareil personnel, la vue agrégée est cachée dans IndexedDB et une auto-évaluation sans réseau est conservée comme opération `topicRevisionReview` dans l'outbox. L'aperçu local est mis à jour immédiatement ; `syncPendingTopicRevisionReviews` rejoue les opérations à la reconnexion et les marque comme synchronisées après la réponse de l'API. Ce stockage persistant est désactivé sur un appareil partagé. `REVISION_TARGET_MONTH=2027-07` configure l'horizon affiché ; ce mois ne doit pas être présenté comme une date officielle précise de l'examen.
 
+## Planning personnel
+
+Les routes sont `GET` et `POST /api/v1/planning/sessions`, puis `PATCH` et `DELETE /api/v1/planning/sessions/:sessionId`. Les mutations exigent `X-BAC-Planning: 1`. La création reçoit un UUID client ; la modification et la suppression reçoivent la version serveur courante. Une version divergente renvoie `RESOURCE_VERSION_CONFLICT`, sauf si la répétition correspond exactement à une mutation déjà appliquée.
+
+La migration `0005_greedy_catseye.sql` ajoute `catalogue_item_id` à `revision_sessions`. Le service vérifie la propriété, la Série D, la visibilité de la matière et celle du thème avant toute écriture.
+
+Sur appareil personnel, `apps/web/src/offline/planning-sessions.ts` conserve les séances dans Dexie version 7 et utilise les opérations d'outbox `revisionSession`. `syncPendingRevisionSessions` rejoue les créations, la dernière mise à jour locale et les suppressions. Toujours tester les trois cas suivants après une modification : réponse API perdue après écriture, plusieurs changements avant reconnexion et suppression d'une séance créée hors ligne.
+
 ## Contrôles de qualité
 
 ```bash

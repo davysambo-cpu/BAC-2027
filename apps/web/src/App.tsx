@@ -15,6 +15,7 @@ const AdminPage = lazy(() =>
   import("./pages/AdminPage").then((module) => ({ default: module.AdminPage })),
 );
 const ResourcesPage = lazy(() => import("./pages/ResourcesPage"));
+const PlanningPage = lazy(() => import("./pages/PlanningPage"));
 
 export function App() {
   return (
@@ -57,12 +58,9 @@ export function App() {
             path="/planning"
             element={
               <ProtectedRoute>
-                <PlaceholderPage
-                  eyebrow="Votre rythme"
-                  title="Planning"
-                  description="Les séances et rappels de révision seront rassemblés ici."
-                  nextPart="la Partie 6"
-                />
+                <Suspense fallback={<div className="route-loading">Chargement du planning…</div>}>
+                  <PlanningPage />
+                </Suspense>
               </ProtectedRoute>
             }
           />

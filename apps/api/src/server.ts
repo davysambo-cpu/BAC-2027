@@ -16,6 +16,8 @@ import { CuratedCorpusEnrichmentProvider } from "./modules/knowledge/curated-enr
 import { DrizzleKnowledgeRepository } from "./modules/knowledge/knowledge.repository";
 import { KnowledgeService } from "./modules/knowledge/knowledge.service";
 import { createMediaStorage } from "./modules/media/media.storage";
+import { DrizzlePlanningRepository } from "./modules/planning/planning.repository";
+import { PlanningService } from "./modules/planning/planning.service";
 import { DrizzleRevisionRepository } from "./modules/revision/revision.repository";
 import { RevisionService } from "./modules/revision/revision.service";
 
@@ -37,6 +39,7 @@ const dailyReportAttachmentService = new DailyReportAttachmentService(
 );
 const knowledgeRepository = new DrizzleKnowledgeRepository(connection.database);
 const knowledgeService = new KnowledgeService(knowledgeRepository);
+const planningService = new PlanningService(new DrizzlePlanningRepository(connection.database));
 const revisionService = new RevisionService(
   new DrizzleRevisionRepository(connection.database),
   environment.REVISION_TARGET_MONTH,
@@ -59,6 +62,7 @@ const app = buildApp(
     dailyReportAttachmentService,
     enrichmentService,
     knowledgeService,
+    planningService,
     revisionService,
     environment,
   },

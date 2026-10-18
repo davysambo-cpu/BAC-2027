@@ -13,7 +13,7 @@ BAC-2027 doit permettre aux élèves de rassembler progressivement leurs cours, 
 | 3 — Architecture et fondations techniques | ✅ Terminée |
 | 4 — Comptes utilisateurs et profils | ✅ Terminée |
 | 5 — Matières et contenus pédagogiques | ✅ Terminée — catalogue, bilans privés, cours personnels et carnet durable validés |
-| 6 — Tableau de bord et planning | 🟨 En cours |
+| 6 — Tableau de bord et planning | 🟨 Premier planning privé et hors ligne implémenté ; recette en attente |
 | 7 à 8 | ⬜ À faire |
 
 Le statut détaillé et les prochaines actions se trouvent dans [`PLAN_PROJET.md`](./PLAN_PROJET.md).
@@ -27,6 +27,7 @@ Le statut détaillé et les prochaines actions se trouvent dans [`PLAN_PROJET.md
 - [Comptes et profils — Partie 4](./docs/COMPTES_ET_PROFILS.md)
 - [Analyse des sources pédagogiques reçues pour la Partie 5](./docs/ANALYSE_SOURCES_PARTIE_5.md)
 - [Contenus pédagogiques et bilans quotidiens — Partie 5](./docs/PARTIE_5_CONTENUS_PEDAGOGIQUES.md)
+- [Tableau de bord et planning de révision — Partie 6](./docs/PARTIE_6_PLANNING_REVISION.md)
 - [Guide de développement](./docs/DEVELOPPEMENT.md)
 - [Décisions d'architecture](./docs/adr/)
 - [Prototype UX/UI autonome](./prototype/README.md)

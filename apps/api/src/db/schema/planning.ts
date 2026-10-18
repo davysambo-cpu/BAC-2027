@@ -1,5 +1,6 @@
 import { index, integer, pgTable, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
+import { catalogueItems } from "./curriculum";
 import { revisionSessionStatusEnum } from "./enums";
 import { chapters, subjects } from "./learning";
 import { users } from "./users";
@@ -13,6 +14,9 @@ export const revisionSessions = pgTable(
       .references(() => users.id, { onDelete: "cascade" }),
     subjectId: uuid("subject_id").references(() => subjects.id, { onDelete: "set null" }),
     chapterId: uuid("chapter_id").references(() => chapters.id, { onDelete: "set null" }),
+    catalogueItemId: uuid("catalogue_item_id").references(() => catalogueItems.id, {
+      onDelete: "set null",
+    }),
     title: varchar("title", { length: 240 }).notNull(),
     notes: text("notes"),
     scheduledAt: timestamp("scheduled_at", { withTimezone: true }).notNull(),

@@ -69,6 +69,9 @@ describe("account application", () => {
     let revisionHeader: string | null = null;
     let revisionAssessment: string | null = null;
     let draftStatus: "needs_review" | "accepted" = "needs_review";
+    let planningVersion = 0;
+    let planningHeader: string | null = null;
+    let planningSession: Record<string, unknown> | null = null;
     const draftPayload = () => ({
       id: draftId,
       reportId,
@@ -157,6 +160,46 @@ describe("account application", () => {
                 ],
               },
             ],
+          }),
+        );
+      }
+      if (url.endsWith("/api/v1/planning/sessions") && init?.method === "POST") {
+        planningHeader = new Headers(init.headers).get("X-BAC-Planning");
+        const body = JSON.parse(String(init.body)) as Record<string, unknown>;
+        planningVersion = 1;
+        planningSession = {
+          ...body,
+          subjectName: body.subjectId ? "Mathématiques" : null,
+          catalogueItemTitle: body.catalogueItemId ? "Fonction logarithme népérien" : null,
+          status: "planned",
+          completedAt: null,
+          version: planningVersion,
+          createdAt: "2026-10-17T12:00:00.000Z",
+          updatedAt: "2026-10-17T12:00:00.000Z",
+        };
+        return Promise.resolve(Response.json(planningSession, { status: 201 }));
+      }
+      if (url.includes("/api/v1/planning/sessions/") && init?.method === "PATCH") {
+        const body = JSON.parse(String(init.body)) as Record<string, unknown>;
+        planningVersion += 1;
+        planningSession = {
+          ...planningSession,
+          ...body,
+          version: planningVersion,
+          completedAt: body.status === "completed" ? "2026-10-17T13:00:00.000Z" : null,
+          updatedAt: "2026-10-17T13:00:00.000Z",
+        };
+        return Promise.resolve(Response.json(planningSession));
+      }
+      if (url.includes("/api/v1/planning/sessions/") && init?.method === "DELETE") {
+        planningSession = null;
+        return Promise.resolve(new Response(null, { status: 204 }));
+      }
+      if (url.endsWith("/api/v1/planning/sessions")) {
+        return Promise.resolve(
+          Response.json({
+            generatedAt: "2026-10-17T12:00:00.000Z",
+            sessions: planningSession ? [planningSession] : [],
           }),
         );
       }
@@ -288,7 +331,9 @@ describe("account application", () => {
     });
     fireEvent.click(screen.getByRole("button", { name: "Enregistrer cette révision" }));
     expect(
-      await screen.findByText(/Révision sauvegardée sur cet appareil.*20 oct\./),
+      await screen.findByText(
+        /Révision sauvegardée sur cet appareil.*prochain rappel conseillé le/,
+      ),
     ).toBeInTheDocument();
     expect(revisionHeader).toBeNull();
 
@@ -333,6 +378,32 @@ describe("account application", () => {
       ),
     ).toBeInTheDocument();
     expect(screen.getByText("Cours validé")).toBeInTheDocument();
+
+    fireEvent.click(screen.getAllByRole("link", { name: "Planning" })[0]!);
+    expect(
+      await screen.findByRole("heading", { name: "Planning de révision" }),
+    ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "+ Planifier une séance" }));
+    fireEvent.change(screen.getByLabelText(/Matière/), { target: { value: subjectId } });
+    fireEvent.change(screen.getByLabelText(/Thème du programme/), {
+      target: { value: itemId },
+    });
+    fireEvent.change(screen.getByLabelText("Titre"), {
+      target: { value: "Revoir le logarithme" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Ajouter au planning" }));
+    expect(await screen.findByText("Séance ajoutée au planning.")).toBeInTheDocument();
+    expect(planningHeader).toBe("1");
+    expect(screen.getByText("Revoir le logarithme")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Terminer" }));
+    expect(await screen.findByText("Séance terminée. Bravo !")).toBeInTheDocument();
+    expect(screen.getByText("Terminée")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Supprimer" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirmer" }));
+    expect(await screen.findByText("Séance supprimée du planning.")).toBeInTheDocument();
+    expect(screen.queryByText("Revoir le logarithme")).not.toBeInTheDocument();
   });
 
   it("connects an invited student and opens the protected space", async () => {

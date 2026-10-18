@@ -259,6 +259,14 @@ Les intervalles initiaux sont déterministes : 1 jour (`difficult`), 3 jours (`f
 
 Sur un appareil personnel, la dernière vue agrégée est cachée et une auto-évaluation peut être créée hors ligne : l'interface applique immédiatement le passage à l'aperçu local puis conserve l'opération `topicRevisionReview` dans l'outbox Dexie. À la reconnexion, le même UUID est envoyé jusqu'à acquittement ; l'unicité serveur évite toute duplication après une réponse perdue. Un appareil partagé n'utilise pas ce stockage privé persistant.
 
+### Planning personnel
+
+`revision_sessions` conserve les séances choisies par l'élève avec durée prévue, état, contrôle de version et lien facultatif vers une matière et un thème visible. Les API de lecture et de mutation filtrent toujours par `student_id`. Une modification compare la version fournie ; une répétition dont l'état souhaité a déjà été appliqué renvoie le résultat courant, tandis qu'une divergence produit `RESOURCE_VERSION_CONFLICT`.
+
+Dexie version 7 rend les mutations optimistes sur appareil personnel. L'outbox compacte plusieurs mises à jour locales d'une même séance et rejoue création, dernier état puis suppression dans cet ordre. Le tableau de bord et `/planning` utilisent la même copie locale, puis la remplacent par l'état serveur après acquittement. Sur appareil partagé, les mutations restent exclusivement en ligne.
+
+La vue MVP est une liste calculant localement les catégories en retard, aujourd'hui, à venir et historique. Aucune notification système ni intégration calendaire externe n'est nécessaire à ce stade.
+
 ### Format d'erreur cible
 
 ```json

@@ -72,12 +72,18 @@ export interface LocalRevisionSession {
   id: string;
   studentId: string;
   subjectId: string | null;
+  subjectName: string | null;
+  catalogueItemId: string | null;
+  catalogueItemTitle: string | null;
   title: string;
+  notes: string | null;
   scheduledAt: string;
   durationMinutes: number;
   status: "planned" | "completed" | "cancelled";
+  completedAt: string | null;
   serverVersion: number | null;
   syncStatus: LocalSyncStatus;
+  createdAt: string;
   updatedAt: string;
   deletedAt: string | null;
 }
@@ -185,6 +191,14 @@ export class OfflineDatabase extends Dexie {
     });
     this.version(6).stores({
       ...learningStores,
+      catalogueCache: "key, cachedAt",
+      courseDrafts: "id, reportId, studentId, cachedAt, [studentId+reportId]",
+      revisionOverviews: "studentId, cachedAt",
+    });
+    this.version(7).stores({
+      ...learningStores,
+      revisionSessions:
+        "id, studentId, subjectId, catalogueItemId, status, syncStatus, scheduledAt, deletedAt, [studentId+scheduledAt]",
       catalogueCache: "key, cachedAt",
       courseDrafts: "id, reportId, studentId, cachedAt, [studentId+reportId]",
       revisionOverviews: "studentId, cachedAt",
