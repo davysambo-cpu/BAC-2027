@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "tsx src/scripts/migrate.ts",
     "db:seed": "tsx src/db/seed.ts",
     "catalogue:import": "tsx src/scripts/import-catalogue.ts",
     "pilot:seed": "tsx src/scripts/seed-pilot.ts",
