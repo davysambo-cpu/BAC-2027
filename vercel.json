@@ -7,6 +7,10 @@
     "api/[...path].ts": {
       "maxDuration": 30,
       "includeFiles": "apps/api/src/**"
+    },
+    "api/runtime-diagnostic.ts": {
+      "maxDuration": 30,
+      "includeFiles": "apps/api/src/**"
     }
   },
   "routes": [
