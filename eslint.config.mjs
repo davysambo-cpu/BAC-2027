@@ -11,6 +11,7 @@ export default tseslint.config(
       "**/dist/**",
       "**/coverage/**",
       "**/drizzle/meta/**",
+      "api/*.mjs",
       "prototype/**",
     ],
   },

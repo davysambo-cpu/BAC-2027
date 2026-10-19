@@ -9,21 +9,12 @@ export default async function handler(_request: IncomingMessage, response: Serve
   let stage = "handler";
 
   try {
-    stage = "environment-import";
-    const { environment } = await import("../apps/api/src/config/env");
+    stage = "bundle-import";
+    const serverlessBundle = await import("./[...path].mjs");
 
-    stage = "runtime-import";
-    const { createApiRuntime } = await import("../apps/api/src/runtime");
-
-    stage = "runtime-create";
-    const { app, connection } = await createApiRuntime(environment, { logger: false });
-
-    stage = "fastify-ready";
-    await app.ready();
-
-    stage = "cleanup";
-    await app.close();
-    await connection.close();
+    if (typeof serverlessBundle.default !== "function") {
+      throw new Error("The serverless bundle does not export a default handler.");
+    }
 
     response.statusCode = 200;
     response.setHeader("content-type", "application/json; charset=utf-8");

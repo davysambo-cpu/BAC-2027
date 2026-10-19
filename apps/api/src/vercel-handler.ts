@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
-import { createApiRuntime } from "../apps/api/src/runtime";
+import { createApiRuntime } from "./runtime";
 
 let runtime: ReturnType<typeof createApiRuntime> | undefined;
 
