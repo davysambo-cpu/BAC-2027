@@ -4,5 +4,5 @@ coverage
 prototype
 **/drizzle/meta/**
 package-lock.json
-api/*.mjs
+apps/api/vercel/*.mjs
 *.md

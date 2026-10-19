@@ -10,7 +10,7 @@ export default async function handler(_request: IncomingMessage, response: Serve
 
   try {
     stage = "bundle-import";
-    const serverlessBundle = await import("./[...path].mjs");
+    const serverlessBundle = await import("../apps/api/vercel/handler.mjs");
 
     if (typeof serverlessBundle.default !== "function") {
       throw new Error("The serverless bundle does not export a default handler.");

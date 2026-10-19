@@ -17,7 +17,7 @@
     "dev": "concurrently --kill-others --names WEB,API --prefix-colors cyan,green \"npm run dev -w @bac-2027/web\" \"npm run dev -w @bac-2027/api\"",
     "dev:web": "npm run dev -w @bac-2027/web",
     "dev:api": "npm run dev -w @bac-2027/api",
-    "build:serverless": "esbuild apps/api/src/vercel-handler.ts --bundle --platform=node --format=esm --target=node22 --packages=external --alias:@bac-2027/contracts=./packages/contracts/src/index.ts --minify --legal-comments=none --outfile='api/[...path].mjs'",
+    "build:serverless": "esbuild apps/api/src/vercel-handler.ts --bundle --platform=node --format=esm --target=node22 --packages=external --alias:@bac-2027/contracts=./packages/contracts/src/index.ts --minify --legal-comments=none --outfile=apps/api/vercel/handler.mjs",
     "build": "npm run build --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",

@@ -4,18 +4,18 @@
   "buildCommand": "npm run db:migrate && npm run catalogue:import && npm run pilot:seed && npm run build:serverless && npm run build --workspace @bac-2027/web",
   "outputDirectory": "apps/web/dist",
   "functions": {
-    "api/[...path].mjs": {
+    "api/[...path].ts": {
       "maxDuration": 30,
-      "includeFiles": "node_modules/argon2/prebuilds/**"
+      "includeFiles": "{apps/api/vercel/**,node_modules/argon2/prebuilds/**}"
     },
     "api/runtime-diagnostic.ts": {
       "maxDuration": 30,
-      "includeFiles": "node_modules/argon2/prebuilds/**"
+      "includeFiles": "{apps/api/vercel/**,node_modules/argon2/prebuilds/**}"
     }
   },
   "routes": [
     { "handle": "filesystem" },
-    { "src": "/api/(.*)", "dest": "/api/[...path].mjs" },
+    { "src": "/api/(.*)", "dest": "/api/[...path].ts" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
