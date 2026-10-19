@@ -13,8 +13,10 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    if (auth.status === "authenticated") navigate("/app", { replace: true });
-  }, [auth.status, navigate]);
+    if (auth.status === "authenticated") {
+      navigate(auth.user?.role === "admin" ? "/admin" : "/app", { replace: true });
+    }
+  }, [auth.status, auth.user?.role, navigate]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

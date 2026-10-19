@@ -274,6 +274,12 @@ La migration `0004_rainy_thing.sql` ajoute uniquement le journal des révisions.
 
 Le 17 octobre 2026, le porteur du projet a approuvé la recette responsive du carnet et le parcours de révision. Les contrôles automatisés couvrent en complément la confidentialité entre élèves, les thèmes masqués, la conservation de l'original, l'idempotence des passages, la saisie hors ligne et leur rejeu à la reconnexion. La Partie 5 est donc terminée ; l'ajout ultérieur de fiches communes vérifiées reste une amélioration continue non bloquante.
 
+## Amélioration après validation — décisions administratives du catalogue
+
+Le 19 octobre 2026, l'administrateur du pilote a déclaré avoir vérifié toutes les matières visibles et confirmé leur pertinence pour la Série D. Cette décision est enregistrée comme **validation pédagogique**, et non comme validation institutionnelle en l'absence de nouveau document officiel.
+
+L'interface d'administration permet désormais une confirmation groupée ou une décision individuelle. Elle conserve séparément la mention originale de la source, la décision administrative, la justification, la date, l'auteur et une éventuelle URL officielle. Les douze entrées explicitement étiquetées pour d'autres séries restent masquées et ne sont pas concernées par la confirmation groupée.
+
 ## Décisions restant à valider pendant les incréments suivants
 
 1. durée audio maximale, en complément de la limite actuelle de 10 Mo ;

@@ -150,7 +150,13 @@ describe("account application", () => {
                     seriesMention: null,
                     seriesLabels: [],
                     seriesDScope: "unspecified",
+                    sourceSeriesDScope: "unspecified",
+                    adminSeriesDDecision: null,
                     validationStatus: "owner_provided",
+                    validationNote: null,
+                    validationSourceUrl: null,
+                    validatedAt: null,
+                    validationVersion: 1,
                     source: {
                       title: "Faso e-education - Mathématiques terminale",
                       publisher: "Faso e-education",

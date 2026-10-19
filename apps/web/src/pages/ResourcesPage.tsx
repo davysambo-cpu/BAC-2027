@@ -103,6 +103,17 @@ function formatRevisionDate(value: string): string {
   );
 }
 
+function catalogueScopeLabel(item: CatalogueItem): string {
+  if (item.adminSeriesDDecision === "explicitly_includes") {
+    return item.validationStatus === "institutionally_validated"
+      ? "Validé institutionnellement"
+      : "Confirmé pédagogiquement";
+  }
+  return item.sourceSeriesDScope === "explicitly_includes"
+    ? "Série D indiquée"
+    : "Compatibilité à confirmer";
+}
+
 function targetMonthLabel(value: string): string {
   const [year, month] = value.split("-").map(Number);
   return new Intl.DateTimeFormat("fr-BF", { month: "long", year: "numeric" }).format(
@@ -1533,9 +1544,7 @@ export default function ResourcesPage() {
                                     : "pending"
                                 }`}
                               >
-                                {item.seriesDScope === "explicitly_includes"
-                                  ? "Série D indiquée"
-                                  : "Compatibilité à confirmer"}
+                                {catalogueScopeLabel(item)}
                               </span>
                             )}
                           </div>

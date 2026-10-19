@@ -43,6 +43,13 @@
       "when": 1792205930358,
       "tag": "0005_greedy_catseye",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792374459253,
+      "tag": "0006_ambitious_loners",
+      "breakpoints": true
     }
   ]
 }

@@ -97,6 +97,25 @@ npm run catalogue:import
 
 Cette commande lit le manifeste vérifié dans `docs/sources/`, conserve la provenance et les empreintes des neuf PDF, puis réalise un import idempotent. Elle crée sept matières, neuf sources et 203 entrées : 191 sont visibles par l'élève de Série D et 12 explicitement étiquetées pour une autre série sont conservées uniquement pour l'administration. Les données restent marquées `owner_provided` tant qu'une validation pédagogique ou institutionnelle ne les fait pas changer de statut.
 
+### Validation administrative du catalogue
+
+La page `/admin` permet de confirmer les thèmes visibles en une opération ou de modifier une décision thème par thème. La portée extraite de la source reste conservée dans `series_d_scope` ; la décision administrative séparée se trouve dans `admin_series_d_scope`. Une réimportation idempotente ne remplace donc pas la décision humaine.
+
+- **Confirmer pour la Série D** rend le thème visible et exige une justification ;
+- **Exclure de la Série D** le masque aux élèves sans supprimer sa source ;
+- **Laisser à confirmer** retire la décision administrative et rétablit le classement de la source ;
+- le niveau `pedagogically_validated` représente une vérification humaine ou pédagogique ;
+- le niveau `institutionally_validated` exige en plus l'URL d'une source officielle.
+
+Les écritures sont versionnées, attribuées à l'administrateur et journalisées dans `admin_audit_logs`. Les douze entrées explicitement rattachées à d'autres séries ne sont jamais incluses par la confirmation groupée.
+
+Routes privées concernées :
+
+- `PATCH /api/v1/admin/catalogue/items/:itemId/validation` : décision individuelle ;
+- `POST /api/v1/admin/catalogue/confirmations` : confirmation groupée des thèmes visibles sans décision.
+
+Ces deux mutations exigent `X-BAC-Catalogue-Validation: 1`.
+
 ## Stockage des médias privés
 
 En développement, `MEDIA_STORAGE_DRIVER=filesystem` écrit les photos et audios dans `.data/uploads`, dossier ignoré par Git. Les métadonnées et le condensat SHA-256 restent en base. Le client crée d'abord le bilan, puis envoie chaque média à la route authentifiée prévue à cet effet ; une copie personnelle en attente reste dans IndexedDB jusqu'à confirmation.

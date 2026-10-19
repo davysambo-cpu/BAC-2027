@@ -11,6 +11,7 @@ import {
 } from "../auth/api";
 import { useAuth } from "../auth/auth-context";
 import { AppShell } from "../components/AppShell";
+import { CatalogueValidationPanel } from "../components/CatalogueValidationPanel";
 import { KnowledgeCardsPanel } from "../components/KnowledgeCardsPanel";
 
 export function AdminPage() {
@@ -261,6 +262,7 @@ export function AdminPage() {
           </div>
         )}
       </section>
+      <CatalogueValidationPanel />
       <KnowledgeCardsPanel />
     </AppShell>
   );

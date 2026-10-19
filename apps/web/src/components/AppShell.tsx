@@ -82,6 +82,12 @@ export function AppShell({ children }: PropsWithChildren) {
               <span>{item.label}</span>
             </NavLink>
           ))}
+          {auth.user?.role === "admin" && (
+            <NavLink to="/admin">
+              <i aria-hidden="true">⚙</i>
+              <span>Admin</span>
+            </NavLink>
+          )}
         </nav>
       </div>
     </div>

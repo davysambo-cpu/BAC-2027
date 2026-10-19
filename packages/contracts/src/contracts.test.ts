@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   citedSourceUrlSchema,
+  confirmCatalogueItemsRequestSchema,
   createTopicRevisionReviewRequestSchema,
   healthResponseSchema,
   syncMutationSchema,
@@ -37,6 +38,34 @@ describe("shared contracts", () => {
   it("rejects an executable citation URL", () => {
     expect(citedSourceUrlSchema.safeParse("https://example.test/source").success).toBe(true);
     expect(citedSourceUrlSchema.safeParse("javascript:alert(1)").success).toBe(false);
+  });
+
+  it("requires an official source for an institutional catalogue confirmation", () => {
+    const common = {
+      subjectId: null,
+      justification: "Vérification manuelle complète du catalogue de la Série D.",
+    };
+    expect(
+      confirmCatalogueItemsRequestSchema.safeParse({
+        ...common,
+        validationLevel: "pedagogically_validated",
+        sourceUrl: null,
+      }).success,
+    ).toBe(true);
+    expect(
+      confirmCatalogueItemsRequestSchema.safeParse({
+        ...common,
+        validationLevel: "institutionally_validated",
+        sourceUrl: null,
+      }).success,
+    ).toBe(false);
+    expect(
+      confirmCatalogueItemsRequestSchema.safeParse({
+        ...common,
+        validationLevel: "institutionally_validated",
+        sourceUrl: "https://education.example.bf/programme-serie-d",
+      }).success,
+    ).toBe(true);
   });
 
   it("accepts only a bounded revision self-assessment", () => {

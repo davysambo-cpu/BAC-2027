@@ -791,6 +791,273 @@
   margin-bottom: 19px;
 }
 
+.catalogue-validation-panel {
+  padding: clamp(20px, 3vw, 31px);
+  margin-bottom: 19px;
+}
+
+.catalogue-validation-heading {
+  align-items: flex-start;
+}
+
+.catalogue-validation-heading p:not(.ui-eyebrow),
+.catalogue-bulk-form p {
+  max-width: 700px;
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.catalogue-validation-panel > .form-alert,
+.catalogue-validation-panel > .form-success {
+  padding: 11px 13px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+}
+
+.catalogue-validation-panel > .form-success {
+  color: #155c40;
+  background: #e4f5ec;
+  border: 1px solid #b9ddcb;
+}
+
+.catalogue-validation-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 18px;
+  gap: 11px;
+}
+
+.catalogue-validation-summary article {
+  display: flex;
+  min-height: 82px;
+  align-items: center;
+  padding: 15px;
+  gap: 12px;
+  background: #f7faf8;
+  border: 1px solid #dfe8e3;
+  border-radius: 10px;
+}
+
+.catalogue-validation-summary article > span {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--green);
+  background: #e4f3ec;
+  border-radius: 50%;
+  font-weight: 900;
+}
+
+.catalogue-validation-summary strong,
+.catalogue-validation-summary small {
+  display: block;
+}
+
+.catalogue-validation-summary strong {
+  color: var(--forest);
+  font-size: 1.2rem;
+}
+
+.catalogue-validation-summary small {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.catalogue-bulk-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 20px;
+  margin-bottom: 18px;
+  gap: 14px;
+  background: #f4f9f6;
+  border: 1px solid #cfe0d7;
+  border-radius: 11px;
+}
+
+.catalogue-bulk-form > div:first-child,
+.catalogue-bulk-form .form-wide {
+  grid-column: 1 / -1;
+}
+
+.catalogue-bulk-form h3,
+.catalogue-item-editor h3,
+.catalogue-validation-item h3 {
+  margin: 4px 0 0;
+  color: var(--forest);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.96rem;
+}
+
+.catalogue-bulk-form label,
+.catalogue-validation-toolbar label,
+.catalogue-item-editor label {
+  display: grid;
+  gap: 6px;
+  color: #30433c;
+  font-size: 0.7rem;
+  font-weight: 760;
+}
+
+.catalogue-bulk-form input,
+.catalogue-bulk-form select,
+.catalogue-bulk-form textarea,
+.catalogue-validation-toolbar input,
+.catalogue-validation-toolbar select,
+.catalogue-item-editor input,
+.catalogue-item-editor select,
+.catalogue-item-editor textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 11px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #cbd8d2;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.catalogue-bulk-form textarea,
+.catalogue-item-editor textarea {
+  min-height: 82px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.catalogue-bulk-form input:focus,
+.catalogue-bulk-form select:focus,
+.catalogue-bulk-form textarea:focus,
+.catalogue-validation-toolbar input:focus,
+.catalogue-validation-toolbar select:focus,
+.catalogue-item-editor input:focus,
+.catalogue-item-editor select:focus,
+.catalogue-item-editor textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgb(23 121 90 / 10%);
+  outline: none;
+}
+
+.catalogue-confirm-check {
+  grid-template-columns: 20px 1fr !important;
+  align-items: center;
+}
+
+.catalogue-confirm-check input {
+  width: 18px;
+  min-height: 18px;
+  height: 18px;
+  accent-color: var(--green);
+}
+
+.catalogue-validation-toolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(180px, 0.42fr);
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.catalogue-validation-list {
+  display: grid;
+  max-height: 720px;
+  padding-right: 5px;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.catalogue-validation-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  padding: 14px;
+  gap: 15px;
+  background: #fff;
+  border: 1px solid #e0e8e4;
+  border-radius: 9px;
+}
+
+.catalogue-validation-copy > div:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.catalogue-validation-copy small,
+.catalogue-validation-copy p {
+  color: var(--muted);
+  font-size: 0.64rem;
+}
+
+.catalogue-validation-copy p {
+  margin: 5px 0 0;
+  line-height: 1.45;
+}
+
+.catalogue-decision {
+  padding: 4px 7px;
+  border-radius: 999px;
+  font-size: 0.58rem;
+  font-weight: 820;
+}
+
+.catalogue-decision.confirmed {
+  color: #155d40;
+  background: #e1f3e9;
+}
+
+.catalogue-decision.pending {
+  color: #76500f;
+  background: #fff3d7;
+}
+
+.catalogue-decision.excluded {
+  color: #7c4942;
+  background: #fae9e6;
+}
+
+.catalogue-validation-note {
+  color: #466158 !important;
+}
+
+.catalogue-item-editor-backdrop {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(8 30 23 / 52%);
+}
+
+.catalogue-item-editor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: auto;
+  width: min(720px, 100%);
+  max-height: calc(100vh - 40px);
+  padding: 24px;
+  gap: 14px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 30px 90px rgb(2 24 17 / 32%);
+}
+
+.catalogue-item-editor .panel-heading,
+.catalogue-item-editor .form-wide {
+  grid-column: 1 / -1;
+}
+
+.catalogue-item-editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
 .knowledge-admin-panel {
   padding: clamp(20px, 3vw, 31px);
 }
@@ -2978,7 +3245,7 @@
     bottom: 0;
     left: 0;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(52px, 1fr));
     padding: 6px 5px max(6px, env(safe-area-inset-bottom));
     background: rgb(255 255 255 / 96%);
     border-top: 1px solid #dce4e0;
@@ -3018,6 +3285,28 @@
   .user-list-panel th,
   .user-list-panel td {
     padding: 11px 9px;
+  }
+
+  .catalogue-validation-summary,
+  .catalogue-bulk-form,
+  .catalogue-validation-toolbar,
+  .catalogue-item-editor {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogue-bulk-form > div:first-child,
+  .catalogue-bulk-form .form-wide,
+  .catalogue-item-editor .panel-heading,
+  .catalogue-item-editor .form-wide {
+    grid-column: 1;
+  }
+
+  .catalogue-validation-item {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogue-validation-item > button {
+    width: 100%;
   }
 }
 

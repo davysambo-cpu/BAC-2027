@@ -40,7 +40,13 @@ describe("knowledge cards administration", () => {
                     seriesMention: null,
                     seriesLabels: [],
                     seriesDScope: "unspecified",
+                    sourceSeriesDScope: "unspecified",
+                    adminSeriesDDecision: null,
                     validationStatus: "owner_provided",
+                    validationNote: null,
+                    validationSourceUrl: null,
+                    validatedAt: null,
+                    validationVersion: 1,
                     source: {
                       title: "Catalogue test",
                       publisher: "BAC-2027",

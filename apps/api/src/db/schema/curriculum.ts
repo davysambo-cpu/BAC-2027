@@ -1,4 +1,5 @@
 import {
+  bigint,
   boolean,
   index,
   integer,
@@ -18,6 +19,7 @@ import {
   seriesScopeStatusEnum,
 } from "./enums";
 import { chapters, subjects } from "./learning";
+import { users } from "./users";
 
 export const academicSeries = pgTable(
   "academic_series",
@@ -109,9 +111,15 @@ export const catalogueItems = pgTable(
     seriesMention: varchar("series_mention", { length: 80 }),
     seriesLabels: jsonb("series_labels").$type<string[]>().notNull().default([]),
     seriesDScope: seriesScopeStatusEnum("series_d_scope").notNull(),
+    adminSeriesDScope: seriesScopeStatusEnum("admin_series_d_scope"),
     validationStatus: contentValidationStatusEnum("validation_status")
       .notNull()
       .default("owner_provided"),
+    validationNote: text("validation_note"),
+    validationSourceUrl: text("validation_source_url"),
+    validatedBy: uuid("validated_by").references(() => users.id, { onDelete: "set null" }),
+    validatedAt: timestamp("validated_at", { withTimezone: true }),
+    validationVersion: bigint("validation_version", { mode: "number" }).notNull().default(1),
     isActive: boolean("is_active").notNull().default(true),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
@@ -123,6 +131,11 @@ export const catalogueItems = pgTable(
     index("catalogue_items_student_visibility_idx").on(
       table.subjectId,
       table.seriesDScope,
+      table.isActive,
+    ),
+    index("catalogue_items_admin_validation_idx").on(
+      table.adminSeriesDScope,
+      table.validationStatus,
       table.isActive,
     ),
   ],

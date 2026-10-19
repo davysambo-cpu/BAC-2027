@@ -2,6 +2,8 @@ import {
   adminUserListResponseSchema,
   apiErrorSchema,
   authResponseSchema,
+  catalogueBulkConfirmationResultSchema,
+  catalogueValidationResultSchema,
   currentSessionResponseSchema,
   courseDraftSchema,
   currentUserSchema,
@@ -21,7 +23,10 @@ import {
   topicRevisionReviewSchema,
   type ActivateInvitationRequest,
   type AuthResponse,
+  type CatalogueBulkConfirmationResult,
+  type CatalogueValidationResult,
   type CompletePasswordResetRequest,
+  type ConfirmCatalogueItemsRequest,
   type CourseDraft,
   type CreateDailyReportRequest,
   type CreateInvitationRequest,
@@ -45,6 +50,7 @@ import {
   type ReviewDraftCorrectionRequest,
   type StudentCatalogueResponse,
   type TopicRevisionReview,
+  type UpdateCatalogueItemValidationRequest,
   type UpdateKnowledgeCardRequest,
   type UpdateProfileRequest,
   type UpdateRevisionSessionRequest,
@@ -238,6 +244,31 @@ export function getStudentCatalogue(): Promise<StudentCatalogueResponse> {
 
 export function getAdminCatalogue(): Promise<StudentCatalogueResponse> {
   return request("/api/v1/admin/catalogue", studentCatalogueResponseSchema);
+}
+
+export function updateCatalogueItemValidation(
+  itemId: string,
+  input: UpdateCatalogueItemValidationRequest,
+): Promise<CatalogueValidationResult> {
+  return request(
+    `/api/v1/admin/catalogue/items/${encodeURIComponent(itemId)}/validation`,
+    catalogueValidationResultSchema,
+    {
+      method: "PATCH",
+      headers: { "X-BAC-Catalogue-Validation": "1" },
+      body: JSON.stringify(input),
+    },
+  );
+}
+
+export function confirmCatalogueItems(
+  input: ConfirmCatalogueItemsRequest,
+): Promise<CatalogueBulkConfirmationResult> {
+  return request("/api/v1/admin/catalogue/confirmations", catalogueBulkConfirmationResultSchema, {
+    method: "POST",
+    headers: { "X-BAC-Catalogue-Validation": "1" },
+    body: JSON.stringify(input),
+  });
 }
 
 export function getRevisionOverview(): Promise<RevisionOverview> {

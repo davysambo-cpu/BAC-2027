@@ -4,12 +4,16 @@ import { argon2id, hash } from "argon2";
 import { count, eq } from "drizzle-orm";
 import { afterEach, describe, expect, it } from "vitest";
 
-import { studentCatalogueResponseSchema } from "@bac-2027/contracts";
+import {
+  catalogueBulkConfirmationResultSchema,
+  catalogueValidationResultSchema,
+  studentCatalogueResponseSchema,
+} from "@bac-2027/contracts";
 
 import { buildApp } from "../../app";
 import { readEnvironment } from "../../config/env";
 import { createDatabaseConnection, type DatabaseConnection } from "../../db/client";
-import { catalogueItems, studentProfiles, users } from "../../db/schema";
+import { adminAuditLogs, catalogueItems, studentProfiles, users } from "../../db/schema";
 import { DrizzleAuthRepository } from "../auth/auth.repository";
 import { AuthService } from "../auth/auth.service";
 import { importInitialCatalogue } from "./catalogue.import";
@@ -177,6 +181,122 @@ describe("initial student catalogue", () => {
       );
       expect(adminTitles).toContain("L'Union européenne (terminale A)");
       expect(adminTitles).toContain("Les oscillations électriques libres (terminales C-E)");
+
+      const confirmationPayload = {
+        subjectId: null,
+        validationLevel: "pedagogically_validated",
+        justification: "Vérification pédagogique manuelle de toutes les matières de la Série D.",
+        sourceUrl: null,
+      } as const;
+      const missingIntentResponse = await app.inject({
+        method: "POST",
+        url: "/api/v1/admin/catalogue/confirmations",
+        headers: { cookie: adminCookie },
+        payload: confirmationPayload,
+      });
+      expect(missingIntentResponse.statusCode).toBe(400);
+
+      const forbiddenConfirmationResponse = await app.inject({
+        method: "POST",
+        url: "/api/v1/admin/catalogue/confirmations",
+        headers: { cookie, "x-bac-catalogue-validation": "1" },
+        payload: confirmationPayload,
+      });
+      expect(forbiddenConfirmationResponse.statusCode).toBe(403);
+
+      const confirmationResponse = await app.inject({
+        method: "POST",
+        url: "/api/v1/admin/catalogue/confirmations",
+        headers: { cookie: adminCookie, "x-bac-catalogue-validation": "1" },
+        payload: confirmationPayload,
+      });
+      expect(confirmationResponse.statusCode).toBe(200);
+      expect(
+        catalogueBulkConfirmationResultSchema.parse(confirmationResponse.json()),
+      ).toMatchObject({
+        updatedItems: 191,
+        updatedSubjects: 7,
+      });
+
+      const confirmedCatalogueResponse = await app.inject({
+        method: "GET",
+        url: "/api/v1/admin/catalogue",
+        headers: { cookie: adminCookie },
+      });
+      const confirmedCatalogue = studentCatalogueResponseSchema.parse(
+        confirmedCatalogueResponse.json(),
+      );
+      const confirmedItems = confirmedCatalogue.subjects
+        .flatMap((subject) => subject.items)
+        .filter((item) => item.adminSeriesDDecision === "explicitly_includes");
+      expect(confirmedItems).toHaveLength(191);
+      expect(
+        confirmedItems.every(
+          (item) =>
+            item.validationStatus === "pedagogically_validated" &&
+            item.validationVersion === 2 &&
+            item.validationNote === confirmationPayload.justification,
+        ),
+      ).toBe(true);
+      expect(
+        confirmedCatalogue.subjects
+          .flatMap((subject) => subject.items)
+          .filter((item) => item.sourceSeriesDScope === "explicitly_excludes")
+          .every((item) => item.adminSeriesDDecision === null),
+      ).toBe(true);
+
+      const itemToExclude = confirmedItems[0]!;
+      const exclusionResponse = await app.inject({
+        method: "PATCH",
+        url: `/api/v1/admin/catalogue/items/${itemToExclude.id}/validation`,
+        headers: { cookie: adminCookie, "x-bac-catalogue-validation": "1" },
+        payload: {
+          decision: "excluded",
+          validationLevel: null,
+          justification: "Le professeur confirme que ce thème ne relève pas de la Série D.",
+          sourceUrl: null,
+          version: itemToExclude.validationVersion,
+        },
+      });
+      expect(exclusionResponse.statusCode).toBe(200);
+      expect(catalogueValidationResultSchema.parse(exclusionResponse.json())).toMatchObject({
+        itemId: itemToExclude.id,
+        decision: "excluded",
+        validationStatus: "excluded",
+        version: 3,
+      });
+
+      const staleExclusionResponse = await app.inject({
+        method: "PATCH",
+        url: `/api/v1/admin/catalogue/items/${itemToExclude.id}/validation`,
+        headers: { cookie: adminCookie, "x-bac-catalogue-validation": "1" },
+        payload: {
+          decision: "excluded",
+          validationLevel: null,
+          justification: "Cette seconde décision utilise volontairement une version périmée.",
+          sourceUrl: null,
+          version: itemToExclude.validationVersion,
+        },
+      });
+      expect(staleExclusionResponse.statusCode).toBe(409);
+
+      const studentCatalogueAfterExclusion = studentCatalogueResponseSchema.parse(
+        (
+          await app.inject({
+            method: "GET",
+            url: "/api/v1/catalogue",
+            headers: { cookie },
+          })
+        ).json(),
+      );
+      expect(
+        studentCatalogueAfterExclusion.subjects.flatMap((subject) => subject.items),
+      ).toHaveLength(190);
+
+      const [auditCount] = await connection.database
+        .select({ value: count() })
+        .from(adminAuditLogs);
+      expect(auditCount?.value).toBe(2);
 
       const [hiddenCount] = await connection.database
         .select({ value: count() })
