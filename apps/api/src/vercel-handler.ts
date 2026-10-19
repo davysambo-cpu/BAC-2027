@@ -38,12 +38,6 @@ export default async function handler(request: IncomingMessage, response: Server
   }
 }
 
-function requireStatus(actual: number, expected: number, step: string): void {
-  if (actual !== expected) {
-    throw new Error(`${step} returned HTTP ${actual} instead of ${expected}.`);
-  }
-}
-
 /** Temporary, side-effect-clean smoke test exposed only through the pilot diagnostic function. */
 export async function runPilotSmokeTest() {
   if (!environment.PILOT_MODE || !environment.PILOT_STUDENT_PASSWORD) {
@@ -51,8 +45,7 @@ export async function runPilotSmokeTest() {
   }
 
   const smokeSessionId = randomUUID();
-  const smokeSession = {
-    id: smokeSessionId,
+  const smokeSessionDetails = {
     subjectId: null,
     catalogueItemId: null,
     title: "Vérification technique temporaire",
@@ -62,98 +55,50 @@ export async function runPilotSmokeTest() {
   };
   const smokeRuntime = await createApiRuntime(environment, { logger: false });
   let sessionCreated = false;
+  let authToken: string | null = null;
 
   try {
     await smokeRuntime.app.ready();
-    const login = await smokeRuntime.app.inject({
-      method: "POST",
-      url: "/api/v1/auth/login",
-      payload: {
-        username: "recette6",
-        password: environment.PILOT_STUDENT_PASSWORD,
-        deviceType: "shared",
-      },
+    const authentication = await smokeRuntime.services.authService.login({
+      username: "recette6",
+      password: environment.PILOT_STUDENT_PASSWORD,
+      deviceType: "shared",
     });
-    requireStatus(login.statusCode, 200, "login");
+    authToken = authentication.sessionToken;
+    const authenticatedSession = await smokeRuntime.services.authService.authenticate(authToken);
+    const user = authenticatedSession.user;
 
-    const setCookie = login.headers["set-cookie"];
-    const cookieHeader = (Array.isArray(setCookie) ? setCookie[0] : setCookie)?.split(";", 1)[0];
-    if (!cookieHeader) throw new Error("Login did not return a session cookie.");
-    const authenticatedHeaders = { cookie: cookieHeader };
-    const planningWriteHeaders = { ...authenticatedHeaders, "x-bac-planning": "1" };
-
-    const profile = await smokeRuntime.app.inject({
-      method: "GET",
-      url: "/api/v1/profile",
-      headers: authenticatedHeaders,
+    const catalogue = await smokeRuntime.services.catalogueService.getStudentCatalogue(
+      user.seriesCode ?? "D",
+    );
+    const planning = await smokeRuntime.services.planningService.list(user);
+    const created = await smokeRuntime.services.planningService.create(user, {
+      id: smokeSessionId,
+      ...smokeSessionDetails,
     });
-    requireStatus(profile.statusCode, 200, "profile");
-
-    const catalogue = await smokeRuntime.app.inject({
-      method: "GET",
-      url: "/api/v1/catalogue",
-      headers: authenticatedHeaders,
-    });
-    requireStatus(catalogue.statusCode, 200, "catalogue");
-    const catalogueBody = catalogue.json<{
-      subjects: Array<{ items: unknown[] }>;
-    }>();
-
-    const planning = await smokeRuntime.app.inject({
-      method: "GET",
-      url: "/api/v1/planning/sessions",
-      headers: authenticatedHeaders,
-    });
-    requireStatus(planning.statusCode, 200, "planning list");
-    const planningBody = planning.json<{ sessions: unknown[] }>();
-
-    const created = await smokeRuntime.app.inject({
-      method: "POST",
-      url: "/api/v1/planning/sessions",
-      headers: planningWriteHeaders,
-      payload: smokeSession,
-    });
-    requireStatus(created.statusCode, 201, "planning create");
     sessionCreated = true;
-    const createdBody = created.json<typeof smokeSession & { version: number }>();
 
-    const completed = await smokeRuntime.app.inject({
-      method: "PATCH",
-      url: `/api/v1/planning/sessions/${smokeSessionId}`,
-      headers: planningWriteHeaders,
-      payload: {
-        ...smokeSession,
-        version: createdBody.version,
-        status: "completed",
-      },
+    const completed = await smokeRuntime.services.planningService.update(user, smokeSessionId, {
+      ...smokeSessionDetails,
+      version: created.version,
+      status: "completed",
     });
-    requireStatus(completed.statusCode, 200, "planning completion");
-    const completedBody = completed.json<{ version: number; status: string }>();
-    if (completedBody.status !== "completed") {
+    if (completed.status !== "completed" || !completed.completedAt) {
       throw new Error("Planning completion did not persist the completed status.");
     }
 
-    const deleted = await smokeRuntime.app.inject({
-      method: "DELETE",
-      url: `/api/v1/planning/sessions/${smokeSessionId}`,
-      headers: planningWriteHeaders,
-      payload: { version: completedBody.version },
+    await smokeRuntime.services.planningService.delete(user, smokeSessionId, {
+      version: completed.version,
     });
-    requireStatus(deleted.statusCode, 204, "planning delete");
     sessionCreated = false;
-
-    const logout = await smokeRuntime.app.inject({
-      method: "POST",
-      url: "/api/v1/auth/logout",
-      headers: authenticatedHeaders,
-    });
-    requireStatus(logout.statusCode, 204, "logout");
+    await smokeRuntime.services.authService.logout(authToken);
+    authToken = null;
 
     return {
       status: "ok" as const,
       checks: {
         authentication: true,
-        profile: true,
+        profile: authenticatedSession.preferences.dailyRevisionGoalMinutes > 0,
         catalogue: true,
         planningList: true,
         planningCreate: true,
@@ -161,11 +106,11 @@ export async function runPilotSmokeTest() {
         planningDelete: true,
         logout: true,
       },
-      catalogueItems: catalogueBody.subjects.reduce(
+      catalogueItems: catalogue.subjects.reduce(
         (total, subject) => total + subject.items.length,
         0,
       ),
-      planningSessions: planningBody.sessions.length,
+      planningSessions: planning.sessions.length,
     };
   } finally {
     if (sessionCreated) {
@@ -173,6 +118,9 @@ export async function runPilotSmokeTest() {
         .delete(revisionSessions)
         .where(eq(revisionSessions.id, smokeSessionId))
         .catch(() => undefined);
+    }
+    if (authToken) {
+      await smokeRuntime.services.authService.logout(authToken).catch(() => undefined);
     }
     await smokeRuntime.app.close().catch(() => undefined);
     await smokeRuntime.connection.close().catch(() => undefined);
