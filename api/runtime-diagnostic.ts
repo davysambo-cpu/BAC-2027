@@ -5,7 +5,7 @@ function errorMessage(error: unknown): string {
   return "Unknown serverless diagnostic error.";
 }
 
-export default async function handler(_request: IncomingMessage, response: ServerResponse) {
+export default async function handler(request: IncomingMessage, response: ServerResponse) {
   let stage = "handler";
 
   try {
@@ -16,9 +16,16 @@ export default async function handler(_request: IncomingMessage, response: Serve
       throw new Error("The serverless bundle does not export a default handler.");
     }
 
+    const runPilotSmoke =
+      new URL(request.url ?? "/", "https://bac-2027-pilot.vercel.app").searchParams.get("run") ===
+      "pilot-smoke-v1";
+    const result = runPilotSmoke
+      ? await serverlessBundle.runPilotSmokeTest()
+      : { status: "ok", stage: "complete" };
+
     response.statusCode = 200;
     response.setHeader("content-type", "application/json; charset=utf-8");
-    response.end(JSON.stringify({ status: "ok", stage: "complete" }));
+    response.end(JSON.stringify(result));
   } catch (error) {
     console.error(`BAC-2027 serverless diagnostic failed at ${stage}.`, error);
     response.statusCode = 503;
