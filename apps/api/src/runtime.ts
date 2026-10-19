@@ -73,18 +73,5 @@ export async function createApiRuntime(
     },
   );
 
-  return {
-    app,
-    connection,
-    services: {
-      authService,
-      catalogueService,
-      dailyReportService,
-      dailyReportAttachmentService,
-      enrichmentService,
-      knowledgeService,
-      planningService,
-      revisionService,
-    },
-  };
+  return { app, connection };
 }
